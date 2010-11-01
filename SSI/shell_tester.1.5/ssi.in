@@ -1,0 +1,129 @@
+#Exit Test
+exit
+-
+#Empty ls Test
+ls
+exit
+-
+. ..
+#mkdir ls test
+mkdir test_1
+ls
+exit
+-
+. .. test_1
+#mkdir more times
+mkdir test_2
+mkdir test_3
+mkdir test_4
+mkdir test_5
+ls
+exit
+-
+. .. test_2 test_3 test_4 test_5
+#subdir
+mkdir test_6
+ls
+cd test_6
+mkdir test_7
+ls
+exit
+-
+. .. test_6
+. .. test_7
+#subdir2
+mkdir test_8
+ls
+cd test_8
+mkdir test_9
+cd test_9
+ls
+exit
+-
+. .. test_8
+. ..
+#rmdir
+mkdir hermes
+mkdir hercule
+ls
+rmdir hermes
+ls
+exit
+-
+. .. hermes hercule
+. .. hercule
+#long and short
+mkdir some_directory_names_are_longer_than_most_students_think_they_are_going_to_be
+mkdir _a
+ls
+exit
+-
+. .. some_directory_names_are_longer_than_most_students_think_they_are_going_to_be _a
+#short and long
+mkdir a_
+mkdir some_directory_names_are_longer_than_most_students_think_they_are_going_to_be
+ls
+exit
+-
+. .. a_ some_directory_names_are_longer_than_most_students_think_they_are_going_to_be
+#explode1
+mkdir alex_
+mkdir alex_
+exit
+-
+mkdir: cannot create directory 'alex_': File exists
+#explode 2
+mkdir alex__
+mkdir alex__/hegel
+rmdir alex__
+exit
+-
+rmdir: failed to remove 'alex__': Directory not empty
+#explode3
+rmdir
+exit
+-
+#explode4
+rmdir van_gogh
+exit
+-
+rmdir: van_gogh: No such file or directory
+#explode5
+mkdir
+exit
+-
+#explode5
+cd tarkovsky
+exit
+-
+cd: tarkovsky: No such file or directory
+#explode6
+Mkdir alex
+exit
+-
+Mkdir: command not found
+#remove insert
+mkdir a
+rmdir a
+mkdir b
+ls
+exit
+-
+. .. b
+#cd test
+mkdir a
+mkdir b
+cd a
+mkdir c
+mkdir d
+cd d
+ls
+cd ..
+ls
+cd ..
+ls
+exit
+-
+. ..
+. .. c d
+. .. a b

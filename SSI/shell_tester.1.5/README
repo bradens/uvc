@@ -1,0 +1,56 @@
+CSC360 Shell Tester: Written by Chris Matthews
+
+To ensure that you can hand in the best shells possible, I have written a short python script to help you test them.
+
+This script sends commands to your shell, then compares your output to an expected output. It removes whitespace, and your prompt. This is meant as a tool for YOU to test your shell.
+
+The script is here. An example command file is here.
+
+To use it:
+%python shelltester.py -h
+
+or make it executable, then run directly:
+%chmod +x shelltester.py
+%./shelltester.py -h
+
+You can use the -h option to find out more, but a basic run might look like:
+%python shelltester.py -f ./ssi -i ssi.in -r "SSI: .* >"
+
+A successful run will look like this:
+
+CSc360 Shell Tester: 1.3
+Running shell named: ./ssi
+Test: Exit Test ... . passed in 0.0075 sec.
+Test: Empty ls Test ... passed in 0.0028 sec.
+Test: mkdir ls test ... . passed in 0.0080 sec.
+Test: mkdir more times ... . passed in 0.0076 sec.
+Test: subdir ... passed in 0.0026 sec.
+Test: subdir2 ... . passed in 0.0086 sec.
+Test: rmdir ... . passed in 0.0077 sec.
+Test: long and short ... . passed in 0.0076 sec.
+Test: short and long ... . passed in 0.0084 sec.
+Test: explode1 ... . passed in 0.0077 sec.
+Test: explode 2 ... . passed in 0.0076 sec.
+Test: explode 3 ... . passed in 0.0036 sec.
+Test: pwd ... . passed in 0.0036 sec.
+Test: remove insert ... . passed in 0.0081 sec.
+Test: cd test ... . passed in 0.0082 sec.
+All tests passed!
+
+
+At the moment if your program segfaults, so will python.
+
+Please feel free to modify the commands file to test your shell's output.
+
+I have had some problems with not being able to distinguish whitespace from stdin vs stdout. If your test cases don't match correctly, but you think they should, try printing a line break after you read the users command.
+
+There might be some bugs? Please let me know if you find any.
+
+
+
+Changelog:
+1.5: python 2.4 support.
+1.4: Added a check for the sufficent version of python.
+1.3: Support added by Carl for regex based prompt elimination.  This deals with variable length prompts nicely
+1.2: added support of variable length/content prompts
+1.1: Updated a few defaults
