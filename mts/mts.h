@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <pthread.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -27,9 +28,16 @@ typedef struct thread_Node {
 	int TrainNumber;
 }TNode;
 
-TNode *eTopStack, eStack[STACKSIZE], *eCurrent, LoadingThreads[STACKSIZE], *LoadingCurrent;
-int NumTrains;
-pthread_mutex_t eStackMutex;
-int push(TNode *t);
-TNode *pop();
+TNode *eTopStack, eStack[STACKSIZE], *eCurrent;			/* low pri east stack 	*/
+TNode *ETopStack, EStack[STACKSIZE], *ECurrent;			/* high pri east stack 	*/
+TNode *WTopStack, WStack[STACKSIZE], *WCurrent;			/* high pri west stack	*/
+TNode *wTopStack, wStack[STACKSIZE], *wCurrent;			/* low pri west stack	*/
+TNode LoadingThreads[STACKSIZE], *LoadingCurrent;
+int NumTrains, TrainsFinished, TrackInUse;
+char* LastDirection;
+pthread_mutex_t eStackMutex, EStackMutex, WStackMutex, wStackMutex, TrackMutex;
+pthread_cond_t TrackState;
+int push(TNode *t, TNode *StackTop, TNode *StackCurrent, pthread_mutex_t *stackMutex);
+int ReadFile();
+TNode *pop(TNode *StackCurrent, TNode *StackTop, pthread_mutex_t *stackMutex);
 void *train(void *id);
