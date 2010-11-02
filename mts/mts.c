@@ -5,22 +5,58 @@ int main (int argc, const char * argv[]) {
 	
 	/* init stack mutexes */
 	pthread_mutex_init (&eStackMutex, NULL);
-	TNode *newTrain = (TNode*)malloc(sizeof(TNode));
-	newTrain->Direction = (char*)malloc(sizeof(char)*20);
 	void *status;
-	/* TEST */
-	/* first arg is Direction / Priority, second is load, 3rd is cross */
-	if (strcmp(argv[1], "w") == 0) {
-		strcpy(newTrain->Direction, "West");
-		newTrain->Priority = LOWPRI;
-	}
-	newTrain->LoadingTime = atoi(argv[2]);
-	newTrain->CrossingTime = atoi(argv[3]);
+	
+	ReadFile();
+	for (LoadingCurrent = LoadingThreads; LoadingCurrent != NULL; LoadingCurrent++) {
+		pthread_mutex_init(&LoadingCurrent->TMutex, NULL);
+		pthread_cond_init(&LoadingCurrent->TState, NULL);
+		
+	
+	
 	pthread_create(&newTrain->tid, NULL, train, (void *)newTrain);
 	push(newTrain);
 	pthread_join(newTrain->tid, &status);
 	printf("Popped Train %d\n.", pop()->TrainNumber);
     return 0;
+}
+
+int ReadFile() {
+	/* load all the info from the input file */
+	FILE* inFile = fopen("in.txt", "r");
+	char* inLine = (char*)malloc(sizeof(char)*LINESIZE); 
+	int ThreadCount = 0;
+	LoadingCurrent = LoadingThreads;
+	while (fgets(inLine, LINESIZE, inFile) != NULL) {
+		LoadingCurrent->Direction = (char*)malloc(sizeof(char)*20);
+		switch (inLine[0]) {
+			case 'e':
+				strcpy(LoadingCurrent->Direction, "EAST");
+				LoadingCurrent->Priority = LOWPRI;
+				break;
+			case 'E':
+				strcpy(LoadingCurrent->Direction, "EAST");
+				LoadingCurrent->Priority = HIGHPRI;
+				break;
+			case 'w':
+				strcpy(LoadingCurrent->Direction, "WEST");
+				LoadingCurrent->Priority = LOWPRI;
+				break;
+			case 'W':
+				strcpy(LoadingCurrent->Direction, "WEST");
+				LoadingCurrent->Priority = HIGHPRI;
+				break;
+		}
+		LoadingCurrent->TrainNumber = ThreadCount;
+		inLine = (inLine + 2);									/* Skip over the Direction and : */
+		LoadingCurrent->LoadingTime = atoi(strtok(inLine, ","));
+		LoadingCurrent->CrossingTime = atoi(strtok(NULL, "\0"));
+		LoadingCurrent++;
+		ThreadCount++;
+	}
+	(LoadingCurrent + 1) = NULL;
+	NumTrains = ThreadCount;
+	return 0;
 }
 
 int push(TNode *t) {

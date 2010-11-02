@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define LINESIZE 50
 #define STACKSIZE 100
 #define HIGHPRI 1
 #define LOWPRI 0
@@ -26,7 +27,8 @@ typedef struct thread_Node {
 	int TrainNumber;
 }TNode;
 
-TNode *eTopStack, eStack[STACKSIZE], *eCurrent;
+TNode *eTopStack, eStack[STACKSIZE], *eCurrent, LoadingThreads[STACKSIZE], *LoadingCurrent;
+int NumTrains;
 pthread_mutex_t eStackMutex;
 int push(TNode *t);
 TNode *pop();
