@@ -3,7 +3,8 @@
 int main (int argc, const char * argv[]) {
 	/* Init stack pointers */
 	eTopStack = eStack; eCurrent = eStack; ETopStack = EStack; ECurrent = EStack; wTopStack = wStack;
-	wCurrent = wStack; WTopStack = WStack; WCurrent = WStack;
+	wCurrent = wStack; WTopStack = WStack; WCurrent = WStack; eStackCount = 1; EStackCount = 0; wStackCount = 0;
+	WStackCount = 0; 
 	
 	/* init stack mutexes */
 	pthread_mutex_init (&eStackMutex, NULL);
@@ -27,30 +28,28 @@ int main (int argc, const char * argv[]) {
 	while (TrainsFinished < NumTrains) {
 		if (TrackInUse)
 			pthread_cond_wait(&TrackState, &TrackMutex);
-		if (TrainsFinished == 2)
-			continue;
-		if (ECurrent != ETopStack || WCurrent != WTopStack) {
-			if (ECurrent != ETopStack && WCurrent != WTopStack) {
+		if (EStackCount || WStackCount) {
+			if (EStackCount && WStackCount) {
 				if (strcmp(LastDirection, "EAST") == 0)
 					pthread_cond_signal(&(WCurrent->TState));
 				else
 					pthread_cond_signal(&(ECurrent->TState));
 			}
-			else if (ECurrent != ETopStack)
+			else if (EStackCount)
 				pthread_cond_signal(&(ECurrent->TState));
-			else if (WCurrent != WTopStack)
+			else if (WStackCount)
 				pthread_cond_signal(&(WCurrent->TState));
 		}
-		else if (wCurrent != wTopStack || eCurrent != eTopStack)	{
-			if (eCurrent != eTopStack && wCurrent != wTopStack) {
+		else if (wStackCount || eStackCount)	{
+			if (eStackCount && wStackCount) {
 				if (strcmp(LastDirection, "EAST") == 0)
 					pthread_cond_signal(&(wCurrent->TState));
 				else
 					pthread_cond_signal(&(eCurrent->TState));
 			}
-			else if (eCurrent != eTopStack)
+			else if (eStackCount)
 				pthread_cond_signal(&(eCurrent->TState));
-			else if (wCurrent != wTopStack)
+			else if (wStackCount)
 				pthread_cond_signal(&(wCurrent->TState));
 		}
 		pthread_mutex_unlock(&TrackMutex);
@@ -106,6 +105,7 @@ int push(TNode *t, int iStationNum) {
 			t = checkTop;
 			}
 			ECurrent++;
+			EStackCount++;
 			if (ECurrent == (ETopStack+STACKSIZE)) {
 				printf("Stack Overflow.\n");
 				exit(1);
@@ -121,6 +121,7 @@ int push(TNode *t, int iStationNum) {
 			t = checkTop;
 			}
 			WCurrent++;
+			WStackCount++;
 			if (WCurrent == (WTopStack+STACKSIZE)) {
 				printf("Stack Overflow.\n");
 				exit(1);
@@ -135,6 +136,7 @@ int push(TNode *t, int iStationNum) {
 			t = checkTop;
 			}
 			wCurrent++;
+			wStackCount++;
 			if (wCurrent == (wTopStack+STACKSIZE)) {
 				printf("Stack Overflow.\n");
 				exit(1);
@@ -150,6 +152,7 @@ int push(TNode *t, int iStationNum) {
 			t = checkTop;
 			}
 			eCurrent++;
+			eStackCount++;
 			if (eCurrent == (eTopStack+STACKSIZE)) {
 				printf("Stack Overflow.\n");
 				exit(1);
@@ -170,6 +173,7 @@ TNode *pop(iStationNum) {
 				exit(1);
 			}
 			ECurrent = ECurrent - 1;
+			EStackCount--;
 			pthread_mutex_unlock(&EStackMutex);
 			return (ECurrent+1);
 			break;
@@ -180,6 +184,7 @@ TNode *pop(iStationNum) {
 				exit(1);
 			}
 			eCurrent = eCurrent - 1;
+			eStackCount--;
 			pthread_mutex_unlock(&eStackMutex);
 			return (eCurrent+1);
 		case WHIGHPRISTATION:
@@ -189,6 +194,7 @@ TNode *pop(iStationNum) {
 				exit(1);
 			}
 			WCurrent = WCurrent - 1;
+			WStackCount--;
 			pthread_mutex_unlock(&WStackMutex);
 			return (WCurrent+1);
 		case WLOWPRISTATION:
@@ -198,6 +204,7 @@ TNode *pop(iStationNum) {
 				exit(1);
 			}
 			wCurrent = wCurrent - 1;
+			wStackCount--;
 			pthread_mutex_unlock(&wStackMutex);
 			return (wCurrent+1);
 	}

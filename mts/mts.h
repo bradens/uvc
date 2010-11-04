@@ -37,7 +37,7 @@ TNode *ETopStack, EStack[STACKSIZE], *ECurrent;			/* high pri east stack 	*/
 TNode *WTopStack, WStack[STACKSIZE], *WCurrent;			/* high pri west stack	*/
 TNode *wTopStack, wStack[STACKSIZE], *wCurrent;			/* low pri west stack	*/
 TNode LoadingThreads[STACKSIZE], *LoadingCurrent;
-int NumTrains, TrainsFinished, TrackInUse;
+int NumTrains, TrainsFinished, TrackInUse, eStackCount, EStackCount, WStackCount, wStackCount;
 char* LastDirection;
 pthread_mutex_t eStackMutex, EStackMutex, WStackMutex, wStackMutex, TrackMutex;
 pthread_cond_t TrackState;
