@@ -1,9 +1,5 @@
 #include "mts.h"
 
-/*
- * PROBLEM, POINTER ISNT UPDATING VALUES IN PUSH/POP
- */
-
 int main (int argc, const char * argv[]) {
 	/* Init stack pointers */
 	eTopStack = eStack; eCurrent = eStack; ETopStack = EStack; ECurrent = EStack; wTopStack = wStack;
@@ -18,7 +14,8 @@ int main (int argc, const char * argv[]) {
 	pthread_cond_init  (&TrackState, NULL);
 	
 	NumTrains = 0; TrainsFinished = 0;TrackInUse = 0;
-	
+	LastDirection = (char*)malloc(sizeof(char)*4);
+	strcpy(LastDirection, "EAST");
 	ReadFile();
 	int i = 0;
 	for (LoadingCurrent = LoadingThreads; i < NumTrains; LoadingCurrent++) {
@@ -27,41 +24,38 @@ int main (int argc, const char * argv[]) {
 		pthread_create(&LoadingCurrent->tid, NULL, train, (void *)LoadingCurrent);
 		i++;	
 	}
-	sleep(5);
-	/* Write out scheduling algorithm */
 	while (TrainsFinished < NumTrains) {
-		printf("%d\n", wCurrent->TrainNumber);
-		pthread_mutex_lock(&TrackMutex);
+		if (TrackInUse)
+			pthread_cond_wait(&TrackState, &TrackMutex);
+		if (TrainsFinished == 2)
+			continue;
 		if (ECurrent != ETopStack || WCurrent != WTopStack) {
 			if (ECurrent != ETopStack && WCurrent != WTopStack) {
 				if (strcmp(LastDirection, "EAST") == 0)
-					pthread_cond_signal(&(pop(ECurrent, ETopStack, &EStackMutex)->TState));
+					pthread_cond_signal(&(WCurrent->TState));
 				else
-					pthread_cond_signal(&(pop(WCurrent, WTopStack, &WStackMutex)->TState));
+					pthread_cond_signal(&(ECurrent->TState));
 			}
 			else if (ECurrent != ETopStack)
-				pthread_cond_signal(&(pop(ECurrent, ETopStack, &EStackMutex)->TState));
+				pthread_cond_signal(&(ECurrent->TState));
 			else if (WCurrent != WTopStack)
-				pthread_cond_signal(&(pop(WCurrent, WTopStack, &WStackMutex)->TState));
+				pthread_cond_signal(&(WCurrent->TState));
 		}
 		else if (wCurrent != wTopStack || eCurrent != eTopStack)	{
 			if (eCurrent != eTopStack && wCurrent != wTopStack) {
 				if (strcmp(LastDirection, "EAST") == 0)
-					pthread_cond_signal(&(pop(eCurrent, eTopStack, &eStackMutex)->TState));
+					pthread_cond_signal(&(wCurrent->TState));
 				else
-					pthread_cond_signal(&(pop(wCurrent, wTopStack, &wStackMutex)->TState));
+					pthread_cond_signal(&(eCurrent->TState));
 			}
 			else if (eCurrent != eTopStack)
-				pthread_cond_signal(&(pop(eCurrent, eTopStack, &eStackMutex)->TState));
+				pthread_cond_signal(&(eCurrent->TState));
 			else if (wCurrent != wTopStack)
-				pthread_cond_signal(&(pop(wCurrent, wTopStack, &wStackMutex)->TState));
+				pthread_cond_signal(&(wCurrent->TState));
 		}
-		else {
-			if (TrackInUse == 0)
-				pthread_mutex_unlock(&TrackMutex);
-		}
+		pthread_mutex_unlock(&TrackMutex);
 	}
-    	pthread_exit(NULL);
+	pthread_exit(NULL);
 }
 
 int ReadFile() {
@@ -101,33 +95,113 @@ int ReadFile() {
 	return 0;
 }
 
-int push(TNode *t, TNode *StackTop, TNode *StackCurrent, pthread_mutex_t *stackMutex) {
-	pthread_mutex_lock(stackMutex);
-	TNode *checkTop = StackCurrent;
-	if (checkTop->LoadingTime >= t->LoadingTime) {					/* If the top item on the stack has a larger loading 	*/
-											/* time than the node being added, swap them		*/
-		StackCurrent = t;
-		t = checkTop;
+int push(TNode *t, int iStationNum) {
+	TNode *checkTop;
+	switch (iStationNum) {
+		case EHIGHPRISTATION:
+			pthread_mutex_lock(&EStackMutex);
+			checkTop = ECurrent;
+			if (checkTop->LoadingTime >= t->LoadingTime) {					/* If the top item on the stack has a larger loading 	*/
+			ECurrent = t;												/* time than the node being added, swap them			*/
+			t = checkTop;
+			}
+			ECurrent++;
+			if (ECurrent == (ETopStack+STACKSIZE)) {
+				printf("Stack Overflow.\n");
+				exit(1);
+			}
+			ECurrent = t;
+			pthread_mutex_unlock(&EStackMutex);
+			break;
+		case WHIGHPRISTATION:
+			pthread_mutex_lock(&WStackMutex);
+			checkTop = WCurrent;
+			if (checkTop->LoadingTime >= t->LoadingTime) {					/* If the top item on the stack has a larger loading 	*/
+			WCurrent = t;													/* time than the node being added, swap them			*/
+			t = checkTop;
+			}
+			WCurrent++;
+			if (WCurrent == (WTopStack+STACKSIZE)) {
+				printf("Stack Overflow.\n");
+				exit(1);
+			}
+			WCurrent = t;
+			pthread_mutex_unlock(&WStackMutex);
+		case WLOWPRISTATION:
+			pthread_mutex_lock(&wStackMutex);
+			checkTop = wCurrent;
+			if (checkTop->LoadingTime >= t->LoadingTime) {					/* If the top item on the stack has a larger loading 	*/
+			wCurrent = t;													/* time than the node being added, swap them			*/
+			t = checkTop;
+			}
+			wCurrent++;
+			if (wCurrent == (wTopStack+STACKSIZE)) {
+				printf("Stack Overflow.\n");
+				exit(1);
+			}
+			wCurrent = t;
+			pthread_mutex_unlock(&wStackMutex);
+			break;
+		case ELOWPRISTATION:
+			pthread_mutex_lock(&eStackMutex);
+			checkTop = eCurrent;
+			if (checkTop->LoadingTime >= t->LoadingTime) {					/* If the top item on the stack has a larger loading 	*/
+			eCurrent = t;													/* time than the node being added, swap them			*/
+			t = checkTop;
+			}
+			eCurrent++;
+			if (eCurrent == (eTopStack+STACKSIZE)) {
+				printf("Stack Overflow.\n");
+				exit(1);
+			}
+			eCurrent = t;
+			pthread_mutex_unlock(&eStackMutex);
+			break;
 	}
-	StackCurrent++;
-	if (StackCurrent == (StackTop+STACKSIZE)) {
-		printf("Stack Overflow.\n");
-		exit(1);
-	}
-	StackCurrent = t;
-	pthread_mutex_unlock(stackMutex);
 	return 0;
 }
 
-TNode *pop(TNode *StackCurrent, TNode *StackTop, pthread_mutex_t *stackMutex) {
-	pthread_mutex_lock(stackMutex);
-	if (StackCurrent == StackTop) {
-		printf("Stack Underflow.\n");
-		exit(1);
+TNode *pop(iStationNum) {
+	switch (iStationNum) {
+		case EHIGHPRISTATION:
+			pthread_mutex_lock(&EStackMutex);
+			if (ECurrent == ETopStack) {
+				printf("Stack Underflow.\n");
+				exit(1);
+			}
+			ECurrent = ECurrent - 1;
+			pthread_mutex_unlock(&EStackMutex);
+			return (ECurrent+1);
+			break;
+		case ELOWPRISTATION:
+			pthread_mutex_lock(&eStackMutex);
+			if (eCurrent == eTopStack) {
+				printf("Stack Underflow.\n");
+				exit(1);
+			}
+			eCurrent = eCurrent - 1;
+			pthread_mutex_unlock(&eStackMutex);
+			return (eCurrent+1);
+		case WHIGHPRISTATION:
+			pthread_mutex_lock(&WStackMutex);
+			if (WCurrent == WTopStack) {
+				printf("Stack Underflow.\n");
+				exit(1);
+			}
+			WCurrent = WCurrent - 1;
+			pthread_mutex_unlock(&WStackMutex);
+			return (WCurrent+1);
+		case WLOWPRISTATION:
+			pthread_mutex_lock(&wStackMutex);
+			if (wCurrent == wTopStack) {
+				printf("Stack Underflow.\n");
+				exit(1);
+			}
+			wCurrent = wCurrent - 1;
+			pthread_mutex_unlock(&wStackMutex);
+			return (wCurrent+1);
 	}
-	StackCurrent = StackCurrent - 1;
-	pthread_mutex_unlock(stackMutex);
-	return (StackCurrent+1);
+	return 0;
 }
 
 void *train (void *tnode) {
@@ -136,15 +210,15 @@ void *train (void *tnode) {
 	usleep(Train->LoadingTime * 100000);
 	if (strcmp(Train->Direction, "EAST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			push(Train, ETopStack, ECurrent, &EStackMutex);		
+			push(Train, EHIGHPRISTATION);		
 		else if (Train->Priority == LOWPRI)
-			push(Train, eTopStack, eCurrent, &eStackMutex);
+			push(Train, ELOWPRISTATION);
 	}
 	else if (strcmp(Train->Direction, "WEST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			push(Train, WTopStack, WCurrent, &WStackMutex);		
+			push(Train, WHIGHPRISTATION);		
 		else if (Train->Priority == LOWPRI)
-			push(Train, wTopStack, wCurrent, &wStackMutex);
+			push(Train, WLOWPRISTATION);
 	}
 	printf("Train %d is ready to go %s\n", Train->TrainNumber, Train->Direction);
 	pthread_mutex_lock(&Train->TMutex);
@@ -152,16 +226,17 @@ void *train (void *tnode) {
 	TrackInUse = 1;
 	if (strcmp(Train->Direction, "EAST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			pop(ECurrent, ETopStack, &EStackMutex);		
+			pop(EHIGHPRISTATION);		
 		else if (Train->Priority == LOWPRI)
-			pop(eCurrent, eTopStack, &eStackMutex);
+			pop(ELOWPRISTATION);
 	}
 	else if (strcmp(Train->Direction, "WEST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			pop(WCurrent, WTopStack, &WStackMutex);		
+			pop(WHIGHPRISTATION);		
 		else if (Train->Priority == LOWPRI)
-			pop(wCurrent, wTopStack, &wStackMutex);
+			pop(WLOWPRISTATION);
 	}
+	free(LastDirection);
 	LastDirection = Train->Direction;
 	printf("Train %d is on the track going %s!\n", Train->TrainNumber, Train->Direction);
 	usleep(Train->CrossingTime * 100000);
@@ -169,5 +244,6 @@ void *train (void *tnode) {
 	TrackInUse = 0;
 	pthread_cond_signal(&TrackState);
 	pthread_mutex_unlock(&TrackMutex);	
+	TrainsFinished++;
 	pthread_exit(NULL);
 }

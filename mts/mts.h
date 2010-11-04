@@ -12,6 +12,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define EHIGHPRISTATION 0
+#define ELOWPRISTATION  1
+#define WHIGHPRISTATION 2
+#define WLOWPRISTATION  3
 #define LINESIZE 50
 #define STACKSIZE 100
 #define HIGHPRI 1
@@ -37,7 +41,7 @@ int NumTrains, TrainsFinished, TrackInUse;
 char* LastDirection;
 pthread_mutex_t eStackMutex, EStackMutex, WStackMutex, wStackMutex, TrackMutex;
 pthread_cond_t TrackState;
-int push(TNode *t, TNode *StackTop, TNode *StackCurrent, pthread_mutex_t *stackMutex);
+int push(TNode *t, int iStationNum);
 int ReadFile();
-TNode *pop(TNode *StackCurrent, TNode *StackTop, pthread_mutex_t *stackMutex);
+TNode *pop(int iStationNum);
 void *train(void *id);
