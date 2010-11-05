@@ -21,7 +21,9 @@
 #define HIGHPRI 1
 #define LOWPRI 0
 
-typedef struct thread_Node {
+typedef struct thread_Node TNode;
+
+struct thread_Node {
 	pthread_mutex_t TMutex;
 	pthread_cond_t TState;
 	char* Direction;
@@ -30,18 +32,21 @@ typedef struct thread_Node {
 	int CrossingTime;
 	pthread_t tid;
 	int TrainNumber;
-}TNode;
+	TNode *next;
+};
 
-TNode *eTopStack, eStack[STACKSIZE], *eCurrent;			/* low pri east stack 	*/
-TNode *ETopStack, EStack[STACKSIZE], *ECurrent;			/* high pri east stack 	*/
-TNode *WTopStack, WStack[STACKSIZE], *WCurrent;			/* high pri west stack	*/
-TNode *wTopStack, wStack[STACKSIZE], *wCurrent;			/* low pri west stack	*/
+TNode *eHead, *eCurrent;			/* low pri east stack 	*/
+TNode *EHead, *ECurrent;			/* high pri east stack 	*/
+TNode *WHead, *WCurrent;			/* high pri west stack	*/
+TNode *wHead, *wCurrent;			/* low pri west stack	*/
 TNode LoadingThreads[STACKSIZE], *LoadingCurrent;
 int NumTrains, TrainsFinished, TrackInUse, eStackCount, EStackCount, WStackCount, wStackCount;
 char* LastDirection;
 pthread_mutex_t eStackMutex, EStackMutex, WStackMutex, wStackMutex, TrackMutex;
 pthread_cond_t TrackState;
+
+TNode *top(TNode *head);
 int push(TNode *t, int iStationNum);
-int ReadFile();
 TNode *pop(int iStationNum);
+int ReadFile();
 void *train(void *id);
