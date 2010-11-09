@@ -124,8 +124,8 @@ int ReadFile() {
 
 void *train (void *tnode) {
 	TNode *Train = (TNode*)tnode;
-	printf("Starting to load train %d.\n", Train->TrainNumber);
-	usleep(Train->LoadingTime * 100000);
+	/*printf("Starting to load train %d.\n", Train->TrainNumber);
+	*/usleep(Train->LoadingTime * 100000);
 	if (strcmp(Train->Direction, "EAST") == 0) {
 		if (Train->Priority == HIGHPRI)
 			push(Train, EHIGHPRISTATION);		
