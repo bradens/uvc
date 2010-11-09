@@ -40,10 +40,11 @@ TNode *EHead, *ECurrent;			/* high pri east stack 	*/
 TNode *WHead, *WCurrent;			/* high pri west stack	*/
 TNode *wHead, *wCurrent;			/* low pri west stack	*/
 TNode LoadingThreads[STACKSIZE], *LoadingCurrent;
-int NumTrains, TrainsFinished, TrackInUse, eStackCount, EStackCount, WStackCount, wStackCount;
+int NumTrains, TrainsFinished, TrackInUse, eStackCount, EStackCount, WStackCount, wStackCount,
+EStackUse, eStackUse, WStackUse, wStackUse;
 char* LastDirection;
 pthread_mutex_t eStackMutex, EStackMutex, WStackMutex, wStackMutex, TrackMutex;
-pthread_cond_t TrackState;
+pthread_cond_t TrackState, EStackCv, eStackCv, WStackCv, wStackCv;
 
 TNode *top(TNode *head);
 int push(TNode *t, int iStationNum);
