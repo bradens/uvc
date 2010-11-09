@@ -2,27 +2,34 @@
 
 int main (int argc, const char * argv[]) {
 	/* Init stack pointers */
-	eHead = NULL; wHead = NULL; WHead = NULL; EHead = NULL;
-	eStackCount = 0; EStackCount = 0; wStackCount = 0;
-	WStackCount = 0; EStackUse = 0; WStackUse = 0; wStackUse = 0;
-	eStackUse = 0;
+	EStack = (TStack *)malloc(sizeof(TStack));	
+	eStack = (TStack *)malloc(sizeof(TStack));
+	WStack = (TStack *)malloc(sizeof(TStack));
+	wStack = (TStack *)malloc(sizeof(TStack));
+
+	EStack->Head = NULL; eStack->Head = NULL; WStack->Head = NULL; wStack->Head = NULL;
+	EStack->Count = 0; eStack->Count = 0; WStack->Count = 0; wStack->Count = 0;
+	EStack->StackUse = 0; eStack->StackUse = 0; WStack->StackUse = 0; wStack->StackUse = 0;
 	
-	/* init stack mutexes */
-	pthread_mutex_init (&eStackMutex, NULL);
-	pthread_mutex_init (&wStackMutex, NULL);
-	pthread_mutex_init (&WStackMutex, NULL);
-	pthread_mutex_init (&EStackMutex, NULL);
-	pthread_mutex_init (&TrackMutex, NULL);
-	pthread_cond_init  (&TrackState, NULL);
-	pthread_cond_init  (&EStackCv, NULL);
-	pthread_cond_init  (&eStackCv, NULL);
-	pthread_cond_init  (&WStackCv, NULL);
-	pthread_cond_init  (&wStackCv, NULL);
-	
+	/* init parameters */
 	NumTrains = atoi(argv[1]); TrainsFinished = 0;TrackInUse = 0;
 	LastDirection = (char*)malloc(sizeof(char)*4);
 	strcpy(LastDirection, "EAST");
-	ReadFile();
+
+	/* init stack mutexes */
+	pthread_mutex_init (&eStack->Mutex, NULL);
+	pthread_mutex_init (&wStack->Mutex, NULL);
+	pthread_mutex_init (&WStack->Mutex, NULL);
+	pthread_mutex_init (&EStack->Mutex, NULL);
+	pthread_cond_init  (&EStack->Cv, NULL);
+	pthread_cond_init  (&eStack->Cv, NULL);
+	pthread_cond_init  (&WStack->Cv, NULL);
+	pthread_cond_init  (&wStack->Cv, NULL);
+
+	pthread_mutex_init (&TrackMutex, NULL);
+	pthread_cond_init  (&TrackState, NULL);
+		
+	ReadFile();			/* Read the file, and setup the Loading array */
 	int i = 0;
 	for (LoadingCurrent = LoadingThreads; i < NumTrains; LoadingCurrent++) {
 		pthread_mutex_init(&LoadingCurrent->TMutex, NULL);
@@ -30,6 +37,8 @@ int main (int argc, const char * argv[]) {
 		pthread_create(&LoadingCurrent->tid, NULL, train, (void *)LoadingCurrent);
 		i++;	
 	}
+
+	/* Main scheduling loop, wait until all trains are finished. */
 	while (TrainsFinished < NumTrains) {
 		if (TrackInUse) {
 			pthread_cond_wait(&TrackState, &TrackMutex);
@@ -38,47 +47,47 @@ int main (int argc, const char * argv[]) {
 				break;
 		}
 		if (TrainsFinished == -2) {
-			printf("E:%d  W:%d  e:%d  w:%d  \n", EStackCount, WStackCount, eStackCount, wStackCount);
+			printf("E:%d  W:%d  e:%d  w:%d  \n", EStack->Count, WStack->Count, eStack->Count, wStack->Count);
 			sleep(1);
 		}
-		if (EStackCount || WStackCount) {
-			if (EStackCount && WStackCount) {
+		if (EStack->Count || WStack->Count) {
+			if (EStack->Count && WStack->Count) {
 				if (strcmp(LastDirection, "EAST") == 0) {
 					pthread_mutex_lock(&TrackMutex);
-					pthread_cond_signal(&(top(WHead)->TState));
+					pthread_cond_signal(&WStack->Current->TState);
 				}
 				else {
 					pthread_mutex_lock(&TrackMutex);
-					pthread_cond_signal(&(top(EHead)->TState));
+					pthread_cond_signal(&EStack->Current->TState);
 				}
 			}
-			else if (EStackCount) {
+			else if (EStack->Count) {
 				pthread_mutex_lock(&TrackMutex);
-				pthread_cond_signal(&(top(EHead)->TState));
+				pthread_cond_signal(&EStack->Current->TState);
 			}
-			else if (WStackCount) {
+			else if (WStack->Count) {
 				pthread_mutex_lock(&TrackMutex);
-				pthread_cond_signal(&(top(WHead)->TState));
+				pthread_cond_signal(&WStack->Current->TState);
 			}
 		}
-		else if (wStackCount || eStackCount)	{
-			if (eStackCount && wStackCount) {
+		else if (wStack->Count || eStack->Count)	{
+			if (eStack->Count && wStack->Count) {
 				if (strcmp(LastDirection, "EAST") == 0) {
 					pthread_mutex_lock(&TrackMutex);
-					pthread_cond_signal(&(top(wHead)->TState));
+					pthread_cond_signal(&wStack->Current->TState);
 				}
 				else {
 					pthread_mutex_lock(&TrackMutex);
-					pthread_cond_signal(&(top(eHead)->TState));
+					pthread_cond_signal(&eStack->Current->TState);
 				}
 			}
-			else if (eStackCount) {
+			else if (eStack->Count) {
 				pthread_mutex_lock(&TrackMutex);
-				pthread_cond_signal(&(top(eHead)->TState));
+				pthread_cond_signal(&eStack->Current->TState);
 			}
-			else if (wStackCount) {
+			else if (wStack->Count) {
 				pthread_mutex_lock(&TrackMutex);
-				pthread_cond_signal(&(top(wHead)->TState));
+				pthread_cond_signal(&wStack->Current->TState);
 			}
 		}
 		pthread_mutex_unlock(&TrackMutex);
@@ -128,15 +137,15 @@ void *train (void *tnode) {
 	*/usleep(Train->LoadingTime * 100000);
 	if (strcmp(Train->Direction, "EAST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			push(Train, EHIGHPRISTATION);		
+			push(Train, EStack);		
 		else if (Train->Priority == LOWPRI)
-			push(Train, ELOWPRISTATION);
+			push(Train, eStack);
 	}
 	else if (strcmp(Train->Direction, "WEST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			push(Train, WHIGHPRISTATION);		
+			push(Train, WStack);		
 		else if (Train->Priority == LOWPRI)
-			push(Train, WLOWPRISTATION);
+			push(Train, wStack);
 	}
 	printf("Train %d is ready to go %s\n", Train->TrainNumber, Train->Direction);
 	pthread_mutex_lock(&Train->TMutex);
@@ -144,15 +153,15 @@ void *train (void *tnode) {
 	TrackInUse = 1;
 	if (strcmp(Train->Direction, "EAST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			pop(EHIGHPRISTATION);		
+			pop(EStack);		
 		else if (Train->Priority == LOWPRI)
-			pop(ELOWPRISTATION);
+			pop(eStack);
 	}
 	else if (strcmp(Train->Direction, "WEST") == 0) {
 		if (Train->Priority == HIGHPRI)
-			pop(WHIGHPRISTATION);		
+			pop(WStack);		
 		else if (Train->Priority == LOWPRI)
-			pop(WLOWPRISTATION);
+			pop(wStack);
 	}
 	free(LastDirection);
 	LastDirection = Train->Direction;
@@ -166,293 +175,76 @@ void *train (void *tnode) {
 	pthread_exit(NULL);
 }
 
-int push(TNode *t, int iStationNum) {
+int push(TNode *t, TStack *stack) {
 	TNode *checkTop;
-	switch (iStationNum) {
-		case EHIGHPRISTATION:
-			if (EStackUse) {
-				pthread_cond_wait(&EStackCv, &EStackMutex);
-				EStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&EStackMutex);
-				EStackUse = 1;
-			}
-			if (EHead == NULL) {
-				t->next = NULL;
-				EHead = t;
-				ECurrent = EHead;
-				EStackCount++;
-			}
-			else {
-				checkTop = ECurrent;
-				if (checkTop->LoadingTime > t->LoadingTime) {
-					TNode *prev = EHead;
-					for (;prev->next->TrainNumber != ECurrent->TrainNumber;prev = prev->next) {}
-					prev->next = t;
-					t = checkTop;
-				}
-				else {
-					ECurrent->next = t;
-					t->next = NULL;
-					ECurrent = t;
-					EStackCount++;
-				}
-			}
-			EStackUse = 0;
-			pthread_cond_signal(&EStackCv);
-			pthread_mutex_unlock(&EStackMutex);
-			break;
-		case WHIGHPRISTATION:
-			if (WStackUse) {
-				pthread_cond_wait(&WStackCv, &WStackMutex);
-				WStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&WStackMutex);
-				WStackUse = 1;
-			}
-			if (WHead == NULL) {
-				t->next = NULL;
-				WHead = t;
-				WCurrent = WHead;
-				WStackCount++;
-			}
-			else {
-				checkTop = WCurrent;
-				if (checkTop->LoadingTime > t->LoadingTime) {
-					TNode *prev = WHead;
-					for (;prev->next->TrainNumber != WCurrent->TrainNumber;prev = prev->next) {}
-					prev->next = t;
-					t = checkTop;
-				}
-				else {
-					WCurrent->next = t;
-					t->next = NULL;
-					WCurrent = t;
-					WStackCount++;
-				}
-			}
-			WStackUse = 0;
-			pthread_cond_signal(&WStackCv);
-			pthread_mutex_unlock(&WStackMutex);
-			break;
-		case WLOWPRISTATION:
-			if (wStackUse) {
-				pthread_cond_wait(&wStackCv, &wStackMutex);
-				wStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&wStackMutex);
-				wStackUse = 1;
-			}
-			if (wHead == NULL) {
-				t->next = NULL;
-				wHead = t;
-				wCurrent = wHead;
-				wStackCount++;
-			}
-			else {
-				checkTop = wCurrent;
-				if (checkTop->LoadingTime > t->LoadingTime) {
-					TNode *prev = wHead;
-					for (;prev->next->TrainNumber != wCurrent->TrainNumber;prev = prev->next) {}
-					prev->next = t;
-					t = checkTop;
-				}
-				else {
-					wCurrent->next = t;
-					t->next = NULL;
-					wCurrent = t;
-					wStackCount++;
-				}
-			}
-			wStackUse = 0;
-			pthread_cond_signal(&wStackCv);
-			pthread_mutex_unlock(&wStackMutex);
-			break;
-		case ELOWPRISTATION:
-			if (eStackUse) {
-				pthread_cond_wait(&eStackCv, &eStackMutex);
-				eStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&eStackMutex);
-				eStackUse = 1;
-			}
-			if (eHead == NULL) {
-				t->next = NULL;
-				eHead = t;
-				eCurrent = eHead;
-				eStackCount++;
-			}
-			else {
-				checkTop = eCurrent;
-				if (checkTop->LoadingTime > t->LoadingTime) {
-					TNode *prev = eHead;
-					for (;prev->next->TrainNumber != eCurrent->TrainNumber;prev = prev->next) {}
-					prev->next = t;
-					t = checkTop;
-				}
-				else {
-					eCurrent->next = t;
-					t->next = NULL;
-					eCurrent = t;
-					eStackCount++;
-				}
-			}
-			eStackUse = 0;
-			pthread_cond_signal(&eStackCv);
-			pthread_mutex_unlock(&eStackMutex);
-			break;
+	if (stack->StackUse) {
+		pthread_cond_wait(&stack->Cv, &stack->Mutex);
+		stack->StackUse = 1;
 	}
+	else {	
+		pthread_mutex_lock(&stack->Mutex);
+		stack->StackUse = 1;
+	}
+	if (stack->Head == NULL) {
+		t->next = NULL;
+		stack->Head = t;
+		stack->Current = stack->Head;
+		stack->Count++;
+	}
+	else {
+		checkTop = stack->Current;
+		if (checkTop->LoadingTime > t->LoadingTime) {
+			TNode *prev = stack->Head;
+			for (;prev->next->TrainNumber != stack->Current->TrainNumber;prev = prev->next) {}
+			prev->next = t;
+			t = checkTop;
+		}
+		else {
+			stack->Current->next = t;
+			t->next = NULL;
+			stack->Current = t;
+			stack->Count++;
+		}
+	}
+	stack->StackUse = 0;
+	pthread_cond_signal(&stack->Cv);
+	pthread_mutex_unlock(&stack->Mutex);
 	return 0;
 }
 
-TNode *pop(int iStationNum) {
+TNode *pop(TStack *stack) {
 	TNode *prev;
-	switch (iStationNum) {
-		case EHIGHPRISTATION:
-			if (EStackUse) {
-				pthread_cond_wait(&EStackCv, &EStackMutex);
-				EStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&EStackMutex);
-				EStackUse = 1;
-			}
-			if (EStackCount == 0) {
-				printf("Stack Undeflow\n");
-				pthread_mutex_unlock(&EStackMutex);
-				exit(1);
-			}
-			else {
-				TNode *temp;
-				if (EStackCount == 1) {
-					EStackCount--;
-					temp = EHead;
-					EHead = NULL;
-					ECurrent = NULL;
-				}
-				else {
-					for (prev = EHead;prev->next != NULL;prev = prev->next) {ECurrent = prev;}
-					EStackCount--;
-					temp = prev;
-					ECurrent->next = NULL;
-				}
-				EStackUse = 0;
-				pthread_cond_signal(&EStackCv);
-				pthread_mutex_unlock(&EStackMutex);
-				return (temp);
-			}
-			break;
-		case WHIGHPRISTATION:
-			if (WStackUse) {
-				pthread_cond_wait(&WStackCv, &WStackMutex);
-				WStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&WStackMutex);
-				WStackUse = 1;
-			}
-			if (WStackCount == 0) {
-				printf("Stack Underflow\n");
-				pthread_mutex_unlock(&WStackMutex);
-				exit(1);
-			}
-			else {
-				TNode *temp;
-				if (WStackCount == 1) {
-					WStackCount--;
-					temp = WHead;
-					WHead = NULL;
-					WCurrent = NULL;
-				}
-				else {
-					for (prev = WHead;prev->next != NULL;prev = prev->next) {WCurrent = prev;}
-					WStackCount--;
-					temp = prev;
-					WCurrent->next = NULL;
-				}
-				WStackUse = 0;
-				pthread_cond_signal(&WStackCv);
-				pthread_mutex_unlock(&WStackMutex);
-				return (temp);
-			}
-			break;
-		case WLOWPRISTATION:
-			if (wStackUse) {
-				pthread_cond_wait(&wStackCv, &wStackMutex);
-				wStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&wStackMutex);
-				wStackUse = 1;
-			}
-			if (wStackCount == 0) {
-				printf("Stack Undeflow\n");
-				pthread_mutex_unlock(&wStackMutex);
-				exit(1);
-			}
-			else {
-				TNode *temp;
-				if (wStackCount == 1) {
-					wStackCount--;
-					temp = wHead;
-					wHead = NULL;
-					wCurrent = NULL;
-				}
-				else {
-					for (prev = wHead;prev->next != NULL;prev = prev->next) {wCurrent = prev;}
-					wStackCount--;
-					temp = prev;
-					wCurrent->next = NULL;
-				}
-				wStackUse = 0;
-				pthread_cond_signal(&wStackCv);
-				pthread_mutex_unlock(&wStackMutex);
-				return (temp);
-			}
-			break;
-		case ELOWPRISTATION:
-			if (eStackUse) {
-				pthread_cond_wait(&eStackCv, &eStackMutex);
-				eStackUse = 1;
-			}
-			else {	
-				pthread_mutex_lock(&eStackMutex);
-				eStackUse = 1;
-			}
-			if (eStackCount == 0) {
-				printf("Stack Undeflow\n");
-				pthread_mutex_unlock(&eStackMutex);
-				exit(1);
-			}
-			else {
-				TNode *temp;
-				if (eStackCount == 1) {
-					eStackCount--;
-					temp = eHead;
-					eHead = NULL;
-					eCurrent = NULL;
-				}
-				else {
-					for (prev = eHead;prev->next != NULL;prev = prev->next) {eCurrent = prev;}
-					eStackCount--;
-					temp = prev;
-					eCurrent->next = NULL;
-				}
-				eStackUse = 0;
-				pthread_cond_signal(&eStackCv);
-				pthread_mutex_unlock(&eStackMutex);
-				return (temp);
-			}
-			break;
+	if (stack->StackUse) {
+		pthread_cond_wait(&stack->Cv, &stack->Mutex);
+		stack->StackUse = 1;
+	}
+	else {	
+		pthread_mutex_lock(&stack->Mutex);
+		stack->StackUse = 1;
+	}
+	if (stack->Count == 0) {
+		printf("Stack Undeflow\n");
+		pthread_mutex_unlock(&stack->Mutex);
+		exit(1);
+	}
+	else {
+		TNode *temp;
+		if (stack->Count == 1) {
+			stack->Count--;
+			temp = stack->Head;
+			stack->Head = NULL;
+			stack->Current = NULL;
+		}
+		else {
+			for (prev = stack->Head;prev->next != NULL;prev = prev->next) {stack->Current = prev;}
+			stack->Count--;
+			temp = prev;
+			stack->Current->next = NULL;
+		}
+		stack->StackUse = 0;
+		pthread_cond_signal(&stack->Cv);
+		pthread_mutex_unlock(&stack->Mutex);
+		return (temp);
 	}
 	return 0;
-}
-	
-TNode *top(TNode *head) {
-	for(;head->next != NULL;head = head->next){};
-	return head;
 }
