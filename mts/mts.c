@@ -163,7 +163,6 @@ void *train (void *tnode) {
 		else if (Train->Priority == LOWPRI)
 			pop(wStack);
 	}
-	free(LastDirection);
 	LastDirection = Train->Direction;
 	printf("Train %d is on the track going %s!\n", Train->TrainNumber, Train->Direction);
 	usleep(Train->CrossingTime * 100000);

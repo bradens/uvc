@@ -1,0 +1,12 @@
+Train 0 is ready to go EAST
+Train 0 is on the track going EAST!
+Train 1 is ready to go EAST
+Train 2 is ready to go WEST
+Train 3 is ready to go WEST
+Train 0 is done crossing
+Train 2 is on the track going WEST!
+Train 2 is done crossing
+Train 1 is on the track going EAST!
+Train 1 is done crossing
+Train 3 is on the track going WEST!
+Train 3 is done crossing
