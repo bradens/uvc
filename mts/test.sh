@@ -25,3 +25,4 @@ do
 	diff out.txt ans.txt >> results.txt 
 	diff out.txt ans.txt
 done
+
