@@ -49,6 +49,7 @@ TStack *EStack, *eStack, *WStack, *wStack;
 TNode LoadingThreads[STACKSIZE], *LoadingCurrent;
 int NumTrains, TrainsFinished, TrackInUse;
 char* LastDirection;
+const char *inFileName;
 pthread_mutex_t TrackMutex;
 pthread_cond_t TrackState;
 int push(TNode *t, TStack *stack);

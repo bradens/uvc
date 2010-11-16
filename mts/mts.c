@@ -1,7 +1,7 @@
 #include "mts.h"
 
 int main (int argc, const char * argv[]) {
-	/* Init stack pointers */
+	/* Init stack pointers, capitilization shows priority and letter describes direction */
 	EStack = (TStack *)malloc(sizeof(TStack));	
 	eStack = (TStack *)malloc(sizeof(TStack));
 	WStack = (TStack *)malloc(sizeof(TStack));
@@ -12,21 +12,20 @@ int main (int argc, const char * argv[]) {
 	EStack->StackUse = 0; eStack->StackUse = 0; WStack->StackUse = 0; wStack->StackUse = 0;
 	
 	/* init parameters */
-	NumTrains = atoi(argv[1]); TrainsFinished = 0;TrackInUse = 0;
+	inFileName = argv[1];
+	NumTrains = atoi(argv[2]); TrainsFinished = 0;TrackInUse = 0;
 	LastDirection = (char*)malloc(sizeof(char)*4);
-	strcpy(LastDirection, "EAST");
-
+	strcpy(LastDirection, "East");
+	
+	if (inFileName == NULL || NumTrains == 0) {
+		printf("Usage : ./mts [inputfile] [number of trains]\n");
+		return 1;
+	}
+	
 	/* init stack mutexes */
-	pthread_mutex_init (&eStack->Mutex, NULL);
-	pthread_mutex_init (&wStack->Mutex, NULL);
-	pthread_mutex_init (&WStack->Mutex, NULL);
-	pthread_mutex_init (&EStack->Mutex, NULL);
-	pthread_cond_init  (&EStack->Cv, NULL);
-	pthread_cond_init  (&eStack->Cv, NULL);
-	pthread_cond_init  (&WStack->Cv, NULL);
-	pthread_cond_init  (&wStack->Cv, NULL);
-
-	pthread_mutex_init (&TrackMutex, NULL);
+	pthread_mutex_init (&eStack->Mutex, NULL);pthread_mutex_init (&wStack->Mutex, NULL);pthread_mutex_init (&WStack->Mutex, NULL);
+	pthread_mutex_init (&EStack->Mutex, NULL);pthread_cond_init  (&EStack->Cv, NULL);pthread_cond_init  (&eStack->Cv, NULL);
+	pthread_cond_init  (&WStack->Cv, NULL);pthread_cond_init  (&wStack->Cv, NULL);pthread_mutex_init (&TrackMutex, NULL);
 	pthread_cond_init  (&TrackState, NULL);
 		
 	ReadFile();			/* Read the file, and setup the Loading array */
@@ -46,13 +45,9 @@ int main (int argc, const char * argv[]) {
 			if (TrainsFinished == NumTrains)
 				break;
 		}
-		if (TrainsFinished == -2) {
-			printf("E:%d  W:%d  e:%d  w:%d  \n", EStack->Count, WStack->Count, eStack->Count, wStack->Count);
-			sleep(1);
-		}
-		if (EStack->Count || WStack->Count) {
+		if (EStack->Count || WStack->Count) {		/* EStack or WStack is not NULL */
 			if (EStack->Count && WStack->Count) {
-				if (strcmp(LastDirection, "EAST") == 0) {
+				if (strcmp(LastDirection, "East") == 0) {		/* if the last direction was east, send west */
 					pthread_mutex_lock(&TrackMutex);
 					pthread_cond_signal(&WStack->Current->TState);
 				}
@@ -61,18 +56,18 @@ int main (int argc, const char * argv[]) {
 					pthread_cond_signal(&EStack->Current->TState);
 				}
 			}
-			else if (EStack->Count) {
+			else if (EStack->Count) {		/* If EStack is not NULL */
 				pthread_mutex_lock(&TrackMutex);
 				pthread_cond_signal(&EStack->Current->TState);
 			}
-			else if (WStack->Count) {
+			else if (WStack->Count) {		/* If WStack is not NULL */
 				pthread_mutex_lock(&TrackMutex);
 				pthread_cond_signal(&WStack->Current->TState);
 			}
 		}
-		else if (wStack->Count || eStack->Count)	{
+		else if (wStack->Count || eStack->Count)	{		/* eStack or wStack != NULL */
 			if (eStack->Count && wStack->Count) {
-				if (strcmp(LastDirection, "EAST") == 0) {
+				if (strcmp(LastDirection, "East") == 0) {	/* if the last direction was east, send west */
 					pthread_mutex_lock(&TrackMutex);
 					pthread_cond_signal(&wStack->Current->TState);
 				}
@@ -81,11 +76,11 @@ int main (int argc, const char * argv[]) {
 					pthread_cond_signal(&eStack->Current->TState);
 				}
 			}
-			else if (eStack->Count) {
+			else if (eStack->Count) {		/* if the low pri east stack is not NULL */
 				pthread_mutex_lock(&TrackMutex);
 				pthread_cond_signal(&eStack->Current->TState);
 			}
-			else if (wStack->Count) {
+			else if (wStack->Count) {		/* if the low pri west stack is not NULL */
 				pthread_mutex_lock(&TrackMutex);
 				pthread_cond_signal(&wStack->Current->TState);
 			}
@@ -97,7 +92,7 @@ int main (int argc, const char * argv[]) {
 
 int ReadFile() {
 	/* load all the info from the input file */
-	FILE* inFile = fopen("in.txt", "r");
+	FILE* inFile = fopen(inFileName, "r");
 	char* inLine = (char*)malloc(sizeof(char)*LINESIZE); 
 	int ThreadCount = 0;
 	LoadingCurrent = LoadingThreads;
@@ -105,19 +100,19 @@ int ReadFile() {
 		LoadingCurrent->Direction = (char*)malloc(sizeof(char)*20);
 		switch (inLine[0]) {
 			case 'e':
-				strcpy(LoadingCurrent->Direction, "EAST");
+				strcpy(LoadingCurrent->Direction, "East");
 				LoadingCurrent->Priority = LOWPRI;
 				break;
 			case 'E':
-				strcpy(LoadingCurrent->Direction, "EAST");
+				strcpy(LoadingCurrent->Direction, "East");
 				LoadingCurrent->Priority = HIGHPRI;
 				break;
 			case 'w':
-				strcpy(LoadingCurrent->Direction, "WEST");
+				strcpy(LoadingCurrent->Direction, "West");
 				LoadingCurrent->Priority = LOWPRI;
 				break;
 			case 'W':
-				strcpy(LoadingCurrent->Direction, "WEST");
+				strcpy(LoadingCurrent->Direction, "West");
 				LoadingCurrent->Priority = HIGHPRI;
 				break;
 		}
@@ -133,40 +128,39 @@ int ReadFile() {
 
 void *train (void *tnode) {
 	TNode *Train = (TNode*)tnode;
-	/*printf("Starting to load train %d.\n", Train->TrainNumber);
-	*/usleep(Train->LoadingTime * 100000);
-	if (strcmp(Train->Direction, "EAST") == 0) {
+	usleep(Train->LoadingTime * 100000);
+	if (strcmp(Train->Direction, "East") == 0) {
 		if (Train->Priority == HIGHPRI)
 			push(Train, EStack);		
 		else if (Train->Priority == LOWPRI)
 			push(Train, eStack);
 	}
-	else if (strcmp(Train->Direction, "WEST") == 0) {
+	else if (strcmp(Train->Direction, "West") == 0) {
 		if (Train->Priority == HIGHPRI)
 			push(Train, WStack);		
 		else if (Train->Priority == LOWPRI)
 			push(Train, wStack);
 	}
-	printf("Train %d is ready to go %s\n", Train->TrainNumber, Train->Direction);
+	printf("Train %2d is ready to go %4s\n", Train->TrainNumber, Train->Direction);
 	pthread_mutex_lock(&Train->TMutex);
 	pthread_cond_wait(&Train->TState, &Train->TMutex);
 	TrackInUse = 1;
-	if (strcmp(Train->Direction, "EAST") == 0) {
+	if (strcmp(Train->Direction, "East") == 0) {
 		if (Train->Priority == HIGHPRI)
 			pop(EStack);		
 		else if (Train->Priority == LOWPRI)
 			pop(eStack);
 	}
-	else if (strcmp(Train->Direction, "WEST") == 0) {
+	else if (strcmp(Train->Direction, "West") == 0) {
 		if (Train->Priority == HIGHPRI)
 			pop(WStack);		
 		else if (Train->Priority == LOWPRI)
 			pop(wStack);
 	}
-	LastDirection = Train->Direction;
-	printf("Train %d is on the track going %s!\n", Train->TrainNumber, Train->Direction);
+	strcpy(LastDirection, Train->Direction);
+	printf("Train %2d is ON the main track going %4s\n", Train->TrainNumber, Train->Direction);
 	usleep(Train->CrossingTime * 100000);
-	printf("Train %d is done crossing\n", Train->TrainNumber);
+	printf("Train %2d is OFF the main track after going %4s\n", Train->TrainNumber, Train->Direction);
 	TrackInUse = 0;
 	TrainsFinished++;
 	pthread_cond_signal(&TrackState);
@@ -222,7 +216,7 @@ TNode *pop(TStack *stack) {
 		stack->StackUse = 1;
 	}
 	if (stack->Count == 0) {
-		printf("Stack Undeflow\n");
+		printf("Stack Underflow\n");
 		pthread_mutex_unlock(&stack->Mutex);
 		exit(1);
 	}
@@ -232,7 +226,8 @@ TNode *pop(TStack *stack) {
 			stack->Count--;
 			temp = stack->Head;
 			stack->Head = NULL;
-			stack->Current = NULL;
+			stack->Current = temp;
+			
 		}
 		else {
 			for (prev = stack->Head;prev->next != NULL;prev = prev->next) {stack->Current = prev;}
@@ -247,3 +242,12 @@ TNode *pop(TStack *stack) {
 	}
 	return 0;
 }
+/*
+void CleaUp() 
+{
+	free(
+	
+	
+	return 0;
+}
+*/

@@ -1,12 +1,27 @@
-Train 0 is ready to go EAST
-Train 0 is on the track going EAST!
-Train 1 is ready to go EAST
-Train 2 is ready to go WEST
-Train 3 is ready to go WEST
-Train 0 is done crossing
-Train 2 is on the track going WEST!
-Train 2 is done crossing
-Train 1 is on the track going EAST!
-Train 1 is done crossing
-Train 3 is on the track going WEST!
-Train 3 is done crossing
+Train  2 is ready to go West
+Train  2 is ON the main track going West
+Train  4 is ready to go East
+Train  1 is ready to go West
+Train  2 is OFF the main track after going West
+Train  1 is ON the main track going West
+Train  7 is ready to go East
+Train  1 is OFF the main track after going West
+Train  7 is ON the main track going East
+Train  3 is ready to go West
+Train  6 is ready to go East
+Train  7 is OFF the main track after going East
+Train  6 is ON the main track going East
+Train  8 is ready to go West
+Train  0 is ready to go East
+Train  5 is ready to go West
+Train  6 is OFF the main track after going East
+Train  8 is ON the main track going West
+Train  8 is OFF the main track after going West
+Train  0 is ON the main track going East
+Train  0 is OFF the main track after going East
+Train  5 is ON the main track going West
+Train  5 is OFF the main track after going West
+Train  4 is ON the main track going East
+Train  4 is OFF the main track after going East
+Train  3 is ON the main track going West
+Train  3 is OFF the main track after going West
