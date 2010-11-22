@@ -5,6 +5,8 @@ echo "Enter the number of trains in the input file."
 read numTrains
 echo "Enter the number of tests to run."
 read numTests
+echo "Enter the input file name"
+read filename
 echo "The tester outputs information of your tests to out.txt"
 echo "It then diffs out.txt to ans.txt and records the result"
 echo "in results.txt for each repetition of the test."
@@ -20,7 +22,7 @@ rm -f results.txt
 for ((current = 0; current < numTests; current++))
 do
         echo "Test case $current starting:"
-        ./mts $numTrains > out.txt
+        ./mts $filename $numTrains > out.txt
         echo "Test case $current result: " >> results.txt
         diff out.txt ans.txt >> results.txt 
         diff out.txt ans.txt

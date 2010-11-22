@@ -87,11 +87,16 @@ int main (int argc, const char * argv[]) {
 		}
 		pthread_mutex_unlock(&TrackMutex);
 	}
+	CleanUp();
 	pthread_exit(NULL);
 }
 
+/*
+ * Read the file and load the information into an array of Loading
+ * Threads.
+ */
 int ReadFile() {
-	/* load all the info from the input file */
+	/* open the input file */
 	FILE* inFile = fopen(inFileName, "r");
 	char* inLine = (char*)malloc(sizeof(char)*LINESIZE); 
 	int ThreadCount = 0;
@@ -126,6 +131,13 @@ int ReadFile() {
 	return 0;
 }
 
+/*
+ * The function to be run in the train threads
+ * this will sleep for the loading time, 
+ * then push itself on the station stack.
+ * Then wait for the scheduler to signal it 
+ * to go.
+ */
 void *train (void *tnode) {
 	TNode *Train = (TNode*)tnode;
 	usleep(Train->LoadingTime * 100000);
@@ -168,6 +180,7 @@ void *train (void *tnode) {
 	pthread_exit(NULL);
 }
 
+/* Train station implementation of stack push and orders the stack as it goes */
 int push(TNode *t, TStack *stack) {
 	TNode *checkTop;
 	if (stack->StackUse) {
@@ -205,6 +218,7 @@ int push(TNode *t, TStack *stack) {
 	return 0;
 }
 
+/* Train station implementation of stack pop */
 TNode *pop(TStack *stack) {
 	TNode *prev;
 	if (stack->StackUse) {
@@ -242,12 +256,18 @@ TNode *pop(TStack *stack) {
 	}
 	return 0;
 }
-/*
-void CleaUp() 
+
+/* CleanUp() function for graceful exit */
+void CleanUp() 
 {
-	free(
+	/* Since the nodes were freed when the threads exit, just need to free stacks */ 
+	free(EStack);
+	free(WStack);
+	free(eStack);
+	free(wStack);
 	
-	
-	return 0;
+	/* destroy all condition vars and mutexes */
+	pthread_cond_destroy(&TrackState);
+	pthread_mutex_destroy(&TrackMutex);
+	free(LastDirection);
 }
-*/

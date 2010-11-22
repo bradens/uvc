@@ -12,10 +12,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define EHIGHPRISTATION 0
-#define ELOWPRISTATION  1
-#define WHIGHPRISTATION 2
-#define WLOWPRISTATION  3
 #define LINESIZE 50
 #define STACKSIZE 100
 #define HIGHPRI 1
@@ -56,3 +52,4 @@ int push(TNode *t, TStack *stack);
 TNode *pop(TStack *stack);
 int ReadFile();
 void *train(void *id);
+void CleanUp();

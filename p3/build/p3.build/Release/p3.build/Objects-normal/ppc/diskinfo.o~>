@@ -1,0 +1,2 @@
+/Users/braden/uviccomputerscience/p3/diskinfo.c: In function 'main':
+/Users/braden/uviccomputerscience/p3/diskinfo.c:16: warning: assignment makes integer from pointer without a cast
