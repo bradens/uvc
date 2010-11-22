@@ -6,15 +6,29 @@ int main(int argc, char**argv)
 		printf("Usage: ./diskinfo [.img file]\n");
 		return 0;
 	}
-	int value;
-	void *currentData = malloc(2);
-	void *currentPtr = malloc(512000);
+	
 	FILE *infile = fopen(argv[1], "r");
-	fread(currentPtr, 512000, 1, infile);	/* read the superblock */
-	currentPtr += 8;
-	memcpy(currentData, currentPtr, 2);
-	value = (int*)currentData;
+	
+	int *BlockSize, *FSCount, *StartPtr, *FATCount, *RootPtr, *RootCount;
+	void *currentPtr = malloc(8);
+	int currSizeSegment = 2;
+	
+	fread(currentPtr, 8, 1, infile);		/* read the superblock 	*/
+	currentPtr = malloc(currSizeSegment);
+	fread(currentPtr, currSizeSegment, 1, infile);
+	BlockSize = (int*)currentPtr;
+	
+	currSizeSegment = 4;
+	
+	currentPtr = malloc(currSizeSegment);
+	fread(currentPtr, currSizeSegment, 1, infile);
+	
+	FSCount = (int*)currentPtr;
+	
 	printf("Super block information:\n");
-	printf("%d\n", value);
+	printf("Block Size: %d\n", *BlockSize);
+	printf("Block Count: %d\n", *FSCount);
+	
+	
 	return 0;
 }
