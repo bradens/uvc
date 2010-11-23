@@ -2,7 +2,7 @@
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
 		activeArchitecture = i386;
-		activeBuildConfigurationName = Release;
+		activeBuildConfigurationName = Debug;
 		activeExecutable = F8AD2E6512975C3A00DA5765 /* p3 */;
 		activeTarget = 8DD76FA90486AB0100D96B5E /* p3 */;
 		addToTargets = (
@@ -15,8 +15,8 @@
 			F8AD2E6512975C3A00DA5765 /* p3 */,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 311909434;
-			PBXWorkspaceStateSaveDate = 311909434;
+			PBXPerProjectTemplateStateSaveDate = 312189130;
+			PBXWorkspaceStateSaveDate = 312189130;
 		};
 		sourceControlManager = F8AD2E6E12975C5700DA5765 /* Source Control */;
 		userBuildSettings = {
@@ -31,8 +31,10 @@
 	F8AD2E6512975C3A00DA5765 /* p3 */ = {
 		isa = PBXExecutable;
 		activeArgIndices = (
+			YES,
 		);
 		argumentStrings = (
+			test.img,
 		);
 		autoAttachOnCrash = 1;
 		breakpointsEnabled = 0;
@@ -53,6 +55,22 @@
 		};
 		sourceDirectories = (
 		);
+		variableFormatDictionary = {
+		};
+	};
+	F8AD2E6B12975C5700DA5765 /* diskinfo.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {946, 1400}}";
+			sepNavSelRange = "{2474, 0}";
+			sepNavVisRange = "{1773, 1355}";
+		};
+	};
+	F8AD2E6C12975C5700DA5765 /* diskinfo.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {560, 679}}";
+			sepNavSelRange = "{95, 0}";
+			sepNavVisRange = "{0, 95}";
+		};
 	};
 	F8AD2E6E12975C5700DA5765 /* Source Control */ = {
 		isa = PBXSourceControlManager;
