@@ -1,12 +1,15 @@
+/* 
+ * Part I
+ * Programming Assignment 3, Csc 360
+ * Braden Simpson, V00685500
+ */
 #include "diskinfo.h"
-
 int main(int argc, char**argv)
 {
 	if (argc < 2) {
 		printf("Usage: ./diskinfo [.img file]\n");
 		return 0;
 	}
-	
 	FILE *infile = fopen(argv[1], "r");
 	/* Respective parts of the superblock */
 	int BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount, block, FreeBlocksCount,
@@ -67,7 +70,7 @@ int main(int argc, char**argv)
 	currentPtr = NULL;
 	currentPtr = malloc(4);
 	int hexVal;
-	for (;;) { 
+	for (;;) {
 		int bytes = fread(currentPtr, 1, 4, infile);
 		if (bytes == 0) break;
 		memcpy(&hexVal, currentPtr, 4);
@@ -86,33 +89,12 @@ int main(int argc, char**argv)
 		free(currentPtr);
 		currentPtr = NULL;
 		currentPtr = malloc(4);
-		
 	}
-	
-	/*
-	currentPtr = malloc(1);
-	int RootAddrAsDec = htoi(RootPtr);
-	
-	fseek(infile, (RootAddrAsDec*16), SEEK_CUR);
-	DEntry root;
-	fread(currentPtr, 1, 1, infile);
-	memcpy(&root.status, currentPtr, 1);
-	printf("Bit 0 of status byte: %d\n", CHECK_BIT(root.status, 0));
-	*/	
-	printf("Super block information:\n");
-	printf("Block Size: %d\n", BlockSize);
-	printf("Block Count: %d\n", FSCount);
-	printf("FAT starts: %d\n", StartPtr);
-	printf("FAT blocks: %d\n", FATCount);
-	printf("Root directory start: %d\n", RootPtr);
-	printf("Root directory blocks: %d\n", RootCount);
-	printf("\nFAT information:\n");
-	printf("Free Blocks: %d\n", FreeBlocksCount);
-	printf("Reserved Blocks: %d\n", ReservedBlocksCount);
-	printf("Allocated Blocks: %d\n", AllocatedBlocksCount);
+	printf("Super block information:\nBlock Size: %d\nBlock Count: %d\nFAT starts: %d\nFAT blocks: %d\nRoot directory start: %d\nRoot directory blocks: %d\n",
+	 BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount);
+	printf("\nFAT information:\nFree Blocks: %d\nReserved Blocks: %d\nAllocated Blocks: %d\n", FreeBlocksCount, ReservedBlocksCount, AllocatedBlocksCount);
 	return 0;
 }
-
 /* Converts a input hex number and converts to decimal */
 int htoi(int inputHex) {
 	char s[7];
