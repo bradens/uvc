@@ -89,6 +89,7 @@ int main(int argc, char**argv)
 		free(currentPtr);
 		currentPtr = NULL;
 		currentPtr = malloc(4);
+		fseek(infile, 508, SEEK_CUR);
 	}
 	printf("Super block information:\nBlock Size: %d\nBlock Count: %d\nFAT starts: %d\nFAT blocks: %d\nRoot directory start: %d\nRoot directory blocks: %d\n",
 	 BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount);

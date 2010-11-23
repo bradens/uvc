@@ -102,6 +102,14 @@
 			F8C4560A129BC5F3001FB496 /* PBXTextBookmark */ = F8C4560A129BC5F3001FB496 /* PBXTextBookmark */;
 			F8C4560B129BC655001FB496 /* PBXTextBookmark */ = F8C4560B129BC655001FB496 /* PBXTextBookmark */;
 			F8C4560C129BC655001FB496 /* PBXTextBookmark */ = F8C4560C129BC655001FB496 /* PBXTextBookmark */;
+			F8C4560E129C3614001FB496 /* PBXTextBookmark */ = F8C4560E129C3614001FB496 /* PBXTextBookmark */;
+			F8C4560F129C3614001FB496 /* PBXTextBookmark */ = F8C4560F129C3614001FB496 /* PBXTextBookmark */;
+			F8C45610129C3615001FB496 /* PBXTextBookmark */ = F8C45610129C3615001FB496 /* PBXTextBookmark */;
+			F8C45611129C3615001FB496 /* PBXTextBookmark */ = F8C45611129C3615001FB496 /* PBXTextBookmark */;
+			F8C45612129C3642001FB496 /* PBXTextBookmark */ = F8C45612129C3642001FB496 /* PBXTextBookmark */;
+			F8C45613129C3642001FB496 /* PBXTextBookmark */ = F8C45613129C3642001FB496 /* PBXTextBookmark */;
+			F8C45615129C36B5001FB496 /* PBXTextBookmark */ = F8C45615129C36B5001FB496 /* PBXTextBookmark */;
+			F8C45616129C36B5001FB496 /* PBXTextBookmark */ = F8C45616129C36B5001FB496 /* PBXTextBookmark */;
 		};
 		sourceControlManager = F8AD2E6E12975C5700DA5765 /* Source Control */;
 		userBuildSettings = {
@@ -145,9 +153,9 @@
 	};
 	F8AD2E6B12975C5700DA5765 /* diskinfo.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1038, 1456}}";
-			sepNavSelRange = "{350, 0}";
-			sepNavVisRange = "{0, 2162}";
+			sepNavIntBoundsRect = "{{0, 0}, {1038, 1470}}";
+			sepNavSelRange = "{2498, 0}";
+			sepNavVisRange = "{1386, 1907}";
 		};
 	};
 	F8AD2E6C12975C5700DA5765 /* diskinfo.h */ = {
@@ -182,7 +190,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 76";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 1954;
 		vrLoc = 1053;
@@ -202,7 +210,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 71";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 2036;
 		vrLoc = 1053;
@@ -232,7 +240,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 71";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 2127;
 		vrLoc = 0;
@@ -242,7 +250,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 73";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 1997;
 		vrLoc = 1053;
@@ -262,7 +270,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 70";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 2012;
 		vrLoc = 1053;
@@ -302,7 +310,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 69";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 2013;
 		vrLoc = 1053;
@@ -322,7 +330,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 93";
 		rLen = 0;
-		rLoc = 3238;
+		rLoc = 3270;
 		rType = 0;
 		vrLen = 2018;
 		vrLoc = 1053;
@@ -382,7 +390,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 67";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 2018;
 		vrLoc = 1053;
@@ -402,7 +410,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 73";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 2016;
 		vrLoc = 1053;
@@ -422,7 +430,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 104";
 		rLen = 0;
-		rLoc = 3087;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 1655;
 		vrLoc = 1773;
@@ -562,7 +570,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 88";
 		rLen = 0;
-		rLoc = 2712;
+		rLoc = 2744;
 		rType = 0;
 		vrLen = 1676;
 		vrLoc = 1025;
@@ -730,7 +738,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 95";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 1659;
 		vrLoc = 1665;
@@ -790,7 +798,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 93";
 		rLen = 0;
-		rLoc = 2712;
+		rLoc = 2744;
 		rType = 0;
 		vrLen = 1548;
 		vrLoc = 1622;
@@ -810,7 +818,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 113";
 		rLen = 0;
-		rLoc = 3260;
+		rLoc = 3292;
 		rType = 0;
 		vrLen = 1648;
 		vrLoc = 1719;
@@ -910,7 +918,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 96";
 		rLen = 0;
-		rLoc = 2891;
+		rLoc = 2923;
 		rType = 0;
 		vrLen = 1803;
 		vrLoc = 1552;
@@ -930,7 +938,7 @@
 		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
 		name = "diskinfo.c: 96";
 		rLen = 0;
-		rLoc = 2934;
+		rLoc = 2966;
 		rType = 0;
 		vrLen = 1763;
 		vrLoc = 1541;
@@ -976,6 +984,84 @@
 		vrLoc = 0;
 	};
 	F8C4560C129BC655001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6C12975C5700DA5765 /* diskinfo.h */;
+		name = "diskinfo.h: 5";
+		rLen = 0;
+		rLoc = 105;
+		rType = 0;
+		vrLen = 105;
+		vrLoc = 0;
+	};
+	F8C4560E129C3614001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "{standard input}:unknown:FATAL:can't create output file: ~/uviccomputerscience/p3/p3.build/FixedFiles/diskinfo_F8C455ED129BBCCF001FB496.o";
+		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
+		rLen = 1;
+		rLoc = 0;
+		rType = 1;
+	};
+	F8C4560F129C3614001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
+		name = "diskinfo.c: 6";
+		rLen = 0;
+		rLoc = 84;
+		rType = 0;
+		vrLen = 156;
+		vrLoc = 0;
+	};
+	F8C45610129C3615001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
+		name = "diskinfo.c: 15";
+		rLen = 0;
+		rLoc = 350;
+		rType = 0;
+		vrLen = 2162;
+		vrLoc = 0;
+	};
+	F8C45611129C3615001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6C12975C5700DA5765 /* diskinfo.h */;
+		name = "diskinfo.h: 5";
+		rLen = 0;
+		rLoc = 105;
+		rType = 0;
+		vrLen = 105;
+		vrLoc = 0;
+	};
+	F8C45612129C3642001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
+		name = "diskinfo.c: 92";
+		rLen = 0;
+		rLoc = 2744;
+		rType = 0;
+		vrLen = 1907;
+		vrLoc = 1386;
+	};
+	F8C45613129C3642001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6C12975C5700DA5765 /* diskinfo.h */;
+		name = "diskinfo.h: 5";
+		rLen = 0;
+		rLoc = 105;
+		rType = 0;
+		vrLen = 105;
+		vrLoc = 0;
+	};
+	F8C45615129C36B5001FB496 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F8AD2E6B12975C5700DA5765 /* diskinfo.c */;
+		name = "diskinfo.c: 79";
+		rLen = 0;
+		rLoc = 2498;
+		rType = 0;
+		vrLen = 1907;
+		vrLoc = 1386;
+	};
+	F8C45616129C36B5001FB496 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = F8AD2E6C12975C5700DA5765 /* diskinfo.h */;
 		name = "diskinfo.h: 5";

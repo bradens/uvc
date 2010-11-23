@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>F8C4560B129BC655001FB496</string>
+						<string>F8C45615129C36B5001FB496</string>
 						<key>history</key>
 						<array>
 							<string>F8C455F0129BBCE5001FB496</string>
@@ -256,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>F8C4560C129BC655001FB496</string>
+						<string>F8C45616129C36B5001FB496</string>
 						<key>history</key>
 						<array>
 							<string>F8C45586129BA159001FB496</string>
@@ -557,9 +557,9 @@
 		<string>F8C455C9129BBB2B001FB496</string>
 		<string>F8C455CA129BBB2B001FB496</string>
 		<string>1C530D5B069F1CE1000CFCEE</string>
+		<string>1C530D52069F1CE1000CFCEE</string>
 		<string>1C530D54069F1CE1000CFCEE</string>
 		<string>/Users/braden/uviccomputerscience/p3/p3.xcodeproj</string>
-		<string>1C530D52069F1CE1000CFCEE</string>
 		<string>F8C4558C129BB3A0001FB496</string>
 		<string>F8C45589129BB3A0001FB496</string>
 	</array>
@@ -791,7 +791,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D52069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
