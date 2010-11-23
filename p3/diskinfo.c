@@ -11,7 +11,7 @@ int main(int argc, char**argv)
 	/* Respective parts of the superblock */
 	int BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount, block, FreeBlocksCount,
 	ReservedBlocksCount, AllocatedBlocksCount;
-	AllocatedBlocksCount = 0;ReservedBlocksCount = 0;FreeBlocksCount = 0;
+	AllocatedBlocksCount = 0; ReservedBlocksCount = 0; FreeBlocksCount = 0;
 	int currentSegmentSize = 2;							/* how large the current superblock segment is */
 	void *currentPtr = malloc(currentSegmentSize);		/* the current segment of the superblock */
 	
@@ -63,18 +63,17 @@ int main(int argc, char**argv)
 		currentPtr = NULL;
 	}
 	rewind(infile);
-	fseek(infile, RootPtr*16, SEEK_SET);
-	DEntry root;
-	fread(&root.status, 1, 1, infile);
-	printf("Bit 0 of status byte: %d\n", CHECK_BIT(root.status, 0));
-	/*
-	int FatTable[FATCount];
-	printf("%d\n", FATCount);
-	int a = fread(FatTable, sizeof(int), FATCount, infile);
-	printf("bytes read: %d\n", a);
-	for (block = 0;block < FATCount;block++) {
-		switch(ntohl(FatTable[block])) {
-			case 0:
+	fseek(infile, 32, SEEK_CUR);
+	currentPtr = NULL;
+	currentPtr = malloc(4);
+	int hexVal;
+	for (;;) { 
+		int bytes = fread(currentPtr, 1, 4, infile);
+		if (bytes == 0) break;
+		memcpy(&hexVal, currentPtr, 4);
+		hexVal = ntohl(hexVal);
+		switch (hexVal) {
+			case 0x00000000:
 				FreeBlocksCount++;
 				break;
 			case 0x00000001:
@@ -84,8 +83,22 @@ int main(int argc, char**argv)
 				AllocatedBlocksCount++;
 				break;
 		}
-	}*/
+		free(currentPtr);
+		currentPtr = NULL;
+		currentPtr = malloc(4);
 		
+	}
+	
+	/*
+	currentPtr = malloc(1);
+	int RootAddrAsDec = htoi(RootPtr);
+	
+	fseek(infile, (RootAddrAsDec*16), SEEK_CUR);
+	DEntry root;
+	fread(currentPtr, 1, 1, infile);
+	memcpy(&root.status, currentPtr, 1);
+	printf("Bit 0 of status byte: %d\n", CHECK_BIT(root.status, 0));
+	*/	
 	printf("Super block information:\n");
 	printf("Block Size: %d\n", BlockSize);
 	printf("Block Count: %d\n", FSCount);
@@ -98,4 +111,11 @@ int main(int argc, char**argv)
 	printf("Reserved Blocks: %d\n", ReservedBlocksCount);
 	printf("Allocated Blocks: %d\n", AllocatedBlocksCount);
 	return 0;
+}
+
+/* Converts a input hex number and converts to decimal */
+int htoi(int inputHex) {
+	char s[7];
+	sprintf(s, "%d", inputHex);
+	return (int)strtol(s, NULL, 16);
 }

@@ -15,5 +15,5 @@ typedef struct directory_entry {
 	char unUsed[6];
 } DEntry;
 
-
+int htoi(int inputHex);
 int FatTable;
