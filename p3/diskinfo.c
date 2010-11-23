@@ -14,7 +14,7 @@ int main(int argc, char**argv)
 	/* Respective parts of the superblock */
 	int BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount, block, FreeBlocksCount,
 	ReservedBlocksCount, AllocatedBlocksCount;
-	AllocatedBlocksCount = 0; ReservedBlocksCount = 0; FreeBlocksCount = 0;
+	AllocatedBlocksCount = 1; ReservedBlocksCount = 0; FreeBlocksCount = 0;
 	int currentSegmentSize = 2;							/* how large the current superblock segment is */
 	void *currentPtr = malloc(currentSegmentSize);		/* the current segment of the superblock */
 	
@@ -66,13 +66,13 @@ int main(int argc, char**argv)
 		currentPtr = NULL;
 	}
 	rewind(infile);
-	fseek(infile, 32, SEEK_CUR);
+	fseek(infile, 512 * StartPtr, SEEK_CUR);
 	currentPtr = NULL;
 	currentPtr = malloc(4);
-	int hexVal;
-	for (;;) {
-		int bytes = fread(currentPtr, 1, 4, infile);
-		if (bytes == 0) break;
+	int hexVal, bytes;
+	for (bytes = 0;;) {
+		bytes += fread(currentPtr, 1, 4, infile);
+		if (bytes == 512*FATCount) break;
 		memcpy(&hexVal, currentPtr, 4);
 		hexVal = ntohl(hexVal);
 		switch (hexVal) {
@@ -89,7 +89,6 @@ int main(int argc, char**argv)
 		free(currentPtr);
 		currentPtr = NULL;
 		currentPtr = malloc(4);
-		fseek(infile, 508, SEEK_CUR);
 	}
 	printf("Super block information:\nBlock Size: %d\nBlock Count: %d\nFAT starts: %d\nFAT blocks: %d\nRoot directory start: %d\nRoot directory blocks: %d\n",
 	 BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount);
