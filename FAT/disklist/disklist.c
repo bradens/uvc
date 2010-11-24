@@ -111,7 +111,7 @@ int printNode(void *currentPtr) {
 	}	
 	
 	memcpy(Entry.fileName, currentPtr, 31);					/* Get filename from 31 bytes, its already  */
-	currentPtr += 31;										/* null terminated							*/
+	currentPtr += 37;										/* null terminated. skip the unused bytes	*/
 	/* Output nicely */
 	if (CHECK_BIT(Entry.status, 1))
 		printf("F");
