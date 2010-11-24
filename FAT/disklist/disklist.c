@@ -78,8 +78,7 @@ int main (int argc, const char * argv[]) {
  * in the format.  Returns 1 if there are no more entries left		*/
 int printNode(void *currentPtr) {
 	DEntry Entry; int i;
-	/* Get the status byte, no need for ntohs because		*
-	 * its only 1 byte.										*/
+	/* Get the status byte, no need for ntohs because */
 	memcpy(&Entry.status, currentPtr, 1);
 	currentPtr++;
 	
