@@ -17,9 +17,7 @@ int main(int argc, char**argv)
 	AllocatedBlocksCount = 1; ReservedBlocksCount = 0; FreeBlocksCount = 0;
 	int currentSegmentSize = 2;							/* how large the current superblock segment is */
 	void *currentPtr = malloc(currentSegmentSize);		/* the current segment of the superblock */
-	
 	fseek(infile, 8, SEEK_CUR);			/* Skip past the name */
-	
 	/* block determines which part of the superblock to examine */
 	for (block = 0;block < 6;block++) {
 		switch(block) {
@@ -94,10 +92,4 @@ int main(int argc, char**argv)
 	 BlockSize, FSCount, StartPtr, FATCount, RootPtr, RootCount);
 	printf("\nFAT information:\nFree Blocks: %d\nReserved Blocks: %d\nAllocated Blocks: %d\n", FreeBlocksCount, ReservedBlocksCount, AllocatedBlocksCount);
 	return 0;
-}
-/* Converts a input hex number and converts to decimal */
-int htoi(int inputHex) {
-	char s[7];
-	sprintf(s, "%d", inputHex);
-	return (int)strtol(s, NULL, 16);
 }

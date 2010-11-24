@@ -10,3 +10,10 @@ typedef struct directory_entry {
 	char fileName[31];
 	char unUsed[6];
 } DEntry;
+
+/* Converts a input hex number and converts to decimal */
+int htoi(int inputHex) {
+	char s[7];
+	sprintf(s, "%d", inputHex);
+	return (int)strtol(s, NULL, 16);
+}
