@@ -182,6 +182,8 @@
 			F8F3B095129CE141000EC0DB /* PBXTextBookmark */ = F8F3B095129CE141000EC0DB /* PBXTextBookmark */;
 			F8F3B096129CE1C7000EC0DB /* PBXTextBookmark */ = F8F3B096129CE1C7000EC0DB /* PBXTextBookmark */;
 			F8F3B097129CE1C7000EC0DB /* PBXTextBookmark */ = F8F3B097129CE1C7000EC0DB /* PBXTextBookmark */;
+			F8F3B098129CE27A000EC0DB /* PBXTextBookmark */ = F8F3B098129CE27A000EC0DB /* PBXTextBookmark */;
+			F8F3B099129CE27A000EC0DB /* PBXTextBookmark */ = F8F3B099129CE27A000EC0DB /* PBXTextBookmark */;
 		};
 		sourceControlManager = F895579E129C701000513F24 /* Source Control */;
 		userBuildSettings = {
@@ -189,9 +191,9 @@
 	};
 	08FB7796FE84155DC02AAC07 /* disklist.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {952, 1848}}";
-			sepNavSelRange = "{837, 0}";
-			sepNavVisRange = "{0, 2141}";
+			sepNavIntBoundsRect = "{{0, 0}, {952, 1876}}";
+			sepNavSelRange = "{325, 0}";
+			sepNavVisRange = "{2347, 1939}";
 			sepNavWindowFrame = "{{-800, -112}, {463, 774}}";
 		};
 	};
@@ -359,7 +361,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 71";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2137;
 		vrLoc = 266;
@@ -379,7 +381,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 74";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2190;
 		vrLoc = 388;
@@ -399,7 +401,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 73";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2190;
 		vrLoc = 388;
@@ -419,7 +421,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 71";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2191;
 		vrLoc = 388;
@@ -439,7 +441,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 74";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2221;
 		vrLoc = 388;
@@ -459,7 +461,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 74";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2221;
 		vrLoc = 388;
@@ -479,7 +481,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 90";
 		rLen = 0;
-		rLoc = 4251;
+		rLoc = 4282;
 		rType = 0;
 		vrLen = 2061;
 		vrLoc = 899;
@@ -509,7 +511,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 90";
 		rLen = 0;
-		rLoc = 4251;
+		rLoc = 4282;
 		rType = 0;
 		vrLen = 2061;
 		vrLoc = 899;
@@ -519,7 +521,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 93";
 		rLen = 0;
-		rLoc = 3025;
+		rLoc = 3036;
 		rType = 0;
 		vrLen = 1978;
 		vrLoc = 1054;
@@ -539,7 +541,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 96";
 		rLen = 0;
-		rLoc = 3045;
+		rLoc = 3056;
 		rType = 0;
 		vrLen = 1985;
 		vrLoc = 1217;
@@ -559,7 +561,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 102";
 		rLen = 0;
-		rLoc = 3783;
+		rLoc = 3812;
 		rType = 0;
 		vrLen = 1990;
 		vrLoc = 1217;
@@ -579,7 +581,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 110";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1892;
 		vrLoc = 1592;
@@ -599,7 +601,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 102";
 		rLen = 0;
-		rLoc = 3258;
+		rLoc = 3277;
 		rType = 0;
 		vrLen = 1893;
 		vrLoc = 1592;
@@ -619,7 +621,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1863;
 		vrLoc = 1592;
@@ -639,7 +641,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1865;
 		vrLoc = 1592;
@@ -659,7 +661,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1865;
 		vrLoc = 1592;
@@ -679,7 +681,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1868;
 		vrLoc = 1592;
@@ -699,7 +701,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1868;
 		vrLoc = 1592;
@@ -719,7 +721,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1868;
 		vrLoc = 1592;
@@ -739,7 +741,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1901;
 		vrLoc = 1758;
@@ -759,7 +761,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1868;
 		vrLoc = 1758;
@@ -779,7 +781,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 116";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1887;
 		vrLoc = 1760;
@@ -799,7 +801,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 111";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1912;
 		vrLoc = 1717;
@@ -819,7 +821,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 86";
 		rLen = 0;
-		rLoc = 2674;
+		rLoc = 2685;
 		rType = 0;
 		vrLen = 1919;
 		vrLoc = 1697;
@@ -839,7 +841,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 109";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1978;
 		vrLoc = 1697;
@@ -859,7 +861,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 110";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1936;
 		vrLoc = 1738;
@@ -879,7 +881,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 113";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1915;
 		vrLoc = 1697;
@@ -899,7 +901,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 112";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1915;
 		vrLoc = 1697;
@@ -919,7 +921,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 116";
 		rLen = 0;
-		rLoc = 3783;
+		rLoc = 3812;
 		rType = 0;
 		vrLen = 2019;
 		vrLoc = 1741;
@@ -949,7 +951,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 75";
 		rLen = 0;
-		rLoc = 2311;
+		rLoc = 2346;
 		rType = 0;
 		vrLen = 2019;
 		vrLoc = 1741;
@@ -959,7 +961,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3688;
+		rLoc = 3715;
 		rType = 0;
 		vrLen = 2019;
 		vrLoc = 1741;
@@ -979,7 +981,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3688;
+		rLoc = 3715;
 		rType = 0;
 		vrLen = 2020;
 		vrLoc = 1741;
@@ -1009,7 +1011,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3688;
+		rLoc = 3715;
 		rType = 0;
 		vrLen = 2061;
 		vrLoc = 0;
@@ -1029,7 +1031,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3688;
+		rLoc = 3715;
 		rType = 0;
 		vrLen = 2061;
 		vrLoc = 0;
@@ -1039,7 +1041,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2002;
 		vrLoc = 1760;
@@ -1059,7 +1061,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 111";
 		rLen = 0;
-		rLoc = 3579;
+		rLoc = 3606;
 		rType = 0;
 		vrLen = 2002;
 		vrLoc = 1760;
@@ -1079,7 +1081,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2003;
 		vrLoc = 1760;
@@ -1099,7 +1101,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 112";
 		rLen = 0;
-		rLoc = 3629;
+		rLoc = 3656;
 		rType = 0;
 		vrLen = 2003;
 		vrLoc = 1760;
@@ -1119,7 +1121,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2004;
 		vrLoc = 1760;
@@ -1139,7 +1141,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2003;
 		vrLoc = 1760;
@@ -1159,7 +1161,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2002;
 		vrLoc = 1760;
@@ -1179,7 +1181,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2002;
 		vrLoc = 1760;
@@ -1199,7 +1201,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2004;
 		vrLoc = 1760;
@@ -1219,7 +1221,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2003;
 		vrLoc = 1760;
@@ -1239,7 +1241,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 2004;
 		vrLoc = 1760;
@@ -1259,7 +1261,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 110";
 		rLen = 0;
-		rLoc = 3561;
+		rLoc = 3588;
 		rType = 0;
 		vrLen = 1914;
 		vrLoc = 2061;
@@ -1279,7 +1281,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 115";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 1913;
 		vrLoc = 2061;
@@ -1299,7 +1301,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 117";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 1914;
 		vrLoc = 2061;
@@ -1319,7 +1321,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 125";
 		rLen = 0;
-		rLoc = 3783;
+		rLoc = 3812;
 		rType = 0;
 		vrLen = 1849;
 		vrLoc = 2197;
@@ -1339,7 +1341,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 110";
 		rLen = 0;
-		rLoc = 3561;
+		rLoc = 3588;
 		rType = 0;
 		vrLen = 1852;
 		vrLoc = 2197;
@@ -1359,7 +1361,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 106";
 		rLen = 0;
-		rLoc = 3405;
+		rLoc = 3432;
 		rType = 0;
 		vrLen = 1835;
 		vrLoc = 2136;
@@ -1379,7 +1381,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 121";
 		rLen = 0;
-		rLoc = 3687;
+		rLoc = 3714;
 		rType = 0;
 		vrLen = 1827;
 		vrLoc = 2136;
@@ -1399,7 +1401,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 112";
 		rLen = 0;
-		rLoc = 3561;
+		rLoc = 3588;
 		rType = 0;
 		vrLen = 1824;
 		vrLoc = 2136;
@@ -1419,7 +1421,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 112";
 		rLen = 0;
-		rLoc = 3561;
+		rLoc = 3588;
 		rType = 0;
 		vrLen = 1832;
 		vrLoc = 2136;
@@ -1439,7 +1441,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 127";
 		rLen = 0;
-		rLoc = 3732;
+		rLoc = 3759;
 		rType = 0;
 		vrLen = 1813;
 		vrLoc = 2136;
@@ -1459,7 +1461,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 127";
 		rLen = 0;
-		rLoc = 3783;
+		rLoc = 3812;
 		rType = 0;
 		vrLen = 1813;
 		vrLoc = 2136;
@@ -1479,7 +1481,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 130";
 		rLen = 0;
-		rLoc = 3837;
+		rLoc = 3868;
 		rType = 0;
 		vrLen = 1691;
 		vrLoc = 2445;
@@ -1499,7 +1501,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 107";
 		rLen = 0;
-		rLoc = 3405;
+		rLoc = 3432;
 		rType = 0;
 		vrLen = 1628;
 		vrLoc = 2509;
@@ -1519,7 +1521,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 128";
 		rLen = 0;
-		rLoc = 3952;
+		rLoc = 3983;
 		rType = 0;
 		vrLen = 1628;
 		vrLoc = 2509;
@@ -1539,7 +1541,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 91";
 		rLen = 0;
-		rLoc = 2893;
+		rLoc = 2904;
 		rType = 0;
 		vrLen = 1988;
 		vrLoc = 1441;
@@ -1559,7 +1561,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 91";
 		rLen = 0;
-		rLoc = 2893;
+		rLoc = 2904;
 		rType = 0;
 		vrLen = 1988;
 		vrLoc = 1441;
@@ -1579,7 +1581,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 77";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 2083;
 		vrLoc = 1288;
@@ -1599,7 +1601,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 73";
 		rLen = 0;
-		rLoc = 2236;
+		rLoc = 2244;
 		rType = 0;
 		vrLen = 2097;
 		vrLoc = 1288;
@@ -1619,7 +1621,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 70";
 		rLen = 0;
-		rLoc = 2074;
+		rLoc = 2082;
 		rType = 0;
 		vrLen = 2128;
 		vrLoc = 798;
@@ -1639,7 +1641,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 68";
 		rLen = 0;
-		rLoc = 1935;
+		rLoc = 1984;
 		rType = 0;
 		vrLen = 2154;
 		vrLoc = 798;
@@ -1659,7 +1661,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 79";
 		rLen = 0;
-		rLoc = 2405;
+		rLoc = 2416;
 		rType = 0;
 		vrLen = 1823;
 		vrLoc = 1993;
@@ -1679,7 +1681,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 93";
 		rLen = 0;
-		rLoc = 2835;
+		rLoc = 2846;
 		rType = 0;
 		vrLen = 1675;
 		vrLoc = 2239;
@@ -1699,7 +1701,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 74";
 		rLen = 0;
-		rLoc = 2236;
+		rLoc = 2244;
 		rType = 0;
 		vrLen = 2055;
 		vrLoc = 1266;
@@ -1719,7 +1721,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 77";
 		rLen = 0;
-		rLoc = 2314;
+		rLoc = 2349;
 		rType = 0;
 		vrLen = 2030;
 		vrLoc = 1758;
@@ -1739,7 +1741,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 68";
 		rLen = 0;
-		rLoc = 1977;
+		rLoc = 2026;
 		rType = 0;
 		vrLen = 2021;
 		vrLoc = 1758;
@@ -1759,7 +1761,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 130";
 		rLen = 0;
-		rLoc = 3947;
+		rLoc = 3978;
 		rType = 0;
 		vrLen = 1661;
 		vrLoc = 2518;
@@ -1779,7 +1781,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 130";
 		rLen = 0;
-		rLoc = 3944;
+		rLoc = 3975;
 		rType = 0;
 		vrLen = 1659;
 		vrLoc = 2518;
@@ -1799,7 +1801,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 130";
 		rLen = 0;
-		rLoc = 3943;
+		rLoc = 3974;
 		rType = 0;
 		vrLen = 1660;
 		vrLoc = 2518;
@@ -1819,7 +1821,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 130";
 		rLen = 0;
-		rLoc = 3951;
+		rLoc = 3982;
 		rType = 0;
 		vrLen = 1657;
 		vrLoc = 2518;
@@ -1839,7 +1841,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 130";
 		rLen = 0;
-		rLoc = 3951;
+		rLoc = 3982;
 		rType = 0;
 		vrLen = 1658;
 		vrLoc = 2518;
@@ -1859,7 +1861,7 @@
 		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
 		name = "disklist.c: 114";
 		rLen = 0;
-		rLoc = 3690;
+		rLoc = 3717;
 		rType = 0;
 		vrLen = 1820;
 		vrLoc = 2419;
@@ -1892,6 +1894,26 @@
 		rLoc = 837;
 		rType = 0;
 		vrLen = 2141;
+		vrLoc = 0;
+	};
+	F8F3B098129CE27A000EC0DB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 08FB7796FE84155DC02AAC07 /* disklist.c */;
+		name = "disklist.c: 14";
+		rLen = 0;
+		rLoc = 325;
+		rType = 0;
+		vrLen = 1939;
+		vrLoc = 2347;
+	};
+	F8F3B099129CE27A000EC0DB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F89557A0129C702400513F24 /* disklist.h */;
+		name = "disklist.h: 24";
+		rLen = 0;
+		rLoc = 503;
+		rType = 0;
+		vrLen = 567;
 		vrLoc = 0;
 	};
 }

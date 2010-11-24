@@ -202,46 +202,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>F89557A5129C98C000513F24</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>disklist.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>F89557A6129C98C000513F24</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>disklist.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>F8F3B096129CE1C7000EC0DB</string>
-						<key>history</key>
-						<array>
-							<string>F89557A8129C98C000513F24</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {463, 677}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>-1265 -56 463 718 -1280 -138 1280 800 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>F89557A9129C98C000513F24</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>disklist.c</string>
@@ -256,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>F8F3B097129CE1C7000EC0DB</string>
+						<string>F8F3B098129CE27A000EC0DB</string>
 						<key>history</key>
 						<array>
 							<string>F89557AB129C98C000513F24</string>
@@ -276,6 +236,46 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>2 60 1011 968 0 0 1680 1028 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>F89557A5129C98C000513F24</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>disklist.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>F89557A6129C98C000513F24</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>disklist.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>F8F3B099129CE27A000EC0DB</string>
+						<key>history</key>
+						<array>
+							<string>F89557A8129C98C000513F24</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {463, 677}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>-1265 -56 463 718 -1280 -138 1280 800 </string>
 			</dict>
 		</dict>
 	</array>
@@ -548,8 +548,8 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/braden/uviccomputerscience/FAT/disklist/disklist.xcodeproj</string>
-		<string>F89557A9129C98C000513F24</string>
 		<string>F89557A5129C98C000513F24</string>
+		<string>F89557A9129C98C000513F24</string>
 	</array>
 	<key>WindowString</key>
 	<string>-350 242 350 420 -1280 -138 1280 800 </string>

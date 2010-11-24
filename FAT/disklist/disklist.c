@@ -56,17 +56,19 @@ int main (int argc, const char * argv[]) {
 		currentPtr = NULL;
 	}
 	rewind(infile);
-	fseek(infile, RootPtr * 512, SEEK_CUR);		/* Move to the root directory	*/
-	currentSegmentSize = 64;					/* Size of directory entry		*/
+	fseek(infile, RootPtr * 512, SEEK_CUR);					/* Move to the root directory	*/
+	currentSegmentSize = 64;								/* Size of directory entry		*/
 	currentPtr = malloc(currentSegmentSize);
-	int bytesRead = fread(currentPtr, 1, currentSegmentSize, infile);	/* read in 1 directory entry at a time */
+	/* read in 1 directory entry at a time */
+	int bytesRead = fread(currentPtr, 1, currentSegmentSize, infile);	
 	while(1) {
 		if (bytesRead >= RootCount*512) break;				/* max amount of files is RootCount		*/
 		int check = printNode(currentPtr);					/* call printNode with the 64 bytes		*/
 		if (check) {
 			currentPtr += 63;								/* 63 because printNode already inc'd 1 */
 		}
-		bytesRead += fread(currentPtr, 1, currentSegmentSize, infile);		/* read 64 more bytes	*/
+		/* read 64 more bytes	*/
+		bytesRead += fread(currentPtr, 1, currentSegmentSize, infile);		
 	}
 	return 0;
 }
@@ -93,12 +95,12 @@ int printNode(void *currentPtr) {
 	 *  memcpy(&Entry.numBlocks, currentPtr, 4);
 	 *	Entry.numBlocks = ntohl(Entry.numBlocks);
 	 */	
-	currentPtr += 4;		/* Don't need the number of blocks	*/
+	currentPtr += 4;										/* Don't need the number of blocks	*/
 	
 	memcpy(&Entry.fileSize, currentPtr, 4);
 	Entry.fileSize = ntohl(Entry.fileSize);
 	currentPtr += 4;
-	currentPtr += 7;		/* Don't need the creation date		*/
+	currentPtr += 7;										/* Don't need the creation date		*/
 	
 	memcpy(&Entry.modifyTimeYear, currentPtr, 2);
 	Entry.modifyTimeYear = ntohs(Entry.modifyTimeYear);		/* Get the year as a short int		*/
@@ -109,8 +111,8 @@ int printNode(void *currentPtr) {
 		currentPtr++;
 	}	
 	
-	memcpy(Entry.fileName, currentPtr, 31);			/* Get filename from 31 bytes, its already  */
-	currentPtr += 31;								/* null terminated							*/
+	memcpy(Entry.fileName, currentPtr, 31);					/* Get filename from 31 bytes, its already  */
+	currentPtr += 31;										/* null terminated							*/
 	/* Output nicely */
 	if (CHECK_BIT(Entry.status, 1))
 		printf("F");
