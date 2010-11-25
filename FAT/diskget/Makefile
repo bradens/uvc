@@ -1,4 +1,4 @@
-disklist : disklist.c disklist.h
-	gcc -Wall -g -o disklist disklist.c
+diskget : diskget.c diskget.h
+	gcc -Wall -g -o diskget diskget.c
 clean :
-	rm -rf disklist disklist.o
+	rm -rf diskget diskget.o

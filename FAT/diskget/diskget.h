@@ -27,5 +27,7 @@ typedef struct directory_entry {
 	char unUsed[6];
 } DEntry;
 
+FILE *infile;
+unsigned int FatTable[6400];
 int IsCorrectNode(void *currentPtr,char *inString);
-int WriteToLocalFS(void *currentPtr, char *inString);
+int WriteToLocalFS(void *currentPtr, char *inString, int FatStart);
