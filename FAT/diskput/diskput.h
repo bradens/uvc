@@ -1,13 +1,18 @@
 /*
- * diskget.h
+ * diskput.h
  *
- *  Created on: Nov 24, 2010
+ *  Created on: Nov 26, 2010
  *      Author: braden
  */
+
+#ifndef DISKPUT_H_
+#define DISKPUT_H_
 #include <stdio.h>;
 #include <stdlib.h>;
 #include <string.h>;
+#include <time.h>;
 #include <arpa/inet.h>;
+
 
 #define CHECK_BIT(var, pos) !!((var) & (1 << (pos)))
 
@@ -29,5 +34,7 @@ typedef struct directory_entry {
 
 FILE *infile;
 unsigned int FatTable[6400];
-int IsCorrectNode(void *currentPtr,char *inString);
-int WriteToLocalFS(void *currentPtr, char *inString, int FatStart);
+int IsEmptyNode(void *currentPtr);
+int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite);
+
+#endif /* DISKPUT_H_ */
