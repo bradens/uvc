@@ -85,6 +85,7 @@ int main(int argc, char **argv)
 		if (bytesRead >= RootCount*512) break;				/* gone through everything in root		*/
 		if (IsCorrectNode(currentPtr, argv[2])) {			/* check if the desired node			*/
 			WriteToLocalFS(currentPtr, argv[2], StartPtr);
+			return 0;
 			break;
 		}
 		/* read 64 more bytes	*/
@@ -92,6 +93,7 @@ int main(int argc, char **argv)
 			bytesRead += fread(currentPtr, 1, currentSegmentSize, infile);
 		}
 	}
+	printf("File not found.\n");
 	return 0;
 }
 
@@ -128,8 +130,6 @@ int WriteToLocalFS(void *currentPtr, char *inString, int FatStart)
 	memcpy(&Entry.startBlock, currentPtr, 4);
 	Entry.startBlock = ntohl(Entry.startBlock);
 	currentPtr += 4;
-
-	printf("Starting Block: %d\n", FatTable[Entry.startBlock]);
 
 	/* rewind the file to the beginning */
 	rewind(infile);
