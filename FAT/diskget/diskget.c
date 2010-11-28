@@ -3,7 +3,7 @@
  * Programming Assignment 3, Csc 360
  * Braden Simpson, V00685500
  */
-#include "diskget.h";
+#include "diskget.h"
 int main(int argc, char **argv)
 {
 	if (argc < 3) {

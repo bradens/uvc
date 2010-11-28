@@ -64,7 +64,7 @@ int main(int argc, char**argv)
 		currentPtr = NULL;
 	}
 	rewind(infile);
-	fseek(infile, 512 * StartPtr, SEEK_CUR);
+	fseek(infile, BlockSize * StartPtr, SEEK_CUR);
 	currentPtr = NULL;
 	currentPtr = malloc(4);
 	int hexVal, bytes;
@@ -85,7 +85,7 @@ int main(int argc, char**argv)
 		}
 		free(currentPtr);
 		currentPtr = NULL;
-		if (bytes == 512*FATCount) break;
+		if (bytes == BlockSize*FATCount) break;
 		currentPtr = malloc(4);
 	}
 	printf("Super block information:\nBlock Size: %d\nBlock Count: %d\nFAT starts: %d\nFAT blocks: %d\nRoot directory start: %d\nRoot directory blocks: %d\n",
