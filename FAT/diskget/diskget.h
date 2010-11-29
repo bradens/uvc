@@ -1,8 +1,7 @@
 /*
- * diskget.h
- *
- *  Created on: Nov 24, 2010
- *      Author: braden
+ * Part III
+ * Programming Assignment 3, Csc 360
+ * Braden Simpson, V00685500
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +27,8 @@ typedef struct directory_entry {
 } DEntry;
 
 FILE *infile;
-unsigned int FatTable[6400];
+//unsigned int FatTable[6400];
+unsigned int *FatTable;
 int BlockSize;
 int IsCorrectNode(void *currentPtr,char *inString);
 int WriteToLocalFS(void *currentPtr, char *inString, int FatStart, int FileSize);

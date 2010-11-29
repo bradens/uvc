@@ -1,8 +1,7 @@
 /*
- * diskput.h
- *
- *  Created on: Nov 26, 2010
- *      Author: braden
+ * Part IV
+ * Programming Assignment 3, Csc 360
+ * Braden Simpson, V00685500
  */
 
 #ifndef DISKPUT_H_
@@ -33,7 +32,8 @@ typedef struct directory_entry {
 } DEntry;
 
 FILE *infile;
-unsigned int FatTable[6400];
+//unsigned int FatTable[6400];
+unsigned int *FatTable;
 int BlockSize, StartPtr, FSCount, RootPtr, RootCount, currentSegmentSize, block, fileNum;
 int IsEmptyNode(void *currentPtr);
 int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite);

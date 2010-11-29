@@ -1,7 +1,7 @@
 /*
- *  disklist.h
- *  disklist
- *  Created by Braden on 23/11/10.
+ * Part II
+ * Programming Assignment 3, Csc 360
+ * Braden Simpson, V00685500
  */
 #include <stdio.h>
 #include <string.h>

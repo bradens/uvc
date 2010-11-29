@@ -59,7 +59,7 @@ int main (int argc, char**argv) {
 		currentPtr = NULL;
 	}
 
-	//FatTable = (unsigned int *)malloc(sizeof(unsigned int) * FSCount);
+	FatTable = (unsigned int *)malloc(sizeof(unsigned int) * FSCount);
 	/* Fill up the FatTable */
 	rewind(infile);
 	fseek(infile, BlockSize * StartPtr, SEEK_CUR);
