@@ -184,7 +184,7 @@ int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite) {
 	struct tm *currentTime = localtime(&rawTime);
 	
 	fileEntry.createTimeYear = (short)(currentTime->tm_year) + 1900;
-	fileEntry.createTime[0] = (char)currentTime->tm_mon;
+	fileEntry.createTime[0] = (char)(currentTime->tm_mon + 1);
 	fileEntry.createTime[1] = (char)currentTime->tm_mday;
 	fileEntry.createTime[2] = (char)currentTime->tm_hour;
 	fileEntry.createTime[3] = (char)currentTime->tm_min;
