@@ -59,6 +59,7 @@ int main (int argc, char**argv) {
 		currentPtr = NULL;
 	}
 
+	//FatTable = (unsigned int *)malloc(sizeof(unsigned int) * FSCount);
 	/* Fill up the FatTable */
 	rewind(infile);
 	fseek(infile, BlockSize * StartPtr, SEEK_CUR);
@@ -105,7 +106,6 @@ int IsEmptyNode(void *currentPtr)
 	/* Get the status */
 	short Status;
 	memcpy(&Status, currentPtr, 1);
-	printf("%d\n", Status);
 	if (!CHECK_BIT(Status, 0)) {
 		currentPtr--;				/* File is unused roll back pointer to start			*/
 		return 1;
@@ -210,7 +210,7 @@ int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite) {
 	fwrite(fileEntry.modifyTime, 1, 5, infile);
 	fwrite(fileEntry.fileName, 1, 31, infile);
 	
-	printf("Write successful to block %d, terminating..\n", fileEntry.startBlock);
+	//printf("Write successful to block %d, terminating..\n", fileEntry.startBlock);
 	fclose(infile);
 	fclose(ToCopy);
 	return 0;

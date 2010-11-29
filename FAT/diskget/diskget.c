@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	}
 	infile = fopen(argv[1], "r");
 
-	int FileSize, StartPtr, RootPtr, RootCount, currentSegmentSize, block;
+	int FileSize, StartPtr, FATCount, FSCount, RootPtr, RootCount, currentSegmentSize, block;
 	currentSegmentSize = 2;
 	void *currentPtr = malloc(currentSegmentSize);
 	fseek(infile, 8, SEEK_CUR);			/* Skip past the name */
@@ -29,7 +29,10 @@ int main(int argc, char **argv)
 				break;
 			case 1:
 				currentSegmentSize = 4;
-				fseek(infile, currentSegmentSize, SEEK_CUR);
+				currentPtr = malloc(currentSegmentSize);
+				fread(currentPtr, 1, currentSegmentSize, infile);
+				memcpy(&FSCount, currentPtr, currentSegmentSize);
+				FSCount = ntohl(FSCount);
 				break;
 			case 2:
 				currentPtr = malloc(currentSegmentSize);
@@ -38,7 +41,10 @@ int main(int argc, char **argv)
 				StartPtr = ntohl(StartPtr);
 				break;
 			case 3:
-				fseek(infile, currentSegmentSize, SEEK_CUR);
+				currentPtr = malloc(currentSegmentSize);
+				fread(currentPtr, 1, currentSegmentSize, infile);
+				memcpy(&FATCount, currentPtr, currentSegmentSize);
+				FATCount = ntohl(FATCount);
 				break;
 			case 4:
 				currentPtr = malloc(currentSegmentSize);
@@ -64,7 +70,7 @@ int main(int argc, char **argv)
 	currentPtr = malloc(4);
 	int hexVal, bytes, i;
 	bytes = 0;
-	for (i = 0;i < 6400;i++) {
+	for (i = 0;i < FSCount;i++) {
 		bytes += fread(currentPtr, 1, 4, infile);
 		memcpy(&hexVal, currentPtr, 4);
 		hexVal = ntohl(hexVal);
@@ -98,6 +104,7 @@ int main(int argc, char **argv)
 		}
 	}
 	printf("File not found.\n");
+	fclose(infile);
 	return 0;
 }
 
@@ -143,8 +150,10 @@ int WriteToLocalFS(void *currentPtr, char *inString, int FatStart, int FileSize)
 	fseek(infile, BlockSize * Entry.startBlock, SEEK_CUR);
 	int bytesRead = 0;
 	int currentBlock = Entry.startBlock;
-	if (FileSize <= BlockSize)
+	if (FileSize <= BlockSize) {
 		bytesRead = fread(buf, 1, FileSize, infile);
+		FileSize = 0;
+	}
 	else {
 		bytesRead = fread(buf, 1, BlockSize, infile);
 		FileSize -= BlockSize;
@@ -157,8 +166,10 @@ int WriteToLocalFS(void *currentPtr, char *inString, int FatStart, int FileSize)
 		}
 		rewind(infile);
 		fseek(infile, BlockSize*FatTable[currentBlock], SEEK_CUR);
-		if (FileSize <= BlockSize)
+		if (FileSize <= BlockSize) {
 			bytesRead = fread(buf, 1, FileSize, infile);
+			FileSize = 0;
+		}
 		else {
 			bytesRead = fread(buf, 1, BlockSize, infile);
 			FileSize -= BlockSize;

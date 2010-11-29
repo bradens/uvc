@@ -56,13 +56,13 @@ int main (int argc, const char * argv[]) {
 		currentPtr = NULL;
 	}
 	rewind(infile);
-	fseek(infile, RootPtr * 512, SEEK_CUR);					/* Move to the root directory	*/
+	fseek(infile, RootPtr * BlockSize, SEEK_CUR);					/* Move to the root directory	*/
 	currentSegmentSize = 64;								/* Size of directory entry		*/
 	currentPtr = malloc(currentSegmentSize);
 	/* read in 1 directory entry at a time */
 	int bytesRead = fread(currentPtr, 1, currentSegmentSize, infile);	
 	while(1) {
-		if (bytesRead >= RootCount*512) break;				/* max amount of files is RootCount		*/
+		if (bytesRead >= RootCount*BlockSize) break;				/* max amount of files is RootCount		*/
 		int check = printNode(currentPtr);					/* call printNode with the 64 bytes		*/
 		if (check) {
 			currentPtr += 63;								/* 63 because printNode already inc'd 1 */
