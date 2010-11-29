@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	}
 	infile = fopen(argv[1], "r");
 
-	int BlockSize, StartPtr, RootPtr, RootCount, currentSegmentSize, block;
+	int FileSize, StartPtr, RootPtr, RootCount, currentSegmentSize, block;
 	currentSegmentSize = 2;
 	void *currentPtr = malloc(currentSegmentSize);
 	fseek(infile, 8, SEEK_CUR);			/* Skip past the name */
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 
 	/* Fill up the FatTable */
 	rewind(infile);
-	fseek(infile, 512 * StartPtr, SEEK_CUR);
+	fseek(infile, BlockSize * StartPtr, SEEK_CUR);
 	currentPtr = NULL;
 	currentPtr = malloc(4);
 	int hexVal, bytes, i;
@@ -76,15 +76,19 @@ int main(int argc, char **argv)
 
 	/* Now find the file to copy */
 	rewind(infile);
-	fseek(infile, RootPtr * 512, SEEK_CUR);					/* Move to the root directory	*/
+	fseek(infile, RootPtr * BlockSize, SEEK_CUR);					/* Move to the root directory	*/
 	currentSegmentSize = 64;								/* size Directory Entries		*/
 	currentPtr = malloc(currentSegmentSize);
 	/* read in 1 directory entry at a time */
 	int bytesRead = fread(currentPtr, 1, currentSegmentSize, infile);
 	while(1) {
-		if (bytesRead >= RootCount*512) break;				/* gone through everything in root		*/
+		if (bytesRead >= RootCount*BlockSize) break;				/* gone through everything in root		*/
 		if (IsCorrectNode(currentPtr, argv[2])) {			/* check if the desired node			*/
-			WriteToLocalFS(currentPtr, argv[2], StartPtr);
+			currentPtr += 9;
+			memcpy(&FileSize, currentPtr, 4);
+			FileSize = ntohl(FileSize);
+			currentPtr -= 9;
+			WriteToLocalFS(currentPtr, argv[2], StartPtr, FileSize);
 			return 0;
 			break;
 		}
@@ -108,16 +112,18 @@ int IsCorrectNode(void *currentPtr, char *inString)
 	currentPtr += 37;					/* skip the unused bytes 		*/
 	if (strcmp(inString, filename) == 0) {
 		currentPtr -= 64;								/* roll back pointer to start			*/
+		free(filename);
 		return 1;
 	}
+	free(filename);
 	currentPtr -= 64;								/* roll back pointer to start			*/
 	return 0;
 }
 
-int WriteToLocalFS(void *currentPtr, char *inString, int FatStart)
+int WriteToLocalFS(void *currentPtr, char *inString, int FatStart, int FileSize)
 {
 	FILE *outfile = fopen(inString, "w");
-	char buf[512];
+	char buf[BlockSize];
 	DEntry Entry;
 	/* Get the status byte, no need for ntohs because */
 	memcpy(&Entry.status, currentPtr, 1);
@@ -134,10 +140,15 @@ int WriteToLocalFS(void *currentPtr, char *inString, int FatStart)
 	/* rewind the file to the beginning */
 	rewind(infile);
 	/* Find the start block of our file we want. */
-	fseek(infile, 512 * Entry.startBlock, SEEK_CUR);
+	fseek(infile, BlockSize * Entry.startBlock, SEEK_CUR);
 	int bytesRead = 0;
 	int currentBlock = Entry.startBlock;
-	bytesRead = fread(buf, 1, 512, infile);
+	if (FileSize <= BlockSize)
+		bytesRead = fread(buf, 1, FileSize, infile);
+	else {
+		bytesRead = fread(buf, 1, BlockSize, infile);
+		FileSize -= BlockSize;
+	}
 	fwrite(buf, 1, bytesRead, outfile);
 
 	while (1) {
@@ -145,8 +156,13 @@ int WriteToLocalFS(void *currentPtr, char *inString, int FatStart)
 			break;
 		}
 		rewind(infile);
-		fseek(infile, 512*FatTable[currentBlock], SEEK_CUR);
-		bytesRead = fread(buf, 1, 512, infile);
+		fseek(infile, BlockSize*FatTable[currentBlock], SEEK_CUR);
+		if (FileSize <= BlockSize)
+			bytesRead = fread(buf, 1, FileSize, infile);
+		else {
+			bytesRead = fread(buf, 1, BlockSize, infile);
+			FileSize -= BlockSize;
+		}
 		fwrite(buf, 1, bytesRead, outfile);
 		currentBlock = FatTable[currentBlock];
 	}

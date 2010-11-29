@@ -134,8 +134,8 @@ int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite) {
 
 	int bytesRead = fread(buf, 1, BlockSize, ToCopy);
 	fwrite(buf, 1, bytesRead, infile);
-	fileEntry.numBlocks++;
-	
+	fileEntry.numBlocks = 1;
+	fileEntry.fileSize = bytesRead;
 	while(bytesRead > 0) {
 		bytesRead = fread(buf, 1, BlockSize, ToCopy);
 		if (bytesRead == 0) {
@@ -171,13 +171,14 @@ int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite) {
 		rewind(infile);
 		fseek(infile, BlockSize * i, SEEK_CUR);
 		fwrite(buf, 1, bytesRead, infile);
+		fileEntry.fileSize += bytesRead;
 		fileEntry.numBlocks++;
 	}
 	
 	rewind(infile);
 	fseek(infile, BlockSize * RootPtr, SEEK_CUR);
 	fseek(infile, 64 * fileNum, SEEK_CUR);
-	fileEntry.fileSize = BlockSize * fileEntry.numBlocks;
+	//fileEntry.fileSize = BlockSize * fileEntry.numBlocks;
 	time_t rawTime;
 	time(&rawTime);
 	struct tm *currentTime = localtime(&rawTime);
