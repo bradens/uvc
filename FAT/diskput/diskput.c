@@ -2,17 +2,23 @@
  * Part IV
  * Programming Assignment 3, Csc 360
  * Braden Simpson, V00685500
- */
+ *DOWNLAODS*/
 
 #include "diskput.h"
 int main (int argc, char**argv) {
 	if (argc < 3) {
-		printf("Usage: ./diskput [filename] [img file]\n");
+		printf("Usage: ./diskput [img file] [filename]\n");
 		return 0;
 	}
-	infile = fopen(argv[2], "r+");
-
-	currentSegmentSize = 2; fileNum = 0;
+	infile = fopen(argv[1], "r+");
+	FILE *tocopy = fopen(argv[2], "r+");
+	
+	
+	fseek(tocopy, 0, SEEK_END);
+	size_t sizeofFile = ftell(tocopy);
+	fclose(tocopy);
+	
+	currentSegmentSize = 2; fileNum = 0;FreeBlocksCount = 0;
 	void *currentPtr = malloc(currentSegmentSize);
 	fseek(infile, 8, SEEK_CUR);			/* Skip past the name */
 	/* block determines which part of the superblock to examine */
@@ -40,7 +46,10 @@ int main (int argc, char**argv) {
 				StartPtr = ntohl(StartPtr);
 				break;
 			case 3:
-				fseek(infile, currentSegmentSize, SEEK_CUR);
+				currentPtr = malloc(currentSegmentSize);
+				fread(currentPtr, 1, currentSegmentSize, infile);
+				memcpy(&FATCount, currentPtr, currentSegmentSize);
+				FATCount = ntohl(FATCount);
 				break;
 			case 4:
 				currentPtr = malloc(currentSegmentSize);
@@ -59,13 +68,37 @@ int main (int argc, char**argv) {
 		currentPtr = NULL;
 	}
 
+	rewind(infile);
+	fseek(infile, BlockSize * StartPtr, SEEK_CUR);
+	currentPtr = NULL;
+	currentPtr = malloc(4);
+	int hexVal, bytes;
+	for (bytes = 0;;) {
+		bytes += fread(currentPtr, 1, 4, infile);
+		memcpy(&hexVal, currentPtr, 4);
+		hexVal = ntohl(hexVal);
+		if (hexVal == 0x00000000) {
+				FreeBlocksCount++;
+		}
+		free(currentPtr);
+		currentPtr = NULL;
+		if (bytes == BlockSize*FATCount) break;
+		currentPtr = malloc(4);
+	}
+	
+	if (sizeofFile > (FreeBlocksCount * BlockSize)) {
+		printf("Failed to copy, not enough space on image.\n");
+		fclose(infile);
+		return 0;
+	}
+	
 	FatTable = (unsigned int *)malloc(sizeof(unsigned int) * FSCount);
 	/* Fill up the FatTable */
 	rewind(infile);
 	fseek(infile, BlockSize * StartPtr, SEEK_CUR);
 	currentPtr = NULL;
 	currentPtr = malloc(4);
-	int hexVal, bytes, i;
+	int i;
 	bytes = 0;
 	for (i = 0;i < FSCount;i++) {
 		bytes += fread(currentPtr, 1, 4, infile);
@@ -80,14 +113,14 @@ int main (int argc, char**argv) {
 	/* Now search for an empty file */
 	rewind(infile);
 	fseek(infile, RootPtr * BlockSize, SEEK_CUR);				/* Move to the root directory	*/
-	currentSegmentSize = 64;						/* size Directory Entries	*/
+	currentSegmentSize = 64;									/* size Directory Entries	*/
 	currentPtr = malloc(currentSegmentSize);
 	/* read in 1 directory entry at a time */
 	int bytesRead = fread(currentPtr, 1, currentSegmentSize, infile);
 	while(1) {
 		if (bytesRead >= RootCount*BlockSize) break;			/* gone through everything in root  */
 		if (IsEmptyNode(currentPtr)) {
-			WriteToTestFS(currentPtr, StartPtr, argv[1]);
+			WriteToTestFS(currentPtr, StartPtr, argv[2]);
 			return 0;
 		}
 		/* Read 64 more bytes */

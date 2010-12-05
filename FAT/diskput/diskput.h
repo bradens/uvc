@@ -34,7 +34,7 @@ typedef struct directory_entry {
 FILE *infile;
 //unsigned int FatTable[6400];
 unsigned int *FatTable;
-int BlockSize, StartPtr, FSCount, RootPtr, RootCount, currentSegmentSize, block, fileNum;
+int FreeBlocksCount, BlockSize, StartPtr, FATCount, FSCount, RootPtr, RootCount, currentSegmentSize, block, fileNum;
 int IsEmptyNode(void *currentPtr);
 int WriteToTestFS(void *currentPtr, int FatStart, char *ToWrite);
 
