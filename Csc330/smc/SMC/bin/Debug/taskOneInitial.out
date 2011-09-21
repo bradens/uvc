@@ -1,0 +1,6 @@
+enter an integer value for x 
+enter an integer value for y 
+Version 1: gcd of 12341234 and 43214321 = 10001
+Version 2: gcd of 12341234 and 43214321 = 10001
+
+** Execution time = 00:00:00.0499720 (hours:minutes:seconds)

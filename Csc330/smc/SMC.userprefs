@@ -1,0 +1,25 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SMC/parser.cs">
+    <Files>
+      <File FileName="SMC/interpreter.cs" Line="27" Column="37" />
+      <File FileName="SMC/parser.cs" Line="95" Column="1" />
+      <File FileName="SMC/Main.cs" Line="112" Column="57" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="SMC" expanded="True">
+            <Node name="parser.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/braden/Csc330/smc/SMC/SMC/parser.cs" line="95" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

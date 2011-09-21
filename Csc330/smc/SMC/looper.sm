@@ -1,0 +1,20 @@
+// CPU time waster
+func looper( n ) {
+   var a;
+   a = 0;
+   while(n > 0) {
+      a = a + 1;
+      n = n - 1;
+   }
+   return a;
+}
+
+func Main() {
+   var x, cnt;
+
+   WriteLine("enter the number of iterations ...");
+   Read(cnt);
+   x = looper(cnt);
+   WriteLine("result = ", x);
+   return null;
+}

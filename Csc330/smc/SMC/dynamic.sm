@@ -1,0 +1,17 @@
+// this works with integer parameters and float parameters
+func add( a, b ) {
+   return a+b;
+}
+
+func Main() {
+   var x;
+   x = add(10, 20);  // x is assigned an integer
+   WriteLine("x = ", x);
+   x = add(3.142, 2.718);  // x is assigned a float value
+   WriteLine("x = ", x);
+   x = "abc";  // x is assigned a string
+   WriteLine("x = ", x);
+   x = null;  // null is special?
+   WriteLine("x = ", x);
+   return null;
+}
