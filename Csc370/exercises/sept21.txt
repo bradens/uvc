@@ -1,0 +1,5 @@
+a) 
+SELECT maker, speed FROM (product INNER JOIN laptop ON laptop.model=product.model) WHERE hd >= 100;
+
+b)
+SELECT model, price from (product NATURAL JOIN ((select model, price from pc) UNION (SELECT model, price FROM laptop) UNION (SELECT model, price FROM printer)) AS allProducts) WHERE maker='B';
