@@ -142,7 +142,11 @@ public class Interpreter {
     void push( float f ) {
         push( new SMValueFloat(f) );
     }
-
+	
+	void push( string s ) {
+		push(new SMValueStr(s));
+	}
+	
     SMValue pop() {
         if (stackHeight <= 0)
             throw new RunTimeError("stack underflow");
@@ -253,6 +257,10 @@ public class Interpreter {
                     SMValue val1 = pop();
                     if (val1.t == TypeCode.IntType && val2.t == TypeCode.IntType)
                         doIntOp(ins.Op, val1.intValue, val2.intValue);
+					else if (val1.t == TypeCode.StringType && val2.t == TypeCode.StringType && ins.Op == OpCode.Add)
+						doStrCat(val1.strValue, val2.strValue);	// concatenate the strings
+					else if (val1.t == TypeCode.StringType && val2.t == TypeCode.IntType && ins.Op == OpCode.Mul)
+						doStrMul(val1.strValue, val2.intValue);
                     else {
                         float flt1 = (val1.t == TypeCode.FloatType)? val1.fltValue : val1.intValue;
                         float flt2 = (val2.t == TypeCode.FloatType)? val2.fltValue : val2.intValue;
@@ -281,7 +289,22 @@ public class Interpreter {
         }
         return false;
     }
-    
+	
+	void doStrCat(string opnd1, string opnd2)
+	{
+		push(opnd1 + opnd2);
+	}
+	
+	void doStrMul(string opnd1, int opnd2)
+	{
+		if (opnd2 < 0)
+			throw new RunTimeError("Cannot multiply a string by a negative number.");
+		string result = "";
+		for (int i = 0;i < opnd2;i++)
+			result += opnd1;
+		push(result);
+	}
+	
     void doIntOp( OpCode op, int opnd1, int opnd2 ) {
         switch(op) {
         case OpCode.Add:    push(opnd1 + opnd2);  break;

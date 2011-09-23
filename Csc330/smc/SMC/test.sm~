@@ -27,7 +27,3 @@ func Main() {
    WriteLine("Version 2: gcd of ", x, " and ", y, " = ", z);
    return 0;
 }
-
-func Main() {
-     return 0;
-}

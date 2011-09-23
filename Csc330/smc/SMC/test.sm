@@ -21,7 +21,7 @@ func Main() {
    Read(x);
    WriteLine("enter an integer value for y ");
    Read(y);
-   z = gcd1( x, y, 10 );
+   z = gcd1( x, y );
    WriteLine("Version 1: gcd of ", x, " and ", y, " = ", z);
    z = gcd2( x, y );
    WriteLine("Version 2: gcd of ", x, " and ", y, " = ", z);

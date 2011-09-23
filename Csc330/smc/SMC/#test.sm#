@@ -1,0 +1,30 @@
+// gcd.sm
+
+func gcd1( a, b ) {
+    while( a != b ) {
+        if (a > b) a = a - b;
+	else b = b - a;
+    }
+    return a;
+}
+
+func gcd2( a, b ) {
+    if (a == b) return a;
+    if (a < b)
+        return gcd2(a, b-a);
+    else
+        return gcd2(a-b, b);
+}
+
+func Main() {
+   var x, y, z;
+   WriteLine("enter an integer value for x ");
+   Read(x);
+   WriteLine("enter an integer value for y ");
+   Read(y);
+   z = gcd1( x, y );
+   WriteLine("Version 1: gcd of ", x, " and ", y, " = ", z);
+   z = gcd2( x, y );
+   WriteLine("Version 2: gcd of ", x, " and ", y, " = ", z);
+   return 0;
+}
