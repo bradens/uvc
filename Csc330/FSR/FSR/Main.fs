@@ -13,4 +13,5 @@ let main =
     Console.WriteLine("Excercise 1 done.");
     let b = Part1.AllPerms testList
     printfn "%A" b
+    Console.WriteLine("Excercise 2 done.");
     Console.ReadKey()

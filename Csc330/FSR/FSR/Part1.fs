@@ -25,19 +25,18 @@ let AllRotations inList =
 
 ////////////////////////// Exercise 2 ////////////////////////////////////
 //
-// ex. [1; 2; 3;]
 // dist will place an element (e) in every possible spot in 
-// the given sequence
+// the given sequence (Lst)
 //
-let dist e L =
+let dist e lst =
     let rec aux pre post = 
         seq {
             match post with
-            | [] -> yield (L @ [e])
+            | [] -> yield (lst @ [e])
             | h::t -> yield (List.rev pre @ [e] @ post)
                       yield! aux (h::pre) t 
         }
-    aux [] L
+    aux [] lst
 
 // 
 // permute gives all the permutations of a given list
