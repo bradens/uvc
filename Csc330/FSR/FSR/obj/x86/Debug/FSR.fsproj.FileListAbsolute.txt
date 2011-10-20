@@ -1,0 +1,6 @@
+C:\Users\braden\UVic-Computer-Science\Csc330\FSR\FSR\bin\Debug\FSR.XML
+C:\Users\braden\UVic-Computer-Science\Csc330\FSR\FSR\bin\Debug\FSR.exe
+C:\Users\braden\UVic-Computer-Science\Csc330\FSR\FSR\bin\Debug\FSR.pdb
+C:\Users\braden\UVic-Computer-Science\Csc330\FSR\FSR\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\braden\UVic-Computer-Science\Csc330\FSR\FSR\obj\x86\Debug\FSR.exe
+C:\Users\braden\UVic-Computer-Science\Csc330\FSR\FSR\obj\x86\Debug\FSR.pdb
