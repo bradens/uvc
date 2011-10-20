@@ -50,3 +50,13 @@ let AllPerms inList =
 
 ////////////////////////// Exercise 3 ////////////////////////////////////
 
+let rec findOddEvens inList evenList oddList = 
+    match inList with 
+        | [] -> List.append [evenList] [oddList]
+        | hd::tail -> if ((List.head inList) % 2 = 0) then 
+                            findOddEvens (List.tail inList) ((List.head inList)::evenList) oddList
+                      else
+                            findOddEvens (List.tail inList) evenList ((List.head inList)::oddList)
+
+let OddEven inList = 
+    findOddEvens inList [] []
