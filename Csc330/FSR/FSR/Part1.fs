@@ -76,3 +76,25 @@ let rec mergeLists inList1 inList2 mergedList =
 
 let Merge inList1 inList2 = 
     mergeLists inList1 inList2 []
+
+////////////////////////// Exercise 5 ////////////////////////////////////
+
+let rec SplitList inList leftList rightList = 
+    match inList with 
+        | [] -> (leftList, rightList)
+        | hd::tail -> if ((List.length inList) % 2 = 0) then 
+                            SplitList (List.tail inList) ((List.head inList)::leftList) rightList
+                      else
+                            SplitList (List.tail inList) leftList ((List.head inList)::rightList)
+    
+
+let rec MergeSort inList =
+    match inList with
+    | [] -> []
+    | [a] -> [a]
+    | hd::td ->
+        let lists = SplitList inList [] [] 
+        let leftList = fst lists
+        let rightList = snd lists
+        Merge (MergeSort leftList) (MergeSort rightList)
+    
