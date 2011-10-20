@@ -1,0 +1,190 @@
+2. 
+	a)
+	SQL : select id from ((select id from roles where pid='Eastwood, Clint' AND character !~ 'Himself') as foo NATURAL JOIN (select id from productions where attr is NULL) as bar) limit 20;	
+	RESULT:
+	            id                         
+----------------------------------------------------
+ A Perfect World (1993)
+ Absolute Power (1997)
+ Ambush at Cimarron Pass (1958)
+ Any Which Way You Can (1980)
+ Away All Boats (1956)
+ Back to the Future Part II (1989)
+ Blood Work (2002)
+ Breezy (1973)
+ Bronco Billy (1980)
+ City Heat (1984)
+ Coogan's Bluff (1968)
+ Dirty Harry (1971)
+ Don't Pave Main Street: Carmel's Heritage (1994)
+ Escapade in Japan (1957)
+ Escape from Alcatraz (1979)
+ Every Which Way But Loose (1978)
+ Firefox (1982)
+ Francis in the Navy (1955)
+ Gary Cooper: American Life, American Legend (1989)
+ Give Me Your Answer True (1987)
+
+	
+	TOTAL : 64 rows.
+
+	d)
+	SQL : select id, location from productions NATURAL JOIN locations WHERE location ~ 'Victoria, British Columbia' AND location !~ 'Vancouver, British Columbia';
+	
+	RESULT : 
+	-----------------------------------------------------------+----------------------------------------------------
+	Chinese Series (2003)                                     | Victoria, British Columbia
+	"Clan destin" (1997) {L'inexplicable (#7.7)}              | Victoria, British Columbia
+	Cleaverville (2007) (TV)                                  | Victoria, British Columbia
+	Coming Attractions (2008)                                 | Victoria, British Columbia
+	Confessions of a Sociopathic Social Climber (2005) (TV)   | Victoria, British Columbia
+	Convicted (1938)                                          | Victoria, British Columbia
+	Convicted (1938)                                          | Willows Park, Victoria, British Columbia
+	Croon (2002) (TV)                                         | Victoria, British Columbia
+	Crossroads: A Story of Forgiveness (2007) (TV)            | Victoria, British Columbia
+	Dark Paradox (2007)                                       | Victoria, British Columbia
+	Dead Heat (2002)                                          | Victoria, British Columbia
+	Death Goes North (1939)                                   | Victoria, British Columbia
+	Death Goes North (1939)                                   | Willows Park, Victoria, British Columbia
+	Defended (2008)                                           | Victoria, British Columbia
+	Digger (1994)                                             | Victoria, British Columbia
+	"Discovery Street: The Web Series" (2010)                 | Victoria, British Columbia
+	"Eat St." (2011)                                          | Victoria, British Columbia
+	"Eaux troubles du crime" (2007) {Timothy Langmead (#4.3)} | Victoria, British Columbia
+	Elevare Solari (2000) (TV)                                | Victoria, British Columbia
+	Emile (2003)                                              | University of Victoria, Victoria, British Columbia
+	
+	TOTAL : 196 rows.
+   
+   	g)
+	SQL : select DISTINCT character from episodes NATURAL FULL JOIN roles WHERE episodeof = '"CSI: Crime Scene Investigation" (2000)' LIMIT 20;
+
+	RESULT:
+          character           
+------------------------------
+ 
+ Eric Branson
+ Michael Wilson
+ Wilma Shaw
+ Yeoman Malloy
+ Surveillance Guy
+ Jerome 'The Man' Anderson
+ Rio
+ Caterer
+ Detective Ray O'Riley
+ Clerk
+ Family Dad
+ Mark Young
+ Kirk - Gas Station Attendant
+ Sven
+ Matty Moore
+ Paige Rycoff
+ Little Man in Wheelchair
+ Olivia Fowler
+ Erin McCarty
+
+	TOTAL : 2964 rows
+  	
+j)
+  	SQL : select pid from (select pid, avg(rank) asrank from directors natural join (select id, rank, votes from ratings where votes >= '100000') as foo natural join (select id, attr from productions where attr IS NULL) as bar GROUP BY directors.pid ORDER BY asrank DESC) as baz;   	
+   	RESULT : 
+	pid           
+-------------------------
+ Leone, Sergio (I)
+ Lumet, Sidney
+ Meirelles, Fernando (I)
+ Kershner, Irvin
+ Curtiz, Michael
+ Darabont, Frank
+ Lund, Kátia
+ Kurosawa, Akira
+ Demme, Jonathan
+ Capra, Frank
+ Hitchcock, Alfred (I)
+ Nolan, Christopher (I)
+ Forman, Milos
+ Miyazaki, Hayao
+ Welles, Orson
+ Coppola, Francis Ford
+ Kaye, Tony (I)
+ Gondry, Michel
+ Jeunet, Jean-Pierre
+ Polanski, Roman
+
+	
+	TOTAL : 183 rows.
+	
+	
+	m)
+	SQL : 
+
+
+genderQUery : select id, gender from ((select id from productions where attr is NULL)as foo NATURAL JOIN (select pid, gender from persons) as bar NATURAL JOIN (select pid, id from roles) as baz)as bong GROUP BY id, gender limit 20;
+
+
+select id from ((select id from productions where attr is NULL)as foo NATURAL JOIN (select pid, gender from persons) as bar NATURAL JOIN (select pid, id from roles) as baz)as bong EXCEPT select id from ((select id from productions where attr is NULL)as coo NATURAL JOIN (select pid, gender from persons) as car NATURAL JOIN (select pid, id from roles) as caz)as cong WHERE gender = 'M' GROUP BY id, gender limit 5;
+
+
+	p) SQL: 
+select count(pid), pid from ((select pid, id from roles)as foo NATURAL JOIN (select id from episodes) as bar) as baz GROUP BY pid ORDER BY count DESC limit 1;
+
+3.
+	b)
+		SQL: 
+select pid, avg(rank) as avgRank, count(id) as c from roles natural join productions natural join ratings where attr is NULL AND votes >= '50000' GROUP BY pid HAVING count(id) >= '20' ORDER BY avgrank DESC limit 20;
+
+	only 6 people…PROBLEM?
+
+
+4.
+1)	List the top 10 actors/actresses that have the most votes summed over over his/her career's movies.
+
+	SQL:
+		select sum(votes) as sumVotes, pid from ((select id from productions) as foo NATURAL JOIN (select votes, id from ratings) as bar NATURAL JOIN (select pid, id from roles)as baz) GROUP BY pid ORDER BY sumVotes DESC limit 10;
+
+	RESULT: 
+sumVotes    |         pid         
+---------+---------------------œ
+ 4594522 | Jackson, Samuel L.
+ 3955343 | Willis, Bruce
+ 3786867 | Welker, Frank
+ 3770309 | Freeman, Morgan (I)
+ 3583959 | Pitt, Brad
+ 3440456 | De Niro, Robert
+ 3314895 | Hanks, Tom
+ 3103587 | Weaving, Hugo
+ 3035953 | Damon, Matt
+ 2977419 | Ford, Harrison (I)
+(10 rows)
+
+
+2)	What are the ids and VotesPerYear of the 10 movies with the highest amount of votes per year since they've been out (Excluding movies made in the current year e.g. 2011).
+
+	SQL :
+	select id, VotesPerYear from (select (ratings.votes / ((extract(year from now())) - TO_NUMBER(bar.year, '9999'))) as VotesPerYear, id, votes, year from (select * from productions where year ~ '^[0-9][0-9][0-9][0-9]$' AND year != '2011') as bar NATURAL JOIN ratings)as foo ORDER BY VotesPerYear DESC limit 10;	
+
+	RESULT:
+
+	     id              | votesperyear 
+-----------------------------+--------------
+ Inception (2010)            |       419216
+ The Dark Knight (2008)      |       193588
+ Shutter Island (2010)       |       190031
+ Avatar (2009)               |       178166
+ Black Swan (2010)           |       168556
+ Kick-Ass (2010)             |       157252
+ Toy Story 3 (2010)          |       157236
+ The Social Network (2010)   |       152591
+ Inglourious Basterds (2009) |       128766
+ The King's Speech (2010)    |       116573
+
+3)	What is the director and actor combo that have worked together the most times?
+
+	SQL: 
+
+select title, count from (
+select count(*), title from productions 
+join 
+links on 
+productions.id=links.idlinkedto where attr is NULL group by productions.id, title)as foo where count=(select max(count) from 
+(select count(*), title from productions join links on productions.id=links.idlinkedto where attr is NULL group by productions.id, title) as bar);

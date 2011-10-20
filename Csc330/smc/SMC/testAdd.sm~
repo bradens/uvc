@@ -4,9 +4,9 @@ func Main() {
      y = "def";
      z = x + y; // assigns"abcdef"toz 
      WriteLine("z = ", z );
-     y = a * 3; // assigns "abcabcabc" to y 
+     y = x * 3; // assigns "abcabcabc" to y 
      WriteLine("y = ", y );
-     y= a * 0; // assignsanemptystring""toy 
+     y= x * 0; // assignsanemptystring""toy 
      WriteLine("y = ", y );
      return 0;
 }

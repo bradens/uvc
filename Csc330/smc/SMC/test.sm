@@ -18,6 +18,8 @@ func gcd2( a, b ) {
 func Main() {
    var x, y, z;
    WriteLine("enter an integer value for x ");
+   x = "asdf" + 5;
+   WriteLine(x);
    Read(x);
    WriteLine("enter an integer value for y ");
    Read(y);

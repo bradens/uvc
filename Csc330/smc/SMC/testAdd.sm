@@ -6,7 +6,7 @@ func Main() {
      WriteLine("z = ", z );
      y = x * 3; // assigns "abcabcabc" to y 
      WriteLine("y = ", y );
-     y= x * 0; // assignsanemptystring""toy 
+     y= x * (0-1); // assignsanemptystring""toy 
      WriteLine("y = ", y );
      return 0;
 }

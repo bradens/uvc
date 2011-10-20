@@ -1,0 +1,119 @@
+2. 
+	a)
+	SQL : select id from roles where pid='Eastwood, Clint' AND character !~ 'Himself';
+	
+	RESULT:
+	                     id                          
+	------------------------------------------------------
+	"80s" (2005) {(#1.3)}
+	"B InTune TV" (2005) {(#1.10)}
+	"Death Valley Days" (1952) {The Last Letter (#5.7)}
+	"Highway Patrol" (1955) {Motorcycle A (#1.27)}
+	"Making of..." (1992) {Gran Torino}
+	"Maverick" (1957) {Duel at Sundown (#2.19)}
+	"Navy Log" (1955) {The Lonely Watch (#3.17)}
+	"Pantomime Quiz" (1947) {The Rawhide Cast}
+	"Private Screenings" (1995) {James Garner}
+	"Rawhide" (1959) {A Man Called Mushy (#7.5)}
+	"Rawhide" (1959) {A Time for Waiting (#7.16)}
+	"Rawhide" (1959) {A Woman's Place (#4.25)}
+	"Rawhide" (1959) {Abilene (#4.30)}
+	"Rawhide" (1959) {Blood Harvest (#7.19)}
+	"Rawhide" (1959) {Brush War at Buford (#8.11)}
+	"Rawhide" (1959) {Canliss (#7.6)}
+	"Rawhide" (1959) {Clash at Broken Bluff (#8.8)}
+	"Rawhide" (1959) {Corporal Dasovik (#7.10)}
+	"Rawhide" (1959) {Crossing at White Feather (#8.13)}
+	"Rawhide" (1959) {Damon's Road: Part I (#7.7)}
+	
+	TOTAL : 120 rows.
+
+	d)
+	SQL : select id, location from productions NATURAL FULL JOIN locations WHERE location ~ 'Victoria, British Columbia' AND location !~ 'Vancouver, British Columbia';
+	
+	RESULT : 
+	-----------------------------------------------------------+----------------------------------------------------
+	Chinese Series (2003)                                     | Victoria, British Columbia
+	"Clan destin" (1997) {L'inexplicable (#7.7)}              | Victoria, British Columbia
+	Cleaverville (2007) (TV)                                  | Victoria, British Columbia
+	Coming Attractions (2008)                                 | Victoria, British Columbia
+	Confessions of a Sociopathic Social Climber (2005) (TV)   | Victoria, British Columbia
+	Convicted (1938)                                          | Victoria, British Columbia
+	Convicted (1938)                                          | Willows Park, Victoria, British Columbia
+	Croon (2002) (TV)                                         | Victoria, British Columbia
+	Crossroads: A Story of Forgiveness (2007) (TV)            | Victoria, British Columbia
+	Dark Paradox (2007)                                       | Victoria, British Columbia
+	Dead Heat (2002)                                          | Victoria, British Columbia
+	Death Goes North (1939)                                   | Victoria, British Columbia
+	Death Goes North (1939)                                   | Willows Park, Victoria, British Columbia
+	Defended (2008)                                           | Victoria, British Columbia
+	Digger (1994)                                             | Victoria, British Columbia
+	"Discovery Street: The Web Series" (2010)                 | Victoria, British Columbia
+	"Eat St." (2011)                                          | Victoria, British Columbia
+	"Eaux troubles du crime" (2007) {Timothy Langmead (#4.3)} | Victoria, British Columbia
+	Elevare Solari (2000) (TV)                                | Victoria, British Columbia
+	Emile (2003)                                              | University of Victoria, Victoria, British Columbia
+	
+	TOTAL : 31 rows.
+   
+   	g)
+	SQL : select DISTINCT character from episodes NATURAL FULL JOIN roles WHERE episodeof ~ 'CSI: Crime Scene Investigation';
+	
+	RESULT:
+	     character           
+	------------------------------
+	
+	Eric Branson
+	Michael Wilson
+	Wilma Shaw
+	Yeoman Malloy
+	Surveillance Guy
+	Jerome 'The Man' Anderson
+	Rio
+	Caterer
+	Detective Ray O'Riley
+	Clerk
+	Family Dad
+	Mark Young
+	Kirk - Gas Station Attendant
+	Sven
+	Matty Moore
+	Paige Rycoff
+	Little Man in Wheelchair
+	Olivia Fowler
+	Erin McCarty
+	
+	TOTAL : 1325 rows.
+
+   	j)
+   	
+   	SQL : select pid from (select * from ratings where votes >= '100000') as foo NATURAL JOIN productions NATURAL JOIN directors ORDER BY votes DESC;
+   	
+   	RESULT : 
+              pid           
+    ------------------------
+	Darabont, Frank
+	Nolan, Christopher (I)
+	Tarantino, Quentin
+	Coppola, Francis Ford
+	Fincher, David
+	Jackson, Peter (I)
+	Wachowski, Andy
+	Wachowski, Lana
+	Jackson, Peter (I)
+	Nolan, Christopher (I)
+	Jackson, Peter (I)
+	Zemeckis, Robert
+	Lucas, George (I)
+	Cameron, James (I)
+	Fincher, David
+	Mendes, Sam (I)
+	Scott, Ridley
+	Nolan, Christopher (I)
+	Spielberg, Steven
+	Spielberg, Steven	
+	
+	TOTAL : 923 rows.
+	
+	
+	m)

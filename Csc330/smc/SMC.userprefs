@@ -1,17 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SMC/parser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SMC/task1/interpreter-v1.cs">
     <Files>
-      <File FileName="SMC/interpreter.cs" Line="182" Column="33" />
-      <File FileName="SMC/parser.cs" Line="393" Column="1" />
-      <File FileName="SMC/Main.cs" Line="1" Column="1" />
+      <File FileName="SMC/interpreter.cs" Line="44" Column="4" />
+      <File FileName="SMC/parser.cs" Line="102" Column="4" />
+      <File FileName="SMC/Main.cs" Line="22" Column="44" />
       <File FileName="SMC/bytecode.cs" Line="1" Column="1" />
+      <File FileName="SMC/task1/interpreter-v1.cs" Line="193" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="SMC" expanded="True">
-            <Node name="parser.cs" selected="True" />
+            <Node name="bytecode.cs" selected="True" />
           </Node>
         </State>
       </Pad>
@@ -20,9 +21,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/braden/Csc330/smc/SMC/SMC/parser.cs" line="95" />
-      <Breakpoint file="/Users/braden/UVic-Computer-Science/Csc330/smc/SMC/interpreter.cs" line="179" />
-      <Breakpoint file="/Users/braden/UVic-Computer-Science/Csc330/smc/SMC/parser.cs" line="393" />
-      <Breakpoint file="/Users/braden/UVic-Computer-Science/Csc330/smc/SMC/parser.cs" line="342" />
+      <Breakpoint file="/Users/braden/UVic-Computer-Science/Csc330/smc/SMC/parser.cs" line="399" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
