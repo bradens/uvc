@@ -2,8 +2,8 @@
 
 open System
 
-let testList = [1;2;3;4;5;6;7;8;9;10;]
-//let testList = [1;2;3;]
+//let testList = [1;2;3;4;5;6;7;8;9;10;]
+let testList = [1;2;3;]
 
 let main =
     Console.WriteLine("Running FSR...");
@@ -11,4 +11,6 @@ let main =
     let a = Part1.AllRotations testList
     printfn "%A" a
     Console.WriteLine("Excercise 1 done.");
+    let b = Part1.AllPerms testList
+    printfn "%A" b
     Console.ReadKey()
