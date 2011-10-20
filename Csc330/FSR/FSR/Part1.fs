@@ -61,4 +61,18 @@ let rec findOddEvens inList evenList oddList =
 let OddEven inList = 
     findOddEvens inList [] []
 
-////////////////////////// Exercise 3 ////////////////////////////////////
+////////////////////////// Exercise 4 ////////////////////////////////////
+
+let rec mergeLists inList1 inList2 mergedList = 
+    match inList1 with 
+    | [] ->  List.append mergedList inList2
+    | hd::tl -> if (inList2.IsEmpty) then 
+                    List.append mergedList inList1
+                else
+                    if (inList1.Head <= inList2.Head) then
+                        mergeLists (List.tail inList1) inList2 (mergedList @ [inList1.Head])
+                    else
+                        mergeLists inList1 (List.tail inList2) (mergedList @ [inList2.Head]) 
+
+let Merge inList1 inList2 = 
+    mergeLists inList1 inList2 []
