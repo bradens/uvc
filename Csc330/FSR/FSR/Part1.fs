@@ -1,4 +1,7 @@
-﻿module Part1
+﻿// 
+// Braden 
+
+module Part1
 open System
 
 ////////////////////////// Exercise 1 ////////////////////////////////////
@@ -79,6 +82,10 @@ let Merge inList1 inList2 =
 
 ////////////////////////// Exercise 5 ////////////////////////////////////
 
+//
+// Splits the list into 2 ~equal~ length lists by placing elements in
+// separate lists according to their index in the first list
+//
 let rec SplitList inList leftList rightList = 
     match inList with 
         | [] -> (leftList, rightList)
@@ -88,6 +95,9 @@ let rec SplitList inList leftList rightList =
                             SplitList (List.tail inList) leftList ((List.head inList)::rightList)
     
 
+//
+// Implementation of MergeSort
+//
 let rec MergeSort inList =
     match inList with
     | [] -> []
