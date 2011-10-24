@@ -1,12 +1,14 @@
 ﻿module Main
 
 open System
+open Language
 
 let testList = [1..4]
 let testList2 = [2..5]
 let testList3 = [2;3;1;5;7;12;44;13;77;24;9;55]
+let vals = [ ("Num", 37); ("x", 42); ("y", -1); ("Num", 11) ]
 
-let main =
+let part1 = 
     printfn "Running FSR..."
     let a = Part1.AllRotations testList
     printfn "Part1, exercise %i\n%A\nExercise %i done.\n" 1 a 1
@@ -18,4 +20,10 @@ let main =
     printfn "Part1, exercise %i\n%A\nExercise %i done.\n" 4 d 4
     let e = Part1.MergeSort testList3
     printfn "Part1, exercise %i\n%A\nExercise %i done.\n" 5 e 5
+
+let part2 = 
+    Part2.LookUp vals "Num"
+
+let main =
+    part2
     Console.ReadKey()

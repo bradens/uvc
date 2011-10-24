@@ -301,7 +301,7 @@ let rec ReadProgram () =
 // Some sequences of tokens to use for testing purposes
 let testExp = [ Identifier("a"); MulOp; IntConst(99); AddOp; Identifier("b");
                 SubOp; IntConst(37); DivOp; SubOp; Identifier("c"); EOF ]
-let testStmt1 = [ VarKeyword; Identifier("a"); Comma, Identifier("b"); Semicolon; EOF ]
+let testStmt1 = [ VarKeyword; Identifier("a"); Comma; Identifier("b"); Semicolon; EOF ]
 let testStmt2 = [ Identifier("a"); Assign; IntConst(37); Semicolon; EOF ]
 let testStmt3 = [ Identifier("b"); Assign; Identifier("a"); MulOp; IntConst(37); Semicolon; EOF ]
 
