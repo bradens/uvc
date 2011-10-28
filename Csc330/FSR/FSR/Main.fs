@@ -6,7 +6,13 @@ open Language
 let testList = [1..4]
 let testList2 = [2..5]
 let testList3 = [2;3;1;5;7;12;44;13;77;24;9;55]
-let vals = [ ("Num", 37); ("x", 42); ("y", -1); ("Num", 11) ]
+let vals = [ ("Num", 37); ("x", 42); ("y", -1); ("asdf", 11); ]
+let vals2 = [ ("1", 1); ("2", 2); ("3", 3); ("4", 4); ("5", 5);]
+let exp1 = [ Identifier("x"); MulOp; IntConst(10); AddOp;
+        Identifier("y"); EOF ]
+let exp2 = [ Identifier("x"); MulOp; Identifier("foo"); EOF ] 
+let (expTree1,_) = ParseExp exp1
+let (expTree2,_) = ParseExp exp2
 
 let part1 = 
     printfn "Running FSR..."
@@ -22,8 +28,12 @@ let part1 =
     printfn "Part1, exercise %i\n%A\nExercise %i done.\n" 5 e 5
 
 let part2 = 
-    Part2.LookUp vals "Num"
+    
+    printfn "Testing LookUp.\n%A\n%A\n%A\n%A" (Part2.LookUp vals "Num") (Part2.LookUp vals "x") (Part2.LookUp vals "y") (Part2.LookUp vals "aasdf")
+    printfn "Testing Update.\n%A\n%A\n" (Part2.Update vals "Num" 1) (Part2.Update vals "x" 50)
+    printfn "%A" (Part2.Eval vals expTree1)
+    printfn "%A" (Part2.Eval vals expTree2)
 
 let main =
-    part2
+    part2 |> ignore
     Console.ReadKey()
