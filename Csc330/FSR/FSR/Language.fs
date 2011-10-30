@@ -111,7 +111,7 @@ and
              raise ScannerError
 
 
-// ******************** parser functions ******************************
+// ***********  ********* parser functions ******************************
 
 exception ParseError
 

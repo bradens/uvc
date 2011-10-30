@@ -70,3 +70,44 @@ let Eval vals exp =
                 printfn "Error: identifier %s is unbound" name
                 None
     EvalTree exp
+
+let Add values a integer = 
+    (a, integer)::values 
+
+//
+// Part 2 
+// SingleStep
+//
+let SingleStep values s = 
+    let rec addVars vals vars = 
+        match vars with 
+        | [] -> values
+        | [v] -> Add vals v 0
+        | hd::tl -> addVars (Add vals hd 0) tl
+
+    match s with 
+    | Assignment(lhs, rhs) -> 
+                    let id = LookUp values lhs
+                    if (Option.isSome id) then
+                        Update values (lhs) (Eval values rhs).Value
+                    else 
+                        printfn "Error: name %s is undeclared" lhs
+                        values  
+    | Declaration(varlist) -> 
+                    match varlist with
+                    | [] -> values
+                    | hd::tl -> addVars values varlist
+                   
+let Interpret stmtList =
+    let rec interp list stmts = 
+        match stmts with
+        | [] -> list 
+        | hd::tl -> interp (SingleStep list stmt) tl
+
+    let rec printstmts list =
+        match stmts with
+        | [] -> []
+        | hd::tl -> printfn "%s = %d" (fst hd) (snd hd)
+    
+    printfn "Interpretation ended normally with"
+    printstmts (interp [] stmtList)
