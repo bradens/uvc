@@ -1,4 +1,9 @@
-﻿module Part2
+﻿//
+// Braden Simpson V00685500
+// FSR, CSC330 Assignment 2.
+// Part2
+//
+module Part2
 open Language
 // 
 // Part 2
@@ -98,16 +103,24 @@ let SingleStep values s =
                     | [] -> values
                     | hd::tl -> addVars values varlist
                    
+
+// 
+// Part 2
+// Interpret
+//
 let Interpret stmtList =
     let rec interp list stmts = 
         match stmts with
         | [] -> list 
-        | hd::tl -> interp (SingleStep list stmt) tl
+        | hd::tl -> interp (SingleStep list hd) tl
 
     let rec printstmts list =
-        match stmts with
+        match list with
         | [] -> []
-        | hd::tl -> printfn "%s = %d" (fst hd) (snd hd)
+        | hd::tl -> 
+            printfn "%s = %d" (fst hd) (snd hd)
+            printstmts tl
+
     
     printfn "Interpretation ended normally with"
     printstmts (interp [] stmtList)

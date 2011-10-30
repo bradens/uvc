@@ -37,12 +37,15 @@ let part2 =
     let s11 = Convert "x = Num * 10 ;"
     let s12 = Convert "var a, x;"
     let s13 = Convert "foo = x*666;"
-
-    let code = ReadProgram()
-    //Part2.Interpret code
-
     printfn "%A\n%A\n%A\n" (Part2.SingleStep vals s11) (Part2.SingleStep vals s12) (Part2.SingleStep vals s13)
 
+
+    printfn "Reading from input.."
+    let code = ReadProgram()
+    printfn "Interpreting..."
+    Part2.Interpret code |> ignore
+
+    
 let main =
     part2 |> ignore
     Console.ReadKey()
