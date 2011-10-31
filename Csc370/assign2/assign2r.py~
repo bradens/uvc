@@ -6,15 +6,15 @@ conn = psycopg2.connect("dbname=postgres user=postgres password=something")
 
 cur = conn.cursor()
 
-print "Running question 2. J)...."
+print "Running question 2. r)...."
 
-cur.execute("select * from discoverychannel_j()")
+cur.execute("select * from br_r()")
 
 subprocess.call("clear")
 
-print "Directors\n--------------------------------------------------------"
+print "title    |   count\n--------------------------------------------------------"
 for record in cur:
-    print record[0]
+    print record[0] + " | " + str(record[1])
 
 cur.close()
 conn.close()

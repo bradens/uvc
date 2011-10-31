@@ -1,7 +1,7 @@
 
 CREATE TYPE jtype as (P_ID varchar(200));
 
-CREATE OR REPLACE FUNCTION discoverychannel_j() RETURNS setof jtype 
+CREATE OR REPLACE FUNCTION br_j() RETURNS setof jtype 
 AS '
 DECLARE 
     r jtype%rowtype;
@@ -18,7 +18,7 @@ LANGUAGE plpgsql;
 
 CREATE TYPE rtype as (ProductionTitle varchar(250), LinkCount bigint);
 
-CREATE OR REPLACE FUNCTION discoverychannel_r() RETURNS setof rtype 
+CREATE OR REPLACE FUNCTION br_r() RETURNS setof rtype 
 AS '
 DECLARE
     r rtype%rowtype;

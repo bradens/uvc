@@ -8,7 +8,7 @@ cur = conn.cursor()
 
 print "Running question 2. J)...."
 
-cur.execute("select * from discoverychannel_j()")
+cur.execute("select * from br_j()")
 
 subprocess.call("clear")
 
