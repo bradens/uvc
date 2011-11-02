@@ -1,20 +1,16 @@
 #!/usr/bin/python2.7
-import psycopg2
+import _pg
 import subprocess
 
-conn = psycopg2.connect("dbname=postgres user=postgres password=something")
-
-cur = conn.cursor()
+conn = _pg.connect("imdb", "w.cs.uvic.ca", 5432, None, None, "csc370", "ecs108")
+#conn = _pg.connect("postgres", "localhost", 5432, None, None, "postgres", "something")
 
 print "Running question 2. r)...."
 
-cur.execute("select * from br_r()")
+x = conn.query("select * from discoverychannel_r()")
 
 subprocess.call("clear")
 
-print "title    |   count\n--------------------------------------------------------"
-for record in cur:
-    print record[0] + " | " + str(record[1])
+print x 
 
-cur.close()
 conn.close()

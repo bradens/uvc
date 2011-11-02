@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Csc370 Assignment 2</title>
+    <link rel='stylesheet' type='text/css' href='style.css'/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script>
+        var do2r = function()
+        {
+            $.ajax({
+               type: "GET",
+               url: "assign2r",
+               success: _continue2r
+            });
+            console.log("doing 2r");
+        }
+        var do2j = function()
+        {
+            $.ajax({
+               type: "GET",
+               url: "assign2j",
+               success: _continue2j
+            });
+            console.log("doing 2j");
+        }
+        var _continue2r = function(data)
+        {
+            console.log(data);
+        }
+        var _continue2j = function(data)
+        {
+            for (var i = 0;i < data.length;i++)
+                console.log(data[i]);
+            console.log(data);
+        }
+    </script>
+</head>
+<body>
+<div id="mainContainer">
+    <div class="buttonBar">
+        <button onclick="do2j();">Question 2. j</button>
+        <button onclick="do2r();">Question 2. r</button>
+    </div>
+    <div class="resultContainer">
+        <table id="resultTable">
+        </table>
+    </div>
+</div>
+</body>
+</html>
