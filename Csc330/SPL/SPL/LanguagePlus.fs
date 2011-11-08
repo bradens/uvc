@@ -4,11 +4,6 @@ module Language
 
 
 
-// System.Char and System.String provide some functions used in the scanner functions.
-// See
-// http://msdn.microsoft.com/en-us/library/system.text.regularexpressions.regex%28VS.100%29.aspx
-// for documentation on regular expressions in .NET
-
 open System
 open System.IO
 open System.Text.RegularExpressions
@@ -384,6 +379,7 @@ and
                         let (args,rest1) = ParseArgs r
                         (FuncCall(name,args), rest1)
         | Identifier(name) :: r -> ( IdentifierExp(name), r )
+        | InputKeyword :: r -> ( InputExp, r )
         | LeftParen :: r ->
                         let (tree,rest) = ParseExp r
                         let first = List.head rest

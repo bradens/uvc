@@ -1,9 +1,10 @@
 ﻿//
 // Braden Simpson V00685500
-// FSR, CSC330 Assignment 2.
-// Part2
+// SPL, CSC330 Assignment 3.
+// Ex1
 //
-module SDL
+module Ex1
+open System
 open Language
 // 
 // Part 2
@@ -68,6 +69,10 @@ let Eval vals exp =
             else
                 None
         | IntConstExp(n) -> Some(n) 
+        | InputExp -> 
+            printfn "Enter a number: "
+            let x = Console.ReadLine()
+            Some(int32 x) 
         | IdentifierExp(name) -> 
             if (LookUp vals name).IsSome then 
                 Some(snd (LookUp vals name).Value)
@@ -102,8 +107,13 @@ let SingleStep values s =
                     match varlist with
                     | [] -> values
                     | hd::tl -> addVars values varlist
-                   
-
+    | Output(exp) -> 
+        let x = (Eval values exp)
+        if (x.IsSome) then
+            printfn "%A" x.Value
+        else
+            printfn "Err: Output is None."
+        values
 // 
 // Part 2
 // Interpret

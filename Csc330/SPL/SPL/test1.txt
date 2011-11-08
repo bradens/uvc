@@ -1,0 +1,16 @@
+var z;
+z = input;
+output z;
+
+function Add( x , y ) return x + y ;
+
+var i, sum ;
+i = 10;
+sum = 0;
+while i do {
+   sum = Add(sum, 1);
+   i = i - 1;
+}
+output = sum ;
+
+

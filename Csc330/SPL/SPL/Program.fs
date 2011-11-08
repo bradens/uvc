@@ -1,11 +1,12 @@
 ﻿// Learn more about F# at http://fsharp.net
 
 open System
-open SDL
+open Ex4
 open Language
 
 
 let main = 
-    Run "test1.txt" |> ignore
+    Run "t1.txt" |> ignore
+    Console.ReadKey()
     printfn "Running Main"
     
