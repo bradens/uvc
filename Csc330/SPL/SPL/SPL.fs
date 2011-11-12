@@ -6,6 +6,8 @@ module SPL
 open System
 open Language
 
+exception InterpreterException
+
 //
 // Finds a variable in the bottommost scope, optional findDuplicates param
 // to return if the scope has more than 1 var of same name.
@@ -26,16 +28,25 @@ let rec findInScope vals id findDuplicates =
             findInScope(List.tail vals) id findDuplicates
 and
     LookUp vals id =
-    match vals with
-    | [] -> 
-        None
-    | ("***", 0)::tl -> 
-        LookUp tl id
-    | hd::tl ->
-        if (fst (List.head vals) = id) then
-                Some (List.head vals)
+        match vals with
+        | [] -> 
+            None
+        | ("***", 0)::tl -> 
+            LookUp tl id
+        | hd::tl ->
+            if (fst (List.head vals) = id) then
+                    Some (List.head vals)
+                else
+                    LookUp(List.tail vals) id
+
+let rec LookUpFun fns id =
+    match fns with 
+    | [] -> None
+    | hd::tl -> 
+            if ((fst hd) = id) then
+                Some(hd)
             else
-                LookUp(List.tail vals) id
+                LookUpFun tl id 
 
 //
 // Part 2 
@@ -48,57 +59,6 @@ let rec Update vals id value =
                     [(id, value)] @ (List.tail vals)
                 else
                     [(List.head vals)] @ Update vals.Tail id value
-
-// 
-// Part 2
-// Eval
-// Evaluates a expression tree by parsing the two sides recursively and 
-// then calculating the integer value.
-// @returns Option type.
-//
-let Eval vals exp = 
-    let rec EvalTree expTree =
-        let EvalUT tok left =
-            match tok with
-            | SubOp -> Option.get left * -1
-            | _ -> 0
-
-        let EvalBT tok left right =
-            match tok with
-            | AddOp -> Option.get left + Option.get right
-            | SubOp -> Option.get left - Option.get right
-            | MulOp -> Option.get left * Option.get right
-            | DivOp -> Option.get left / Option.get right
-            | _ -> 0
-
-        match expTree with 
-        | BinaryOpExp(t,left,right) ->
-            let leftEval = EvalTree(left)
-            let rightEval = EvalTree(right)
-            if (leftEval <> None && rightEval <> None) then
-                Some(EvalBT t leftEval rightEval)
-            else
-                None
-        | UnaryOpExp(t,opnd) -> 
-            let evalExp = EvalTree(opnd)
-            if (evalExp <> None) then
-                Some(EvalUT t evalExp)
-            else
-                None
-        | IntConstExp(n) -> Some(n) 
-        | InputExp -> 
-            printfn "Enter a number: "
-            let x = Console.ReadLine()
-            Some(int32 x) 
-        | IdentifierExp(name) -> 
-            if (LookUp vals name).IsSome then 
-                Some(snd (LookUp vals name).Value)
-            else 
-                printfn "Error: identifier %s is unbound" name
-                None
-        | FuncCall(name, args) ->
-            None
-    EvalTree exp
 
 let Add values a integer = 
     (a, integer)::values 
@@ -123,12 +83,102 @@ and
 let addScopeMarkers list fns = 
     (("***", 0)::list, ("***", Function("***", ["***"], Declaration(["***"])))::fns)
 
-//
-// Part 2 
-// SingleStep
-//
-let rec doLoop fns vals expr stmt1 =
-    let cond = (Eval vals expr)
+let rec constructArgumentsList stmt argsExprs vals fns =
+    match stmt with 
+    | Function(name, parms, body) -> 
+        let argsNames = parms
+        let args = []
+        if ((List.length argsNames) <> (List.length argsExprs)) then
+            raise InterpreterException
+            []
+        else
+            let args = List.collect (fun x ->
+                            [(x, Option.get (Eval vals (argsExprs.Item (List.findIndex (fun p -> p = x) argsNames)) fns))]) argsNames
+            args
+and
+    Eval vals expTree fns =
+    let EvalUT tok left =
+        match tok with
+        | SubOp -> Option.get left * -1
+        | _ -> 0
+
+    let EvalBT tok left right =
+        match tok with
+        | AddOp -> Option.get left + Option.get right
+        | SubOp -> Option.get left - Option.get right
+        | MulOp -> Option.get left * Option.get right
+        | DivOp -> Option.get left / Option.get right
+        | _ -> 0
+
+    match expTree with 
+    | BinaryOpExp(t,left,right) ->
+        let leftEval = Eval vals left fns
+        let rightEval = Eval vals right fns
+        if (leftEval <> None && rightEval <> None) then
+            Some(EvalBT t leftEval rightEval)
+        else
+            None
+    | UnaryOpExp(t,opnd) -> 
+        let evalExp = Eval vals opnd fns
+        if (evalExp <> None) then
+            Some(EvalUT t evalExp)
+        else
+            None
+    | IntConstExp(n) -> Some(n) 
+    | InputExp -> 
+        printfn "Enter a number: "
+        let x = Console.ReadLine()
+        Some(int32 x) 
+    | IdentifierExp(name) -> 
+        if (LookUp vals name).IsSome then 
+            Some(snd (LookUp vals name).Value)
+        else 
+            printfn "Error: identifier %s is unbound" name
+            None
+    | FuncCall(name, args) ->
+        let newLists = addScopeMarkers vals fns
+        let vals = fst newLists
+        let funStmt = (snd (LookUpFun fns name).Value)
+        match funStmt with 
+        | Function(name, parms, body) -> 
+                        let argsList = constructArgumentsList funStmt args vals fns
+                        let rec isDupe vals1 toAdd =
+                            match vals1 with
+                                | [] -> false
+                                | hd::tl ->
+                                        if ((fst hd) = "***") then
+                                            false
+                                        else if ((fst hd) = (fst toAdd)) then
+                                            true
+                                        else
+                                            isDupe tl toAdd 
+                        let rec addArguments argslist vals2 =
+                            match argslist with 
+                                | [] -> vals2
+                                | hd::tl -> 
+                                        if ((isDupe vals2 hd)) then
+                                            printfn "Error, two args with same name"
+                                            raise InterpreterException
+                                            []
+                                        else
+                                            let vals2 = Add vals2 (fst hd) (snd hd)
+                                            addArguments tl vals2
+                        let vals = addArguments argsList vals
+                        let scopeMarked = addScopeMarkers vals fns
+                        let vals = (fst scopeMarked)
+                        let fns = (snd scopeMarked)
+                        let vals = Add vals "rv" 0
+                        let l = SingleStep vals fns body
+                        let vals = (fst l)
+                        let fns = (snd l)
+                        let returnValue = LookUp vals "rv"
+                        let vals = removeScopeMarker vals
+                        let fns = removeScopeMarkerFun fns 
+                        Some(snd (returnValue).Value)
+        
+and
+    doLoop fns vals expr stmt1 =
+    let cond = (Eval vals expr fns)
     if (cond.IsNone) then
         printfn "Error: Failed to compute while condition."
         (vals, fns)
@@ -139,19 +189,19 @@ let rec doLoop fns vals expr stmt1 =
         else
             (vals, fns)
 and
+    interp l fns stmts = 
+        match stmts with
+            | [] -> l
+            | hd::tl ->
+                let vals = (SingleStep l fns hd)
+                interp (fst vals) (snd vals) tl
+and
     SingleStep values fns s = 
     let rec addVars vals vars = 
         match vars with 
         | [] -> values
         | [v] -> Add vals v 0
         | hd::tl -> addVars (Add vals hd 0) tl
-
-    let rec interp l fns stmts = 
-            match stmts with
-                | [] -> l
-                | hd::tl ->
-                    let vals = (SingleStep l fns hd)
-                    interp (fst vals) (snd vals) tl
 
     match s with 
     | Assignment(lhs, rhs) -> 
@@ -169,7 +219,7 @@ and
                     else
                         let id = LookUp values lhs
                         if (Option.isSome id) then
-                            (Update values (lhs) (Eval values rhs).Value, fns)
+                            (Update values (lhs) (Eval values rhs fns).Value, fns)
                         else 
                             printfn "Error: name %s is undeclared" lhs
                             (values, fns)  
@@ -178,14 +228,14 @@ and
                     | [] -> (values, fns)
                     | hd::tl -> (addVars values varlist, fns)
     | Output(exp) -> 
-        let x = (Eval values exp)
+        let x = (Eval values exp fns)
         if (x.IsSome) then
             printfn "%A" x.Value
         else
             printfn "Err: Output is None."
         (values, fns)
     | If(exp, stmt1, stmt2) -> 
-        let cond = (Eval values exp)
+        let cond = (Eval values exp fns)
         if (cond.IsNone) then
             printfn "Error: Failed to compute if statement."
             (values, fns)
@@ -195,7 +245,7 @@ and
             else
                 SingleStep values fns stmt2
     | While(exp, stmt) ->
-        let cond = (Eval values exp)
+        let cond = (Eval values exp fns)
         if (cond.IsNone) then
             printfn "Error: Failed to compute while condition."
             (values, fns)
@@ -210,21 +260,19 @@ and
         let fList = removeScopeMarkerFun fList
         (vList, fList)
     | Function(name, parms, body) ->
-        let fns = (name, s)::fns
-        (values, fns)
+            let fns = (name, s)::fns
+            (values, fns)
+    | Return(Exp) ->
+            let ev = (Eval values Exp fns)
+            let values = Update values "rv" ev.Value
+            (values, fns) 
+            
         
 // 
 // Part 2
 // Interpret
 //
 let Interpret stmtList =
-    let rec interp l fns stmts = 
-        match stmts with
-        | [] -> l
-        | hd::tl -> 
-            let vals = (SingleStep l fns hd)
-            interp (fst vals) (snd vals) tl
-
     let rec printstmts list =
         match list with
         | [] -> []
@@ -239,3 +287,11 @@ let Interpret stmtList =
 let Run file = 
     let code = ReadProgram file
     Interpret code
+
+
+// test1.txt answer
+//10
+//sum = 10
+//i = 0
+
+// test2.txt answer
