@@ -1,0 +1,21 @@
+var a, x;
+x = input * 1;
+
+if (x) then {
+	var a;
+	a = 20;
+	var a;
+	output = a * 10;
+	output = x * 100;
+}
+else { 
+	var a; a = 1;
+	{
+		a = a + 1;
+		output = a;
+		var a;
+		a = 10;
+		output = a;
+	}
+}
+

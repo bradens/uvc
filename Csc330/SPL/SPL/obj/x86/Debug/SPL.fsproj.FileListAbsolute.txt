@@ -1,0 +1,6 @@
+C:\Users\braden\UVic-Computer-Science\Csc330\SPL\SPL\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\braden\UVic-Computer-Science\Csc330\SPL\SPL\bin\Debug\SPL.XML
+C:\Users\braden\UVic-Computer-Science\Csc330\SPL\SPL\bin\Debug\SPL.exe
+C:\Users\braden\UVic-Computer-Science\Csc330\SPL\SPL\bin\Debug\SPL.pdb
+C:\Users\braden\UVic-Computer-Science\Csc330\SPL\SPL\obj\x86\Debug\SPL.exe
+C:\Users\braden\UVic-Computer-Science\Csc330\SPL\SPL\obj\x86\Debug\SPL.pdb

@@ -1,0 +1,20 @@
+function foo( a, b ) {
+    function bar( x ) {
+        output = x;
+        return a + b + x;
+    }
+
+    var x;
+    x = bar(a) + b;
+    return x * b;
+}
+
+var j;
+j = 10;
+while j  do {
+    var k;
+    k = foo(j, 3);
+    j = j / b;
+    output = k;
+}
+return 0;
