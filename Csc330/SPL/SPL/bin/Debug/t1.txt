@@ -1,5 +1,6 @@
 var a, x;
 x = input * 1;
+
 if (x) then {
 	var a;
 	a = 20;
