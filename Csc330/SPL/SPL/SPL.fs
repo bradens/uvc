@@ -308,22 +308,32 @@ and
             (values, fns) 
         
 // 
-// Part 2
-// Interpret
-//
+// Invoke the interpreter on a statement list
+// 
 let Interpret stmtList =
-    let rec printstmts list =
-        match list with
-        | [] -> []
-        | hd::tl -> 
-                printfn "%s = %d" (fst hd) (snd hd)
-                printstmts tl
+    try
+        let rec printstmts list =
+            match list with
+            | [] -> []
+            | hd::tl -> 
+                    printfn "%s = %d" (fst hd) (snd hd)
+                    printstmts tl
 
     
-    printfn "Interpretation ended normally with"
-    printstmts (interp [] [] stmtList)
+        printfn "Interpretation ended normally with"
+        printstmts (interp [] [] stmtList)
+    with
+        interpreterexception ->
+                []
 
+//
+// Runs the interpreter on a given file
+//
 let Run file = 
-    let code = ReadProgram file
-    Interpret code
-
+    try
+        let code = ReadProgram file
+        Interpret code
+    with
+        filenotfoundexception -> 
+                printfn "Error: File %s Not Found." file
+                []
