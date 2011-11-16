@@ -1,0 +1,32 @@
+#!/usr/bin/python2.7
+import subprocess
+import _pg
+
+#conn = _pg.connect("imdb", "w.cs.uvic.ca", 5432, None, None, "csc370", "ecs108")
+conn = _pg.connect("postgres", "localhost", 5432, None, None, "postgres", "something")
+
+print "Adding functions for 2. J"
+
+x = conn.query("CREATE TYPE jtype as (P_ID varchar(200));")
+CREATE OR REPLACE FUNCTION discoverychannel_j() RETURNS setof jtype
+AS '                                                                                   
+DECLARE                                                                                
+    r jtype%rowtype;                                                                   
+BEGIN                                                                                  
+for r in                                                                               
+select pid from (select pid, avg(rank) as asrank from directors natural join (select i\
+d, rank, votes from ratings where votes >=100000) as foo natural join (select id, attr\
+ from productions where attr IS NULL) as bar GROUP BY directors.pid ORDER BY asrank DE\
+SC) as baz                                                                             
+LOOP                                                                                   
+return next r;                                                                         
+end loop;                                                                              
+return;                                                                                
+END;                                                           
+
+print "Running question 2. J)...."
+x = conn.query("select * from discoverychannel_j()")
+subprocess.call("clear")
+print x
+
+conn.close()
