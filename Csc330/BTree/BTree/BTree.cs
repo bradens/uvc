@@ -81,18 +81,65 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
 
     public void Clear()
     {
-        //TODO
+        root = null;
+    }
+
+    /**
+     * Utility function to find a Node by given value.
+     * param cN     : Current Node.
+     * var tN       : Temporary Node.
+     * param x      : Value to find.
+     */
+    private BTreeNode find(BTreeNode cN, T x)
+    {
+        BTreeNode tN = null;
+        if (cN == null)
+            return null;
+        else if (cN.value.CompareTo(x) == 0)
+            return cN;
+        if (cN.leftChild != null)
+            tN = find(cN.leftChild, x);
+        if (tN == null && cN.rightChild != null)
+            tN = find(cN.rightChild, x);
+        return tN;
     }
 
     public bool Contains(T x)
     {
-        //TODO
-        return false;
+        if (this.find(root, x) != null)
+            return true;
+        else
+            return false;
     }
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        //TODO
+        //aI = arrayIndex;
+        array = copyTree(array, ref arrayIndex, root);
+    }
+    // buggy
+    //public static int aI = 0;
+    private T[] copyTree(T[] arr, ref int aI, BTreeNode cN)
+    {
+        if (cN == null)
+            return arr;
+        if (cN.leftChild == null && cN.rightChild == null)
+        {
+            arr[aI] = cN.value;
+            return arr;
+        }
+        if (cN.leftChild != null)
+        {
+            arr = copyTree(arr, ref aI, cN.leftChild);
+            if (!root.Equals(cN)) aI++;
+        }
+        arr[aI] = cN.value;
+        aI++;
+        if (cN.rightChild != null)
+        {
+            arr = copyTree(arr, ref aI, cN.rightChild);
+        }
+        return arr;
     }
 
     public bool Remove(T x)
@@ -102,10 +149,21 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
     }
 
     public int Count {
-        //TODO
         get {
-            return -1;
+            int count = getCount(root);
+            return count;
         }
+    }
+
+    private int getCount(BTreeNode currNode)
+    {
+        if (currNode == null)
+            return 0;
+        else 
+            if (currNode.leftChild == null && currNode.rightChild == null)
+                return 1;
+            else
+                return((getCount(currNode.leftChild) + getCount(currNode.rightChild)) + 1);
     }
 
     public override string ToString()
@@ -131,6 +189,8 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
     //      add ')'
     private StringBuilder constructString(StringBuilder strb, BTreeNode currNode)
     {
+        if (currNode == null)
+            return strb;
         if (currNode.leftChild == null && currNode.rightChild == null)
             return strb.Append(currNode.value);
         if (currNode.leftChild != null)
