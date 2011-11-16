@@ -35,10 +35,13 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
         }
     }
 
-    public BTree() { }
+    public BTree() {
+        root = null;
+    }
 
     public IEnumerator<T> GetEnumerator()
     {
+        //TODO
         yield return root.value;
         yield break;
     }
@@ -50,7 +53,30 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
 
     public void Add(T x)
     {
-        //TODO
+        if (root == null)
+            root = new BTreeNode(null, null, x);
+        else
+            this.insertNode(root, x);
+    }
+
+    private void insertNode(BTreeNode currNode, T x)
+    {
+        if (currNode == null)
+            currNode = new BTreeNode(null, null, x);
+        else if (x.CompareTo(currNode.value) <= 0)
+        {
+            if (currNode.leftChild == null)
+                currNode.leftChild = new BTreeNode(null, null, x);
+            else
+                insertNode(currNode.leftChild, x);
+        }
+        else
+        {
+            if (currNode.rightChild == null)
+                currNode.rightChild = new BTreeNode(null, null, x);
+            else
+                insertNode(currNode.rightChild, x);
+        }
     }
 
     public void Clear()
@@ -80,6 +106,47 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
         get {
             return -1;
         }
+    }
+
+    public override string ToString()
+    {
+        StringBuilder strb = new StringBuilder();
+        strb.Append("(");
+        strb = this.constructString(strb, root);
+        strb.Append(")");
+        return strb.ToString();
+    }
+
+
+    // ** PSUEDOCODE ** 
+    // start with (
+    // if left is null and right is null
+    //      return add val
+    // if left is not null
+    //      add '(' and do left
+    //      add ') '        
+    // add self.value
+    // if right is not null
+    //      add ' (' and do right
+    //      add ')'
+    private StringBuilder constructString(StringBuilder strb, BTreeNode currNode)
+    {
+        if (currNode.leftChild == null && currNode.rightChild == null)
+            return strb.Append(currNode.value);
+        if (currNode.leftChild != null)
+        {
+            strb.Append("(");
+            strb = constructString(strb, currNode.leftChild);
+            strb.Append(") ");
+        }
+        strb.Append(currNode.value);
+        if (currNode.rightChild != null)
+        {
+            strb.Append(" (");
+            strb = constructString(strb, currNode.rightChild);
+            strb.Append(")");
+        }
+        return strb;
     }
 
     public bool IsReadOnly {
