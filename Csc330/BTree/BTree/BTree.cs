@@ -105,6 +105,10 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
         }
     }
 
+    /**
+     * Finds the nearest maximum valued node on the given 
+     * subtree rooted at cN
+     */
     private BTreeNode findNearestMax(BTreeNode cN, T max)
     {
         if (cN.value.CompareTo(max) > 0)
@@ -118,6 +122,9 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
         return cN;
     }
 
+    /**
+     * Returns the greater T value.
+     */
     private T getMaxNode(T v1, T v2)
     {
         if (v1 == null || v2 == null)
@@ -128,6 +135,9 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
             return v2;
     }
 
+    /**
+     * Finds the left most node on given subtree rooted at cN
+     */
     private BTreeNode findLeftMost(BTreeNode cN)
     {
         if (cN.leftChild == null)
