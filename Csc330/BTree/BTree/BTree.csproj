@@ -8,7 +8,7 @@
     <ProjectGuid>{79C53E22-7D52-46AF-9F7F-449605BE591D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BTree</RootNamespace>
+    <RootNamespace>BTreeProject</RootNamespace>
     <AssemblyName>BTree</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>

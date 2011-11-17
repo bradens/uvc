@@ -21,17 +21,19 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
      */
     class BTreeNode
     {
+        public BTreeNode parent;
         public BTreeNode leftChild;
         public BTreeNode rightChild;
         public T value;
 
         public BTreeNode() { }
 
-        public BTreeNode(BTreeNode left, BTreeNode right, T val)
+        public BTreeNode(BTreeNode left, BTreeNode right, BTreeNode p, T val)
         {
             value = val;
             leftChild = left;
             rightChild = right;
+            parent = p;
         }
     }
 
@@ -39,11 +41,104 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
         root = null;
     }
 
+    class BTreeEnumerator : IEnumerator<T>
+    {
+        private BTreeNode cN;
+        private BTree<T> t;
+        private T max;
+        private int i;
+
+        public BTreeEnumerator(BTree<T> tree) { t = tree; }
+
+        public bool MoveNext()
+        {
+            if (i >= t.Count) return false;
+            if (cN == null)
+            {
+                cN = t.findLeftMost(t.root);
+                max = (new BTreeNode().value = cN.value);
+            }
+            else if (cN.rightChild != null)
+            {
+                cN = t.findLeftMost(cN.rightChild);
+                max = t.getMaxNode(max, cN.value);
+            }
+            else if (cN.leftChild != null && cN.rightChild == null)
+            {
+                // find the nearest value that's bigger than our max.
+                cN = t.findNearestMax(cN, max);
+                max = t.getMaxNode(max, cN.value);
+            }
+            else
+            {
+                cN = cN.parent;
+                max = t.getMaxNode(max, cN.value);
+            }
+            i++;
+            return true;
+        }
+
+        public T Current
+        {
+            get
+            {
+                return cN.value;
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return cN.value;
+            }
+        }
+
+        public void Dispose()
+        { }
+
+        public void Reset()
+        {
+            cN = null;
+            i = 0;
+            max = default(T);
+        }
+    }
+
+    private BTreeNode findNearestMax(BTreeNode cN, T max)
+    {
+        if (cN.value.CompareTo(max) > 0)
+            return cN;
+        else if (cN.rightChild != null && cN.rightChild.value.CompareTo(max) > 0)
+            return cN.rightChild;
+        else if (cN.parent != null)
+            return findNearestMax(cN.parent, max);
+        else
+            return null;
+        return cN;
+    }
+
+    private T getMaxNode(T v1, T v2)
+    {
+        if (v1 == null || v2 == null)
+            throw new Exception();
+        if (v1.CompareTo(v2) >= 0)
+            return v1;
+        else
+            return v2;
+    }
+
+    private BTreeNode findLeftMost(BTreeNode cN)
+    {
+        if (cN.leftChild == null)
+            return cN;
+        else
+            return findLeftMost(cN.leftChild);
+    }
+
     public IEnumerator<T> GetEnumerator()
     {
-        //TODO
-        yield return root.value;
-        yield break;
+        return new BTreeEnumerator(this);
     }
   
     IEnumerator IEnumerable.GetEnumerator()
@@ -54,7 +149,7 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
     public void Add(T x)
     {
         if (root == null)
-            root = new BTreeNode(null, null, x);
+            root = new BTreeNode(null, null, null, x);
         else
             this.insertNode(root, x);
     }
@@ -62,18 +157,18 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
     private void insertNode(BTreeNode currNode, T x)
     {
         if (currNode == null)
-            currNode = new BTreeNode(null, null, x);
+            currNode = new BTreeNode(null, null, null, x);
         else if (x.CompareTo(currNode.value) <= 0)
         {
             if (currNode.leftChild == null)
-                currNode.leftChild = new BTreeNode(null, null, x);
+                currNode.leftChild = new BTreeNode(null, null, currNode, x);
             else
                 insertNode(currNode.leftChild, x);
         }
         else
         {
             if (currNode.rightChild == null)
-                currNode.rightChild = new BTreeNode(null, null, x);
+                currNode.rightChild = new BTreeNode(null, null, currNode, x);
             else
                 insertNode(currNode.rightChild, x);
         }
@@ -114,32 +209,30 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        //aI = arrayIndex;
-        array = copyTree(array, ref arrayIndex, root);
+        s = array;
+        copyTree(arrayIndex, root);
     }
-    // buggy
-    //public static int aI = 0;
-    private T[] copyTree(T[] arr, ref int aI, BTreeNode cN)
+
+    private static T[] s;
+    private int copyTree(int aI, BTreeNode cN)
     {
         if (cN == null)
-            return arr;
-        if (cN.leftChild == null && cN.rightChild == null)
+            return 0;
+        else
         {
-            arr[aI] = cN.value;
-            return arr;
+            if (cN.leftChild == null && cN.rightChild == null)
+            {
+                s[aI] = cN.value;
+                return ++aI;
+            }
+            if (cN.leftChild != null)
+                aI = copyTree(aI, cN.leftChild);
+            s[aI] = cN.value;
+            aI++;
+            if (cN.rightChild != null)
+                aI = copyTree(aI, cN.rightChild);
         }
-        if (cN.leftChild != null)
-        {
-            arr = copyTree(arr, ref aI, cN.leftChild);
-            if (!root.Equals(cN)) aI++;
-        }
-        arr[aI] = cN.value;
-        aI++;
-        if (cN.rightChild != null)
-        {
-            arr = copyTree(arr, ref aI, cN.rightChild);
-        }
-        return arr;
+        return aI;
     }
 
     public bool Remove(T x)
@@ -175,18 +268,6 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
         return strb.ToString();
     }
 
-
-    // ** PSUEDOCODE ** 
-    // start with (
-    // if left is null and right is null
-    //      return add val
-    // if left is not null
-    //      add '(' and do left
-    //      add ') '        
-    // add self.value
-    // if right is not null
-    //      add ' (' and do right
-    //      add ')'
     private StringBuilder constructString(StringBuilder strb, BTreeNode currNode)
     {
         if (currNode == null)

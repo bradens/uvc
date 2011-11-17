@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BTree;
 
-namespace BTree
+namespace BTreeProject
 {
     class Program
     {
@@ -27,11 +26,11 @@ namespace BTree
                 tree.Add(i);
                 tree.Add(j);
             }
-            Console.WriteLine(tree.ToString());
-            Console.WriteLine(tree.Count);
-            Console.WriteLine(tree.Contains(7).ToString());
+            //Console.WriteLine(tree.ToString());
+            //Console.WriteLine(tree.Count);
+            //Console.WriteLine(tree.Contains(7).ToString());
             int[] arr = new int[100];
-            tree.CopyTo(arr, 0);
+            tree.CopyTo(arr, 5);
         }
 
         public static void exampleTests()
@@ -45,6 +44,14 @@ namespace BTree
             string[] arr = new string[10];
             T1.CopyTo(arr, 0);
 
+            IEnumerator<string> e = T1.GetEnumerator();
+            while (e.MoveNext())
+                Console.WriteLine(e.Current);
+            e.Reset();
+            while (e.MoveNext())
+                Console.WriteLine(e.Current);
+
+
             Console.WriteLine(T1.ToString());
         }
 
@@ -52,12 +59,17 @@ namespace BTree
         {
             Console.WriteLine("Running Null Tests...");
             BTree<int> intTree = new BTree<int>();
+            int[] a = new int[0];
+            
             if (!(intTree.ToString().Equals(EMPTY_TREE_TOSTRING)))
                 failedTest("FAILED TEST: EMPTY TREE TOSTRING with " + intTree.ToString() + " = " + EMPTY_TREE_TOSTRING);
             if (intTree.Count != 0)
                 failedTest("FAILED TEST: EMPTY TREE COUNT. With 0 == " + intTree.Count);
             if (intTree.Contains(1234))
                 failedTest("FAILED TEST: EMPTY TREE CONTAINS.");
+            intTree.CopyTo(a, 23);
+            if (a.Length != 0)
+                failedTest("FAILED TEST: EMPTY TREE CopyTo.");
             if (testPass)
             {
                 sc("g");
