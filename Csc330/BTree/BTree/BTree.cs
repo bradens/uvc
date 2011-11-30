@@ -13,8 +13,8 @@ using System.Text;
 
 public class BTree<T> : ICollection<T> where T : IComparable<T>
 {
-    BTreeNode root;
-
+    private BTreeNode root;
+    private int nodeCount;
     /**
      * BTreeNode is the generic node class used by the 
      * BTree.
@@ -39,6 +39,7 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
 
     public BTree() {
         root = null;
+        this.nodeCount = 0;
     }
 
     class BTreeEnumerator : IEnumerator<T>
@@ -119,10 +120,9 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
             return findNearestMax(cN.parent, max);
         else
             return null;
-        return cN;
     }
 
-    /**
+    /*
      * Returns the greater T value.
      */
     private T getMaxNode(T v1, T v2)
@@ -135,15 +135,20 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
             return v2;
     }
 
-    /**
-     * Finds the left most node on given subtree rooted at cN
-     */
     private BTreeNode findLeftMost(BTreeNode cN)
     {
         if (cN.leftChild == null)
             return cN;
         else
             return findLeftMost(cN.leftChild);
+    }
+
+    private BTreeNode findRightMost(BTreeNode cN)
+    {
+        if (cN.rightChild == null)
+            return cN;
+        else
+            return findRightMost(cN.rightChild);
     }
 
     public IEnumerator<T> GetEnumerator()
@@ -158,6 +163,7 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
 
     public void Add(T x)
     {
+        this.nodeCount += 1;
         if (root == null)
             root = new BTreeNode(null, null, null, x);
         else
@@ -187,14 +193,9 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
     public void Clear()
     {
         root = null;
+        this.nodeCount = 0;
     }
 
-    /**
-     * Utility function to find a Node by given value.
-     * param cN     : Current Node.
-     * var tN       : Temporary Node.
-     * param x      : Value to find.
-     */
     private BTreeNode find(BTreeNode cN, T x)
     {
         BTreeNode tN = null;
@@ -219,42 +220,158 @@ public class BTree<T> : ICollection<T> where T : IComparable<T>
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        s = array;
-        copyTree(arrayIndex, root);
-    }
-
-    private static T[] s;
-    private int copyTree(int aI, BTreeNode cN)
-    {
-        if (cN == null)
-            return 0;
-        else
+        foreach (T x in this)
         {
-            if (cN.leftChild == null && cN.rightChild == null)
-            {
-                s[aI] = cN.value;
-                return ++aI;
-            }
-            if (cN.leftChild != null)
-                aI = copyTree(aI, cN.leftChild);
-            s[aI] = cN.value;
-            aI++;
-            if (cN.rightChild != null)
-                aI = copyTree(aI, cN.rightChild);
+            array[arrayIndex] = x;
+            arrayIndex++;
         }
-        return aI;
     }
 
     public bool Remove(T x)
     {
-        //TODO
+        if (this.removeRec(x, root))
+        {
+            this.nodeCount--;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private bool removeRec(T x, BTreeNode cN)
+    {
+        if (cN == null)
+            return false;
+        if(x.CompareTo(cN.value) < 0)
+            return removeRec(x, cN.leftChild);
+        else if (x.CompareTo(cN.value) > 0)
+            return removeRec(x, cN.rightChild);
+        else
+        {
+            if (cN.leftChild != null && cN.rightChild != null)
+            {
+                Random s = new Random();
+                int balancer = s.Next(2);
+                BTreeNode child;
+
+                if (balancer > 0)
+                    child = findRightMost(cN.leftChild);
+                else
+                    child = findRightMost(cN.rightChild);
+
+                // Store temp value
+                T tmp = child.value;
+
+                // remove the child.
+                removeRec(child.value, root);
+
+                // swap childs value into cN
+                cN.value = tmp;
+            }
+            else if (cN.leftChild != null && cN.rightChild == null)
+                this.deleteChild(cN, cN.leftChild);
+            else if (cN.leftChild == null && cN.rightChild != null)
+                this.deleteChild(cN, cN.rightChild);
+            else
+                this.deleteChild(cN, null);
+            return true;
+        }
+    }
+
+    private bool deleteChild(BTreeNode child, BTreeNode newNode)
+    {
+        if (child.parent != null)
+        {
+            if (child.parent.leftChild != null && child.parent.leftChild.Equals(child))
+                child.parent.leftChild = newNode;
+            else if (child.parent.rightChild != null && child.parent.rightChild.Equals(child))
+                child.parent.rightChild = newNode;
+            return true;
+        }
+        else if (this.root.Equals(child))
+        {
+            root = newNode;
+            return true;
+        }
         return false;
+    }
+
+    public BTree<T> Clone()
+    {
+        BTree<T> newTree = new BTree<T>();
+        if (this.root == null)
+            return newTree;
+        // add the root first
+        newTree.Add(this.root.value);
+        newTree = this.recClone(newTree, this.root, this.findRightMost(root));
+        return newTree;
+    }
+
+    // recursively add nodes to the clone.  Add the two children, then call on left child.
+    // then on right child.  Always produces exact clone of the given tree.
+    private BTree<T> recClone(BTree<T> currTree, BTreeNode cN, BTreeNode rN)
+    {
+        if (cN == null || cN.Equals(rN))
+            return currTree;
+        if (cN.leftChild != null)
+            currTree.Add(cN.leftChild.value);
+        if (cN.rightChild != null)
+            currTree.Add(cN.rightChild.value);
+        currTree = recClone(currTree, cN.leftChild, rN);
+        currTree = recClone(currTree, cN.rightChild, rN);
+        return currTree;
+    }
+
+    public static BTree<T> operator +(BTree<T> T1, BTree<T> T2)
+    {
+        BTree<T> newTree = new BTree<T>();
+        if (T1.root == null)
+            return T2;
+        if (T2.root == null)
+            return T1;
+        if (T1.root.value.CompareTo(T2.root.value) < 0)
+        {
+            newTree.Add(T1.root.value);
+            newTree.Add(T2.root.value);
+        }
+        else
+        {
+            newTree.Add(T2.root.value);
+            newTree.Add(T1.root.value);
+        }
+        newTree = recAddTrees(newTree, T1.root, T2.root);
+        return newTree;
+    }
+
+    /// <summary>
+    /// Recursively adds two BTrees together by adding both the children of each
+    /// node before recursing on the left child, then right child in parallel for both
+    /// trees.
+    /// </summary>
+    /// <param name="newTree">current Tree to return.</param>
+    /// <param name="cN1">current node for Tree1</param>
+    /// <param name="cN2">currrent node for Tree2</param>
+    /// <returns>A new BTree </returns>
+    private static BTree<T> recAddTrees(BTree<T> newTree, BTreeNode cN1, BTreeNode cN2)
+    {
+        if (cN1 == null && cN2 == null)
+            return newTree;
+        if (cN1 != null && cN1.leftChild != null)
+            newTree.Add(cN1.leftChild.value);
+        if (cN2 != null && cN2.leftChild != null)
+            newTree.Add(cN2.leftChild.value);
+        if (cN1 != null && cN1.rightChild != null)
+            newTree.Add(cN1.rightChild.value);
+        if (cN2 != null && cN2.rightChild != null)
+            newTree.Add(cN2.rightChild.value);
+        newTree = recAddTrees(newTree, cN1 != null ? cN1.leftChild : null, cN2 != null ? cN2.leftChild : null);
+        newTree = recAddTrees(newTree, cN1 != null ? cN1.rightChild : null, cN2 != null ? cN2.rightChild : null);
+        return newTree;
     }
 
     public int Count {
         get {
-            int count = getCount(root);
-            return count;
+            return this.nodeCount;
         }
     }
 
