@@ -1,0 +1,5 @@
+C:\Users\braden\UVic-Computer-Science\Csc330\BTree\BTree\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\braden\UVic-Computer-Science\Csc330\BTree\BTree\bin\Debug\BTree.exe
+C:\Users\braden\UVic-Computer-Science\Csc330\BTree\BTree\bin\Debug\BTree.pdb
+C:\Users\braden\UVic-Computer-Science\Csc330\BTree\BTree\obj\x86\Debug\BTree.exe
+C:\Users\braden\UVic-Computer-Science\Csc330\BTree\BTree\obj\x86\Debug\BTree.pdb
