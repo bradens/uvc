@@ -1,0 +1,54 @@
+8.6.2
+a)
+	Since the selectPC() function is not writing any information, there is no atomicity issues
+b)
+	If the system were to crash after deleting the tuple from PC, and before Product, then there would be an inconsistency in the data between PC and Product.
+
+c)
+	In decreasePC() there are no atomicity issues since crashing after selecting would not matter, and crashing after the update would be fine because the transaction would have completed.
+
+d)
+	If the system were to crasha fter inserting values into the Product table, but before inserting
+	into the PC table, then there would be some inconsistent data between PC and Product.
+
+8.6.3
+a)
+	selectPC() would be printing tuples that are being inserted, updated and deleted in the middle
+	of other transactions.  It would be showing dirty data and possibly unreliable
+	results.  It would run in parallel, and therefore a lot more quickly.
+
+b)
+	deletePC() could potentially delete a tuple in the middle of another transaction using that tuple.
+	This could cause a major problem with inconsistent data.
+c)
+	decreasePC() would have potential issues with inconsistent data in between selecting and updating
+	the PC.  Since there is a chance that another decreasePC() for example could run in between selecting
+	the price of the PC and updating the price, there may be issues with price becoming a corrupt 
+	value.
+d)
+	There are multiple places that addUnique could be compromised when run with READ UNCOMMITTED.
+	One example is if after running the select to check for a existing tuple, another function adds
+	the new tuple.   Another example is if addUnique() receives information that a duplicate is in the table, when 
+	really the deletePC() function is in the middle of deleting that tuple.
+	
+8.6.4
+a) SERIALIZABLE:
+	When T is serializable, T would check every hour and each other function would wait while T
+	checks, if T found a PC with price < 1000, and speed > 1500, then T would print it and exit.
+	Otherwise, T would check again in 1 hour and the other functions would be free to do their work.
+	T would run more slowly, but be much more safe.
+	
+b) REPEATABLE READ:
+	When T is repeatable read, T could potentially have `Phantom` tuples in between reads, which 
+	could allow T to find a newly inserted tuple from addUnique().
+	
+c) READ COMMITTED: 
+	When T is read committed, T would check hourly and would only read values that have been committed,
+	this would be beneificial because then uncommitted (possibly inconsistent) changes would 
+	not be reflected when checking for the PC.  T would run more slowly, but it would be safer.
+	
+d) READ UNCOMMITTED:
+	When T is read uncommitted, T would possibly read inconsistent data and could potentially break
+	if for example, in between T finding a PC with speed > 1500, price < 1000 and T printing it's 
+	information, the deletePC() operation could have run and deleted that tuple.  This could cause 
+	problems for T.  This would be the most performant option, but the least safe.
