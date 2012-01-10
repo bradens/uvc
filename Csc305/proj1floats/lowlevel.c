@@ -129,7 +129,7 @@ color* integerInt(vertex* eP, vertex* sP, int x)
 	res->red = (((sP->v_color.red * x) + (eP->v_color.red * (eP->x-x))) >> 8);
 	res->green = (((sP->v_color.green * x) + (eP->v_color.green * (eP->x-x))) >> 8);
 	res->blue = (((sP->v_color.blue * x) + (eP->v_color.blue * (eP->x-x))) >> 8);
-	printf("(%d, %d, %d)\n", res->red, res->green , res->blue);
+	//printf("(%d, %d, %d)\n", res->red, res->green , res->blue);
 	return res;
 }
 
@@ -145,7 +145,7 @@ color* interpolate(vertex* eP, vertex* sP, int x)
 	result->red = r;
 	result->green = g;
 	result->blue = b;
-	printf("(%d, %d, %d)\n", r, g , b);
+	//printf("(%d, %d, %d)\n", r, g , b);
 	return result;
 }
 
@@ -154,8 +154,7 @@ void drawIRow(vertex* left, vertex* right, int y)
 	int x = left->x;
 	while (x < right->x)
 	{
-//		color* c = interpolate(left, right, x);
-		color* c = integerInt(left, right, x);
+		color* c = interpolate(left, right, x);
 		DRAWPIX(x,y, c->red, c->green, c->blue);
 		x++;
 	}
@@ -187,10 +186,8 @@ void drawLeftTriangle(vertex* b, vertex* t, vertex* m) {
   for (y=b->y; y<m->y; y++) {
 	vertex* result = (vertex*)malloc(sizeof(vertex));
 	vertex* result1 = (vertex*)malloc(sizeof(vertex));
-//	result->v_color = *(interpolate(m, b, lEdge->x));
-//	result1->v_color = *(interpolate(t, b, rEdge->x));
-	result->v_color = *(integerInt(m, b, lEdge->x));
-	result1->v_color = *(integerInt(t, b, rEdge->x));
+	result->v_color = *(interpolate(m, b, lEdge->x));
+	result1->v_color = *(interpolate(t, b, rEdge->x));
 	result->y = y;
 	result1->y = y;
 	result->x = lEdge->x;
@@ -208,10 +205,8 @@ void drawLeftTriangle(vertex* b, vertex* t, vertex* m) {
   for (; y<=t->y;y++) {
 	  vertex* result = (vertex*)malloc(sizeof(vertex));
 	  vertex* result1 = (vertex*)malloc(sizeof(vertex));
-//	  result->v_color = *(interpolate(t, m, lEdge->x));
-//	  result1->v_color = *(interpolate(t, b, rEdge->x));
-	  result->v_color = *(integerInt(t, m, lEdge->x));
-	  result1->v_color = *(integerInt(t, b, rEdge->x));
+	  result->v_color = *(interpolate(t, m, lEdge->x));
+	  result1->v_color = *(interpolate(t, b, rEdge->x));
 	  result->y = y;
 	  result1->y = y;
 	  result->x = lEdge->x;
@@ -241,10 +236,8 @@ void drawRightTriangle(vertex* b, vertex* t, vertex* m) {
   for (y=b->y; y<m->y; y++) {
     vertex* result = (vertex*)malloc(sizeof(vertex));
 	vertex* result1 = (vertex*)malloc(sizeof(vertex));
-//	result->v_color = *(interpolate(t, b, lEdge->x));
-//	result1->v_color = *(interpolate(m, b, rEdge->x));
-	result->v_color = *(integerInt(t, b, lEdge->x));
-	result1->v_color = *(integerInt(m, b, rEdge->x));
+	result->v_color = *(interpolate(t, b, lEdge->x));
+	result1->v_color = *(interpolate(m, b, rEdge->x));
 	result->y = y;
 	result1->y = y;
 	result->x = lEdge->x;
@@ -262,10 +255,8 @@ void drawRightTriangle(vertex* b, vertex* t, vertex* m) {
   for (; y<=t->y;y++) {
 	vertex* result = (vertex*)malloc(sizeof(vertex));
 	vertex* result1 = (vertex*)malloc(sizeof(vertex));
-//	result->v_color = *(interpolate(t, b, lEdge->x));
-//	result1->v_color = *(interpolate(t, m, rEdge->x));
-	result->v_color = *(integerInt(t, b, lEdge->x));
-	result1->v_color = *(integerInt(t, m, rEdge->x));
+	result->v_color = *(interpolate(t, b, lEdge->x));
+	result1->v_color = *(interpolate(t, m, rEdge->x));
 	result->y = y;
 	result1->y = y;
 	result->x = lEdge->x;
