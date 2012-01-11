@@ -123,14 +123,20 @@ void yInc(edge* e) {
   }
 }
 
+color* interpolate(vertex* eP, vertex* sP, int x);
+
 color* integerInt(vertex* eP, vertex* sP, int x)
 {
 	color* res = (color*)malloc(sizeof(color));
-	res->red = (((sP->v_color.red * x) + (eP->v_color.red * (eP->x-x))) >> 8);
-	res->green = (((sP->v_color.green * x) + (eP->v_color.green * (eP->x-x))) >> 8);
-	res->blue = (((sP->v_color.blue * x) + (eP->v_color.blue * (eP->x-x))) >> 8);
+	int max = eP->x;
+	int scale = ((eP->v_color.red - sP->v_color.red))/((eP->x - sP->x) << 8);
+	float as = (((float)eP->v_color.red - (float)sP->v_color.red)/((float)eP->x - (float)sP->x));
+	int r = sP->v_color.red + (float)((x - sP->x) * ((float)eP->v_color.red - (float)sP->v_color.red)/((float)eP->x - (float)sP->x));
+
+	printf("scale %i\nas %f", scale, as);
 	printf("(%d, %d, %d)\n", res->red, res->green , res->blue);
-	return res;
+	color* s = interpolate(eP, sP, x);
+	return s;
 }
 
 color* interpolate(vertex* eP, vertex* sP, int x)
