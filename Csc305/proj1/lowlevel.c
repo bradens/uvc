@@ -123,20 +123,156 @@ void yInc(edge* e) {
   }
 }
 
-color* interpolate(vertex* eP, vertex* sP, int x);
+void swap (int *p1x, int *p1y)
+{
+	int *tmp = p1y;
+	*p1y = *p1x;
+	*p1x = *tmp;
+}
 
-color* integerInt(vertex* eP, vertex* sP, int x)
+/**
+ * Bresenhams line algorithm adopted for linear interpolation.  Uses only integers and
+ * only addition subtraction and bit shifting.
+ * Reference: http://www.codekeep.net/snippets/e39b2d9e-0843-4405-8e31-44e212ca1c45.aspx
+ */
+int lineBresenham(int p1x, int p2x, int searchX, int sPcolor, int ePcolor)
+{
+    int F, x, y;
+
+    int dy            = ePcolor - sPcolor;  // y-increment from p1 to p2
+    int dx            = p2x - p1x;  // x-increment from p1 to p2
+    int dy2           = (dy << 1);  // dy << 1 == 2*dy
+    int dx2           = (dx << 1);
+    int dy2_minus_dx2 = dy2 - dx2;  // precompute constant for speed up
+    int dy2_plus_dx2  = dy2 + dx2;
+
+    if (dy >= 0)    // m >= 0
+    {
+        // Case 1: 0 <= m <= 1 (Original case)
+        if (dy <= dx)
+        {
+            F = dy2 - dx;    // initial F
+
+            x = p1x;
+            y = sPcolor;
+            while (x <= p2x)
+            {
+            	if (x == searchX)
+            		return y;
+                if (F <= 0)
+                {
+                    F += dy2;
+                }
+                else
+                {
+                    y++;
+                    F += dy2_minus_dx2;
+                }
+                x++;
+            }
+        }
+        // Case 2: 1 < m < INF (Mirror about y=x line
+        // replace all dy by dx and dx by dy)
+        else
+        {
+            F = dx2 - dy;    // initial F
+
+            y = sPcolor;
+            x = p1x;
+            while (y <= ePcolor)
+            {
+            	if (x == searchX)
+            		return y;
+            	if (F <= 0)
+                {
+                    F += dx2;
+                }
+                else
+                {
+                    x++;
+                    F -= dy2_minus_dx2;
+                }
+                y++;
+            }
+        }
+    }
+    else    // m < 0
+    {
+        // Case 3: -1 <= m < 0 (Mirror about x-axis, replace all dy by -dy)
+        if (dx >= -dy)
+        {
+            F = -dy2 - dx;    // initial F
+
+            x = p1x;
+            y = sPcolor;
+            while (x <= p2x)
+            {
+            	if (x == searchX)
+            		return y;
+            	if (F <= 0)
+                {
+                    F -= dy2;
+                }
+                else
+                {
+                    y--;
+                    F -= dy2_plus_dx2;
+                }
+                x++;
+            }
+        }
+        // Case 4: -INF < m < -1 (Mirror about x-axis and mirror
+        // about y=x line, replace all dx by -dy and dy by dx)
+        else
+        {
+            F = dx2 + dy;    // initial F
+
+            y = sPcolor;
+            x = p1x;
+            while (y >= ePcolor)
+            {
+            	if (x == searchX)
+					return y;
+                if (F <= 0)
+                {
+                    F += dx2;
+                }
+                else
+                {
+                    x++;
+                    F += dy2_plus_dx2;
+                }
+                y--;
+            }
+        }
+    }
+}
+
+color* integerInt(vertex* sP, vertex* eP, int x, int y)
 {
 	color* res = (color*)malloc(sizeof(color));
-	int max = eP->x;
-	int scale = ((eP->v_color.red - sP->v_color.red))/((eP->x - sP->x) << 8);
-	float as = (((float)eP->v_color.red - (float)sP->v_color.red)/((float)eP->x - (float)sP->x));
-	int r = sP->v_color.red + (float)((x - sP->x) * ((float)eP->v_color.red - (float)sP->v_color.red)/((float)eP->x - (float)sP->x));
-
-	printf("scale %i\nas %f", scale, as);
+	// If the triangle has a rise > run,
+	// then interpolate on Y to get a nicer interpolation
+	if (sP->x > eP->x)
+	{
+		vertex* tmp = eP;
+		eP = sP;
+		sP = tmp;
+	}
+	int spx = sP->x;
+	int epx = eP->x;
+	if ((eP->y - sP->y) > (eP->x - sP->x))
+	{
+		// TODO make it interpolate on y instead of x
+		x = y;
+		spx = sP->y;
+		epx = eP->y;
+	}
+	res->red = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.red, eP->v_color.red);
+	res->green = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.green, eP->v_color.green);
+	res->blue = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.blue, eP->v_color.blue);
 	printf("(%d, %d, %d)\n", res->red, res->green , res->blue);
-	color* s = interpolate(eP, sP, x);
-	return s;
+	return res;
 }
 
 color* interpolate(vertex* eP, vertex* sP, int x)
@@ -160,8 +296,7 @@ void drawIRow(vertex* left, vertex* right, int y)
 	int x = left->x;
 	while (x < right->x)
 	{
-//		color* c = interpolate(left, right, x);
-		color* c = integerInt(left, right, x);
+		color* c = integerInt(left, right, x, y);
 		DRAWPIX(x,y, c->red, c->green, c->blue);
 		x++;
 	}
@@ -195,8 +330,8 @@ void drawLeftTriangle(vertex* b, vertex* t, vertex* m) {
 	vertex* result1 = (vertex*)malloc(sizeof(vertex));
 //	result->v_color = *(interpolate(m, b, lEdge->x));
 //	result1->v_color = *(interpolate(t, b, rEdge->x));
-	result->v_color = *(integerInt(m, b, lEdge->x));
-	result1->v_color = *(integerInt(t, b, rEdge->x));
+	result->v_color = *(integerInt(m, b, lEdge->x, y));
+	result1->v_color = *(integerInt(t, b, rEdge->x, y));
 	result->y = y;
 	result1->y = y;
 	result->x = lEdge->x;
@@ -216,8 +351,8 @@ void drawLeftTriangle(vertex* b, vertex* t, vertex* m) {
 	  vertex* result1 = (vertex*)malloc(sizeof(vertex));
 //	  result->v_color = *(interpolate(t, m, lEdge->x));
 //	  result1->v_color = *(interpolate(t, b, rEdge->x));
-	  result->v_color = *(integerInt(t, m, lEdge->x));
-	  result1->v_color = *(integerInt(t, b, rEdge->x));
+	  result->v_color = *(integerInt(t, m, lEdge->x, y));
+	  result1->v_color = *(integerInt(t, b, rEdge->x, y));
 	  result->y = y;
 	  result1->y = y;
 	  result->x = lEdge->x;
@@ -249,8 +384,8 @@ void drawRightTriangle(vertex* b, vertex* t, vertex* m) {
 	vertex* result1 = (vertex*)malloc(sizeof(vertex));
 //	result->v_color = *(interpolate(t, b, lEdge->x));
 //	result1->v_color = *(interpolate(m, b, rEdge->x));
-	result->v_color = *(integerInt(t, b, lEdge->x));
-	result1->v_color = *(integerInt(m, b, rEdge->x));
+	result->v_color = *(integerInt(t, b, lEdge->x, y));
+	result1->v_color = *(integerInt(m, b, rEdge->x, y));
 	result->y = y;
 	result1->y = y;
 	result->x = lEdge->x;
@@ -270,8 +405,8 @@ void drawRightTriangle(vertex* b, vertex* t, vertex* m) {
 	vertex* result1 = (vertex*)malloc(sizeof(vertex));
 //	result->v_color = *(interpolate(t, b, lEdge->x));
 //	result1->v_color = *(interpolate(t, m, rEdge->x));
-	result->v_color = *(integerInt(t, b, lEdge->x));
-	result1->v_color = *(integerInt(t, m, rEdge->x));
+	result->v_color = *(integerInt(t, b, lEdge->x, y));
+	result1->v_color = *(integerInt(t, m, rEdge->x, y));
 	result->y = y;
 	result1->y = y;
 	result->x = lEdge->x;

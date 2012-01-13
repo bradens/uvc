@@ -4,8 +4,8 @@
 char inputFile[128];
 int USE_INPUT_FILE =0;
 
-int W=800;  /* width of window */
-int H=600;  /* height of window */
+int W=500;  /* width of window */
+int H=400;  /* height of window */
 
 /* local function declarations */
 void display(void);
