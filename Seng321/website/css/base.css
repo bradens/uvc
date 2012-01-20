@@ -49,8 +49,9 @@ aside, nav, article, figure {
 body { 
 	height:100%;
 	width:100%;
-    background: -webkit-gradient(radial, 200 200, 0, 200 200, 450, from(#AAA), to(rgb(75,75,85)));
+    background: -webkit-gradient(radial, 200 200, 0, 200 200, 450, from(#AAA), to(rgb(75,75,85))) no-repeat;
     background: -moz-radial-gradient(200px 200px, circle, #AAA, rgb(75,75,85) 450px ) no-repeat;
+    background-color: #4B4B55;
     font-family: helvetica;
 	font-weight: lighter;
 	font-size:12px;
@@ -84,7 +85,7 @@ ul.footerList > li:hover {
 	width:80%;
 	margin: 10px 10% 0 10%;
 	box-shadow: 0 0 5px 5px #333;
-	min-height:600px;
+	min-height:400px;
 }
 
 .banner { 
@@ -103,3 +104,24 @@ span.endeavour {
 span.endeavour:hover {
 	text-shadow: 0px -2px 3px #333;
 }
+.documentsList { 
+	list-style-type:none;
+}
+.documentsList > li {
+	-webkit-transition: all .25s;
+	padding: 10px;
+	font-size:20px;	
+	text-shadow: 0 1px 2px #EEE;
+	color: #555;
+}
+.documentsList > li > a {
+	-webkit-transition: all .25s;
+}
+.documentslist > li:hover a {
+	text-shadow: 0 1px 2px #555;
+	color: #EEE;	
+}
+.documentsList > li:hover { 
+	background-color:rgba(0,0,0,.5);
+}
+

@@ -19,7 +19,7 @@ span.siteTitle {
 	-moz-transition: all .25s;
 	color:#222;
 	text-shadow: 0px 2px 3px #555;
-	margin: 150px 0 150px 50px;
+	margin: 125px 0 125px 50px;
 	display: inline-block;
 	font-size: 45px;
 	font-variant: small-caps;
@@ -27,7 +27,7 @@ span.siteTitle {
 
 .mainBox { 
 	width: 600px;
-	height: 650px;
+	height: 500px;
 	margin: 20px 15% 20px 25%;	
 	box-shadow: 0 0 21px 7px #333;
 	border: thin solid #666;
