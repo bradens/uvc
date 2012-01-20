@@ -251,8 +251,6 @@ int lineBresenham(int p1x, int p2x, int searchX, int sPcolor, int ePcolor)
 color* integerInt(vertex* sP, vertex* eP, int x, int y)
 {
 	color* res = (color*)malloc(sizeof(color));
-	// If the triangle has a rise > run,
-	// then interpolate on Y to get a nicer interpolation
 	if (sP->x > eP->x)
 	{
 		vertex* tmp = eP;
@@ -261,17 +259,35 @@ color* integerInt(vertex* sP, vertex* eP, int x, int y)
 	}
 	int spx = sP->x;
 	int epx = eP->x;
-	if ((eP->y - sP->y) > (eP->x - sP->x))
+	int spy = sP->y;
+	int epy = sP->y;
+	
+	int dx = epx - spx;
+	int dy = epy - spy;
+	// If the triangle has a rise > run,
+	// then interpolate on Y to get a nicer interpolation
+	if (dy > dx)
 	{
 		// TODO make it interpolate on y instead of x
-		x = y;
-		spx = sP->y;
-		epx = eP->y;
+		if (sP->y > eP->y)
+		{
+			vertex* tmp = eP;
+			eP = sP;
+			sP = tmp;
+		}
+		int spy = sP->y;
+		int epy = sP->y;
+		res->red = (GLubyte)lineBresenham(spy, epy, y, sP->v_color.red, eP->v_color.red);
+		res->green = (GLubyte)lineBresenham(spy, epy, y, sP->v_color.green, eP->v_color.green);
+		res->blue = (GLubyte)lineBresenham(spy, epy, y, sP->v_color.blue, eP->v_color.blue);
 	}
-	res->red = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.red, eP->v_color.red);
-	res->green = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.green, eP->v_color.green);
-	res->blue = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.blue, eP->v_color.blue);
-	printf("(%d, %d, %d)\n", res->red, res->green , res->blue);
+	else 
+	{
+		res->red = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.red, eP->v_color.red);
+		res->green = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.green, eP->v_color.green);
+		res->blue = (GLubyte)lineBresenham(spx, epx, x, sP->v_color.blue, eP->v_color.blue);
+	}
+	//printf("(%d, %d, %d)\n", res->red, res->green , res->blue);
 	return res;
 }
 

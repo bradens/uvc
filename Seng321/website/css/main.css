@@ -1,0 +1,68 @@
+.banner { 
+    font-size: 65px;
+    padding: 10px;
+}
+span.endeavour { 
+	color: #EEE;
+	text-shadow: 0px 2px 3px #333;
+    font-family: helvetica;
+    font-variant: small-caps;
+    font-weight: lighter;	
+    -webkit-transition: all .15s ease-in;
+ 	-moz-transition: all .15s ease-in;
+}
+span.endeavour:hover {
+	text-shadow: 0px -2px 3px #333;
+}
+span.siteTitle {
+	-webkit-transition:all .25s;
+	-moz-transition: all .25s;
+	color:#222;
+	text-shadow: 0px 2px 3px #555;
+	margin: 150px 0 150px 50px;
+	display: inline-block;
+	font-size: 45px;
+	font-variant: small-caps;
+}
+
+.mainBox { 
+	width: 600px;
+	height: 650px;
+	margin: 20px 15% 20px 25%;	
+	box-shadow: 0 0 21px 7px #333;
+	border: thin solid #666;
+}
+
+.box { 
+	-webkit-transition:background-color .25s;
+	-moz-transition: background-color .25s;
+	height: 50%;
+	width: 100%;
+	cursor:pointer;
+}
+
+.photosBox {
+	background: url("../images/photosImage.png") transparent no-repeat;
+	background-size: 35%;
+	background-position: center right;
+	border-bottom: thin solid rgba(0,0,0,.9);
+	-webkit-user-select: none;
+	-moz-user-select:none;
+}
+
+.catsBox {
+	background: url("../images/catsImage.png") transparent no-repeat;
+	background-size: 35%;
+	background-position: center right;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+}
+
+.box:hover {
+	background-color:rgba(0,0,0,.4);
+}
+
+.box:hover span.siteTitle {
+	color:#EEE;
+	text-shadow: 0 2px 3px #666;
+}

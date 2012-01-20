@@ -1,0 +1,10 @@
+Subjects:
+ - Network
+ - interactive kiosks
+ - computer history
+ - museum locations
+ - desired kiosk interactions
+ - museum visitors
+ - staff involved curating
+ - analysis of experiences
+ - museum displays.

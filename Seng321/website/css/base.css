@@ -1,0 +1,105 @@
+/*====================*/
+/*=== Reset Styles ===*/
+/*====================*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+}
+body {
+	line-height:1;
+	color:black;
+	background:white;
+}
+table {
+	border-collapse:separate;
+	border-spacing:0;
+}
+caption, th, td {
+	text-align:left;
+	font-weight:normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content:"";
+}
+blockquote, q {
+	quotes:"" "";
+}
+/* HTML5 tags */
+header, section, footer,
+aside, nav, article, figure {
+	display: block;
+}
+
+
+body { 
+	height:100%;
+	width:100%;
+    background: -webkit-gradient(radial, 200 200, 0, 200 200, 450, from(#AAA), to(rgb(75,75,85)));
+    background: -moz-radial-gradient(200px 200px, circle, #AAA, rgb(75,75,85) 450px ) no-repeat;
+    font-family: helvetica;
+	font-weight: lighter;
+	font-size:12px;
+}
+a {
+	color:black;
+	text-decoration: none;
+}
+ul.footerList {
+	list-style-type:none; 
+	margin-top:60px;
+ 	white-space:nowrap;
+ 	text-align:center;
+}
+
+ul.footerList li {
+	color:black;
+	font-size:17px;
+	text-shadow: 0 1px 0px #555;
+	display:inline;
+	padding:5px;
+	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
+}
+
+ul.footerList > li:hover {
+    text-shadow: 1px 1px 1px white, 2px 2px 1px white;
+}
+
+.mainColumn {
+	width:80%;
+	margin: 10px 10% 0 10%;
+	box-shadow: 0 0 5px 5px #333;
+	min-height:600px;
+}
+
+.banner { 
+    font-size: 65px;
+    padding: 10px;
+}
+span.endeavour { 
+	color: #EEE;
+	text-shadow: 0px 2px 3px #333;
+    font-family: helvetica;
+    font-variant: small-caps;
+    font-weight: lighter;	
+    -webkit-transition: all .15s ease-in;
+ 	-moz-transition: all .15s ease-in;
+}
+span.endeavour:hover {
+	text-shadow: 0px -2px 3px #333;
+}
