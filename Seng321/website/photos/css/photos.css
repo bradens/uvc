@@ -7,20 +7,30 @@
 
 .mainColumn { 
 	width: 800px;	
+	background-color: rgba(0,0,0,.3);
+	border:thin solid rgba(0,0,0,.6);
 }
 
 .nav {
 	font-size:20px;
 	text-shadow:0 1px 1px #EEE;
+	background-color:rgba(0,0,0,.2);
+	box-shadow: 1px 0 1px 1px #333;
+	border-bottom: thin solid #333;
 }
 .nav > a {
+	color: #EEE;
+	text-shadow: 0 1px 2px #555;
 	margin-right:-6px;
 	padding:10px;
 	display:inline-block;
 	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
 }
 .nav > a:hover {
-	background-color:rgba(200,200,255,.7);
+	background-color:rgba(200,200,255,.8);
+	color:#222;
+	text-shadow: 0 1px 2px #EEE;
 }
 
 .nivoSlider {
@@ -34,11 +44,23 @@ ul {
 
 .sloganWrap {
 	text-align:center;	
+	padding-bottom:10px;	
 }
 
 .slogan { 
 	margin:10px auto 10px auto;
 	font-size: 25px;
-	text-shadow: 0 1px 1px #666;
+	color:#EEE;
+	text-shadow: 0 1px 2px #555;
 	font-variant: small-caps;
+}
+
+.aboutContent {
+	border-top: 0px solid transparent;
+	border-left: 20px solid rgba(255, 0, 0, .5);
+	border-bottom: 20px solid transparent;
+	font-size:16px;
+	padding:10px;
+	text-shadow: 1px 1px 1px black;
+	color:#EEE;
 }

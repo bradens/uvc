@@ -78,12 +78,14 @@ ul.footerList li {
 }
 
 ul.footerList > li:hover {
-    text-shadow: 1px 1px 1px white, 2px 2px 1px white;
+	background-color:rgba(200,200,255,.8);
+	color:#222;
+	text-shadow: 0 1px 2px #EEE;
 }
 
 .mainColumn {
 	width:80%;
-	margin: 10px 10% 0 10%;
+	margin: 10px 10% 0 18%;
 	box-shadow: 0 0 5px 5px #333;
 	min-height:400px;
 }
@@ -109,6 +111,7 @@ span.endeavour:hover {
 }
 .documentsList > li {
 	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
 	padding: 10px;
 	font-size:20px;	
 	text-shadow: 0 1px 2px #EEE;
@@ -116,6 +119,7 @@ span.endeavour:hover {
 }
 .documentsList > li > a {
 	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
 }
 .documentslist > li:hover a {
 	text-shadow: 0 1px 2px #555;
