@@ -1,0 +1,21 @@
+Braden Simpson, V00685500, Assignment 1 -- Linear Interpolation
+Compiling/Running
+    - navigate to bin
+    - type 'make'
+    - ./canvas <input.input>
+Integer Interpolation
+    Description: 
+        How to perform color interpolation in 2d space using only integers and addition.
+    Solution: 
+        Used and adopted Bresenhams line drawing algorithm, because it does not make use of any 
+        division or mutliplication.
+    Methodology:
+        I looked for a version of bresenhams line drawing algorithm and adopted it to use color interpolation.
+    Modified Code:
+        lowlevel.c:132 - 440
+        Makefile
+    Additional remarks:
+        Two interpolation methods.  In order to do Integer interpolation, it calls interpolate.  For floating point interpolation, change the calls to interpolate();
+
+
+
