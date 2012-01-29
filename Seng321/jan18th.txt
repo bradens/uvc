@@ -8,3 +8,8 @@ Subjects:
  - staff involved curating
  - analysis of experiences
  - museum displays.
+ domains:
+ - users
+ - interactions
+ - data
+ - kiosks
