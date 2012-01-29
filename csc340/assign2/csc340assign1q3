@@ -1,0 +1,25 @@
+chop(1 - chop(cos(.01234), 4))
+{??? Input argument "n" is undefined.
+
+Error in ==> <a href="matlab: opentoline('/opt/Matlab/toolbox/control/ctrlobsolete/chop.m',24,0)">chop at 24</a>
+exponent = unit.*((10*ones(nx,mx)).^(floor(log10(X))-n+1));
+} 
+oneminuscos = chop(1 - chop(cos(.01234), 4), 4)
+
+oneminuscos =
+
+     1.000000000000000e-04
+
+twosin = chop(2 * chop(chop(sin(chop(.01234/2)), 4)^2, 4), 4)
+{??? Input argument "n" is undefined.
+
+Error in ==> <a href="matlab: opentoline('/opt/Matlab/toolbox/control/ctrlobsolete/chop.m',24,0)">chop at 24</a>
+exponent = unit.*((10*ones(nx,mx)).^(floor(log10(X))-n+1));
+} 
+twosin = chop(2 * chop(chop(sin(chop(.01234/2, 4)), 4)^2, 4), 4)
+
+twosin =
+
+     7.614000000000000e-05
+
+diary off
