@@ -2,7 +2,6 @@
 	font-size:40px;
 	padding:5px;
 	text-align:center;
-/*	width:80%;*/
 }
 
 .mainColumn { 
@@ -35,11 +34,6 @@
 	text-shadow: 0 1px 2px #EEE;
 }
 
-.nivoSlider {
-    width:800px; /* Change this to your images width */
-    height:400px; /* Change this to your images height */
-}
-
 ul {
 	list-style-type:none;
 }
@@ -51,7 +45,7 @@ ul {
 
 .slogan { 
 	margin:10px auto 10px auto;
-	font-size: 25px;
+	font-size: 30px;
 	color:#EEE;
 	text-shadow: 0 1px 2px #555;
 	font-variant: small-caps;
@@ -65,4 +59,31 @@ ul {
 	padding:10px;
 	text-shadow: 1px 1px 1px black;
 	color:#EEE;
+}
+
+.information {
+    -webkit-border-radius: 3px;
+    -moz-border-radius:3px;
+    padding:10px;
+    margin: 10px 10px 10px 10px;
+    width: 50%;
+    font-size:19px;
+    text-shadow: 0px 1px 2px #222;
+    color:#EEE;
+    border-top: 0px solid transparent;
+	border-left: 20px solid rgba(255, 0, 0, .5);
+	border-bottom: 20px solid transparent;
+    display:inline-block;
+    float:left;
+    height:150px;
+}
+.infopic {
+    float:left;
+    height: 150px;
+    width: 150px;
+    margin:10px 10px 10px 0;
+    background: url("../../images/catinfo.png") no-repeat;
+    display:inline-block;
+    padding:10px;
+    background-position: 20px;
 }
