@@ -1,0 +1,8 @@
+diary csc340assign1q1
+format long
+H = hilb(4)
+b = H * [1 1 1 1]'
+x = inv(H) * b
+H4 = chop(H, 4)
+b4 = (round(H * 10000))/10000
+x4 = inv(H4) * b4

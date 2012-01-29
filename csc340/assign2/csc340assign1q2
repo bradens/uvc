@@ -1,0 +1,42 @@
+a = sqrt(67.88^2 + 1) - 67.88
+
+a =
+
+   0.007365540282976
+
+approx = sp_round(sp_round(sqrt(sp_round(sp_round(x^2, 4) + 1, 4)), 4) - 67.88, 4)
+{??? Undefined function or variable 'x'.
+} 
+approx = sp_round(sp_round(sqrt(sp_round(sp_round((67.88^2), 4) + 1, 4)), 4) - 67.88, 4)
+{??? Undefined function or method 'sp_round' for input arguments of type
+'double'.
+} 
+approx = sp_round(sp_round(sqrt(sp_round(sp_round((67.88^2), 4) + 1, 4)), 4) - 67.88, 4)
+{??? Undefined function or method 'sp_round' for input arguments of type
+'double'.
+} 
+approx = sd_round(sd_round(sqrt(sd_round(sd_round((67.88^2), 4) + 1, 4)), 4) - 67.88, 4)
+
+approx =
+
+   0.010000000000000
+
+relErr = abs((a - approx))/abs(a)
+
+relErr =
+
+   0.357673655402220
+
+sd_round(sd_round(sqrt(sd_round(67.88^2, 4)), 4 - 67.88, 4))
+
+ans =
+
+     0
+
+sd_round(sd_round(sqrt(sd_round(67.88^2, 4)), 4) - 67.88, 4)
+
+ans =
+
+     0
+
+diary off
