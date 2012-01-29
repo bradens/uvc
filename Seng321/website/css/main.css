@@ -28,7 +28,7 @@ span.siteTitle {
 .mainBox { 
 	width: 600px;
 	height: 500px;
-	margin: 20px 15% 20px 25%;	
+	margin: 20px auto 20px auto;	
 	box-shadow: 0 0 21px 7px #333;
 	border: thin solid #666;
 }
