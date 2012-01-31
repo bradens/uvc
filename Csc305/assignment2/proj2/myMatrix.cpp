@@ -1,8 +1,11 @@
 #include "myMatrix.h"
 
+using namespace std;
+
 MyMat4f::MyMat4f()
 {
 	float data[16];
+	this->identity();
 }
 
 MyMat4f::MyMat4f(const MyMat4f &copied)
@@ -34,12 +37,32 @@ MyMat4f::MyMat4f operator*(const MyMat4f &lhm, const MyMat4f &rhm)
 
 void MyMat4f::print()
 {
-	//TODO
+	for (int i = 0;i < 4;i++)
+	{
+		//printf("[ ");
+		//cout << "[ \n";
+		for (int j = 0;j < 4;j++)
+		{
+		//	printf("%f ", this[i, j]);
+			//cout << this[i, j];
+		}
+		//printf("]\n");
+		//cout << " ]\n";
+	}
 }
 
 void MyMat4f::identity()
 {
-	//TODO
+	for (int i = 0;i < 4;i++)
+	{
+		for (int j = 0;j < 4;j++)
+		{
+			if (i == j)
+				this(i, j) = 1;
+			else
+				this(i, j) = 0;
+		}
+	}
 }
 
 void MyMat4f::transpose()
@@ -73,18 +96,53 @@ void MyMat4f::setTranslation(const MyVec4f &v)
 	//TODO
 }
 
-void MyMat4f::setTranslation(const float &a, const float &b)
+void MyMat4f::setTranslation(const float &a, const float &b,
+		const float &c, const float &d)
 {
 	//TODO
 }
 
-float MyMat4f::operator ()(const unsigned char &i, const unsigned char &j)
+float& MyMat4f::operator ()(const unsigned int &i, const unsigned int &j)
 {
-	float ans;
-	return ans;
+	return data[i+j*4];
 }
+
+//float MyMat4f::operator ()(const unsigned int &i, const unsigned int &j)
+//{
+//	return data[i+j*4];
+//}
 
 MyMat4f MyMat4f::operator =(const MyMat4f &other)
 {
-
+	return other;
 }
+
+bool MyMat4f::operator ==(const MyMat4f &other) const
+{
+	return false;
+}
+
+bool MyMat4f::operator !=(const MyMat4f &other) const
+{
+	return false;
+}
+
+MyMat4f MyMat4f::operator*=(const float &k)
+{
+	return this;
+}
+
+//friend MyMat4f MyMat4f::operator*(const MyMat4f &M, const float &K)
+//{
+//	return M;
+//}
+//
+//friend MyMat4f MyMat4f::operator*(const float &K, const MyMat4f &M)
+//{
+//	return M;
+//}
+//
+//friend MyMat4f MyMat4f::operator*(const MyMat4f &lhm, const MyMat4f &rhm)
+//{
+//	return lhm;
+//}

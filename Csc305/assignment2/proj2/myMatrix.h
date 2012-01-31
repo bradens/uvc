@@ -9,6 +9,7 @@
 #define _myMatrix_H
 
 #include "myVector.h"
+#include <iostream>
 
 class MyMat4f {
 
@@ -35,8 +36,8 @@ class MyMat4f {
                 		
   // operator overloading
   
-  float operator() (const unsigned char &i, const unsigned char &j);
-  
+  float operator() (const unsigned int &i, const unsigned int &j);
+
   MyMat4f operator=(const MyMat4f &other);
   
   bool operator==(const MyMat4f &other) const;
