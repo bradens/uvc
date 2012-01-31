@@ -31,26 +31,35 @@ MyMat4f::~MyMat4f()
 
 MyMat4f::MyMat4f operator*(const MyMat4f &M, const float &K)
 {
-	for (int i = 0;i < M.cc;i++)
+	MyMat4f newMat = MyMat4f(M);
+
+	for (int i = 0;i < newMat.cc;i++)
 	{
-		for (int j = 0;j < M.rc;j++)
+		for (int j = 0;j < newMat.rc;j++)
 		{
-			M.data[i + j*M.rc] = M.data[i + j*M.rc] * K;
+			newMat.data[i + j*newMat.rc] = newMat.data[i + j*newMat.rc] * K;
 		}
 	}
-	//TODO
-	return M;
+	return newMat;
 }
 
 MyMat4f::MyMat4f operator*(const float &K, const MyMat4f &M)
 {
-	//TODO
-	return M;
+	MyMat4f newMat = MyMat4f(M);
+
+	for (int i = 0;i < newMat.cc;i++)
+	{
+		for (int j = 0;j < newMat.rc;j++)
+		{
+			newMat.data[i + j*newMat.rc] = newMat.data[i + j*newMat.rc] * K;
+		}
+	}
+	return newMat;
 }
 
 MyMat4f::MyMat4f operator*(const MyMat4f &lhm, const MyMat4f &rhm)
 {
-	//TODO
+	//TODO matrix multiplication
 	return lhm;
 }
 
