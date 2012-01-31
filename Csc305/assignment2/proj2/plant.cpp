@@ -5,6 +5,7 @@
 #include <math.h>
 #include <GL/glut.h>
 #include "drawplant.h"
+#include "myMatrix.h"
 
 /* GLOBAL VARAIBLES */
 /* (storage is actually allocated here) */
@@ -27,6 +28,8 @@ int main (int argc, char** argv) {
     printf("Plant will iterate over %d steps\n", ITER);
   }
 
+  MyMat4f* a = new MyMat4f();
+  a->print();
 
   glutInitWindowSize(W,H);
   glutInitWindowPosition(100,100);

@@ -15,7 +15,8 @@ class MyMat4f {
 
  public:
   float data[16];  //opengl style matrix
-
+  int rc;
+  int cc;
   MyMat4f();
   MyMat4f(const MyMat4f &copied);
   ~MyMat4f();
@@ -36,7 +37,8 @@ class MyMat4f {
                 		
   // operator overloading
   
-  float operator() (const unsigned int &i, const unsigned int &j);
+  float operator() (const unsigned int &i, const unsigned int &j) const;
+  float& operator() (const unsigned int &i, const unsigned int &j);
 
   MyMat4f operator=(const MyMat4f &other);
   

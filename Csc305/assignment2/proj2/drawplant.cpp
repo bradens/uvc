@@ -3,7 +3,7 @@
 #include <GL/glut.h>
 #include "drawplant.h"
 // commented out until you implement it
-// #include "myMatrix.h"
+#include "myMatrix.h"
 #include <stdio.h>
 
 int ITER=0; //number of iterations to go thru 

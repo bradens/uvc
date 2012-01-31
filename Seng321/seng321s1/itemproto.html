@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<style type='text/css'>
+			.item {
+				background: #EEE;
+				background-image: url("fancyfeast.png");
+				background-repeat: no-repeat;
+				background-size: 225px 225px;
+				border-radius: 5px;
+				margin: 20px;
+				padding: 16px 10px 10px;
+				position: relative;
+				width: 200px;
+				height:200px;
+				box-shadow: 0 0 5px rgba(0,0,0,.5);
+			}
+			.item .overlay:hover {
+				visibility:initial;
+			}
+			.item > span {
+				background: #DF0403;
+				color: white;
+				font-size: 17px;
+				font-weight:lighter;
+				font-family:'Helvetica', sans-serif;
+				padding: 0 6px;
+				position: absolute;
+				text-transform: uppercase;
+				top: -9px;
+				left: 10px;
+			}
+			.item > span::after {
+				border-bottom: 9px solid #740100;
+				border-right: 9px solid transparent;
+				content: "";
+				display: block;
+				height: 0;
+				position: absolute;
+				right: -9px;
+				top: 0;
+				width: 0;
+			}
+			.overlay {
+				font-family: 'helvetica', sans-serif;
+				text-shadow:0 2px 1px #222;
+				color:#EEE;
+				visibility:hidden;
+				background-color: rgba(0,0,0,.6);
+				height: 100%;
+				width: 100%;
+				padding: 16px 10px 10px;
+				margin: -16px -10px -10px -10px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='item'>
+			<div class="overlay">
+				<span style="font-weight:bold">Price:</span>
+				<span> 5$</span></br>
+				<span style="font-weight:bold">Price:</span>
+				<span style="font-size:12px; color:#EEE">This is a very nice tasty can of 
+				fancy feast.</span></br>
+				</div>
+			<span>
+				Fancy Feast
+			</span>	
+		</div>
+		</body>
+</html>
