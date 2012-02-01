@@ -10,6 +10,7 @@
 
 #include "myVector.h"
 #include <iostream>
+#include <math.h>
 
 class MyMat4f {
 

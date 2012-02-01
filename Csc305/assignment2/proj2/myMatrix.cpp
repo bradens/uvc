@@ -26,7 +26,7 @@ MyMat4f::MyMat4f(const MyMat4f &copied)
 
 MyMat4f::~MyMat4f()
 {
-	delete[] data;
+
 }
 
 MyMat4f::MyMat4f operator*(const MyMat4f &M, const float &K)
@@ -59,8 +59,21 @@ MyMat4f::MyMat4f operator*(const float &K, const MyMat4f &M)
 
 MyMat4f::MyMat4f operator*(const MyMat4f &lhm, const MyMat4f &rhm)
 {
-	//TODO matrix multiplication
-	return lhm;
+	MyMat4f newMat = MyMat4f();
+	float tmp = 0;
+	for (int i = 0;i < lhm.rc;i++)
+	{
+		tmp = 0;
+		for (int j = 0;j < lhm.cc;j++)
+		{
+			for (int z = 0;z < rhm.rc;z++)
+			{
+				tmp += (rhm.data[j + z*4] * lhm.data[i + z*4]);
+			}
+			newMat.data[i + j*4];
+		}
+	}
+	return newMat;
 }
 
 void MyMat4f::print()
@@ -100,12 +113,15 @@ void MyMat4f::zero()
 
 void MyMat4f::turnLeft(float angle)
 {
-	//TODO
+	this->data[0] = cos(angle);
+	this->data[1] = -sin(angle);
+	this->data[4] = sin(angle);
+	this->data[5] = cos(angle);
 }
 
 void MyMat4f::turnRight(float angle)
 {
-	//TODO
+	this->turnLeft(-angle);
 }
 
 MyVec4f MyMat4f::getTranslation()
@@ -116,13 +132,19 @@ MyVec4f MyMat4f::getTranslation()
 
 void MyMat4f::setTranslation(const MyVec4f &v)
 {
-	//TODO
+	for (int i = 0;i < this->rc;i++)
+	{
+		for (int j = 0;j < (this->cc - 1);j++)
+		{
+			this->data[i + j*rc] *= v.data[j];
+		}
+	}
 }
 
 void MyMat4f::setTranslation(const float &a, const float &b,
 		const float &c, const float &d)
 {
-	//TODO
+	this->setTranslation(MyVec4f(a, b, c, d));
 }
 
 float MyMat4f::operator ()(const unsigned int &i, const unsigned int &j) const
@@ -137,17 +159,24 @@ float& MyMat4f::operator ()(const unsigned int &i, const unsigned int &j)
 
 MyMat4f MyMat4f::operator =(const MyMat4f &other)
 {
-	return other;
+	for (int i = 0;i < this->rc;i++)
+		for (int j = 0;j < this->cc;j++)
+			this->data[i + j*this->rc] = other.data[i + j*other.rc];
+	return this;
 }
 
 bool MyMat4f::operator ==(const MyMat4f &other) const
 {
+	for (int i = 0;i < this->rc;i++)
+		for (int j = 0;j < this->cc;j++)
+			if (this->data[i + j*this->rc] != other.data[i + j*other.rc])
+				return false;
 	return false;
 }
 
 bool MyMat4f::operator !=(const MyMat4f &other) const
 {
-	return false;
+	return !(this == other);
 }
 
 MyMat4f MyMat4f::operator*=(const float &k)

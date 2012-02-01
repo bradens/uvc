@@ -23,4 +23,8 @@ MyVec4f::MyVec4f(const MyVec4f &copied)
 
 }
 
+MyVec4f::~MyVec4f()
+{
+}
+
 // REST IS TODO @braden
