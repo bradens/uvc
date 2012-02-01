@@ -35,7 +35,7 @@ ifeq ($(BOX),mac)
 endif 
 
 ifeq ($(BOX),dell) 
-  LDLIBS =  -L/lusr/X11/lib -lglut -lGLU  -lGL -lXmu -lXext -lX11 -lm -L/lusr/gnu/lib -lstdc++
+  LDLIBS =  -L/lusr/X11/lib -lglut -lGLU  -lGL -lXext -lX11 -lm -L/lusr/gnu/lib -lstdc++
   CFLAGS = -g 
 endif 
 

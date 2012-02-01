@@ -108,7 +108,9 @@ void MyMat4f::transpose()
 
 void MyMat4f::zero()
 {
-	//TODO
+	for (int i = 0;i < this->rc;i++)
+		for (int j = 0;j < this->cc;j++)
+			this->data[i+j*this->rc] = 0;
 }
 
 void MyMat4f::turnLeft(float angle)
@@ -162,7 +164,6 @@ MyMat4f MyMat4f::operator =(const MyMat4f &other)
 	for (int i = 0;i < this->rc;i++)
 		for (int j = 0;j < this->cc;j++)
 			this->data[i + j*this->rc] = other.data[i + j*other.rc];
-	return this;
 }
 
 bool MyMat4f::operator ==(const MyMat4f &other) const
@@ -171,12 +172,16 @@ bool MyMat4f::operator ==(const MyMat4f &other) const
 		for (int j = 0;j < this->cc;j++)
 			if (this->data[i + j*this->rc] != other.data[i + j*other.rc])
 				return false;
-	return false;
+	return true;
 }
 
 bool MyMat4f::operator !=(const MyMat4f &other) const
 {
-	return !(this == other);
+	for (int i = 0;i < this->rc;i++)
+		for (int j = 0;j < this->cc;j++)
+			if (this->data[i + j*this->rc] != other.data[i + j*other.rc])
+				return false;
+	return true;
 }
 
 MyMat4f MyMat4f::operator*=(const float &k)
