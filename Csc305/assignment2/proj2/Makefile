@@ -79,10 +79,10 @@ endif
 PROG = plant
 
 # Object files that go into the final executable
-OBJS = plant.o drawplant.o myVector.o myMatrix.o
+OBJS = plant.o drawplant.o Vec.o Mat.o
 
 # Header files 
-HDRS = drawplant.h myVector.h myMatrix.h
+HDRS = drawplant.h Vec.h Mat.h
 
 ########
 # Finally, the commands that actually make stuff

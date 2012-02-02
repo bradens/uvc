@@ -2,12 +2,18 @@
 #include <math.h>
 #include <GL/glut.h>
 #include "drawplant.h"
-// commented out until you implement it
-#include "myMatrix.h"
+#include "Mat.h"
+#include <list.h>
 #include <stdio.h>
+#include <math.h>
 
 int ITER=0; //number of iterations to go thru 
-
+list<Mat> stack;
+Mat currentMat;
+float r = 1/sqrt(2);
+float R = sqrt(2);
+float scale = 1;
+float angle = M_PI/6; // Turning angle is pi/6
 
 
 /* Takes a 2D matrix in row-major order, and loads the 3D matrix which
@@ -28,27 +34,97 @@ void load2DMatrix(GLdouble m00, GLdouble m01, GLdouble m02,
   glLoadMatrixf(M3D);
 }
 
+void load3DMat(Mat mat)
+{
+	GLfloat M[16];
+
+	M[0] = mat.data[0]; M[1] = mat.data[4]; M[2] = mat.data[8]; M[3] = mat.data[12];
+	M[4] = mat.data[1]; M[5] = mat.data[5]; M[6] = mat.data[9]; M[7] = mat.data[13];
+	M[8] = mat.data[2]; M[9] = mat.data[6]; M[10] = mat.data[10]; M[11] = mat.data[14];
+	M[12] = mat.data[3]; M[13] = mat.data[7]; M[14] = mat.data[11]; M[15] = mat.data[15];
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(M);
+}
+
+
+void draw(int i)
+{
+	if (i == 0)
+		drawLeaf();
+	else
+	{
+		Mat shrinkMat = Mat();
+		shrinkMat = shrinkMat * r;
+		currentMat = currentMat * shrinkMat;
+		drawTwig(i-1);
+		stack.push_front(currentMat);
+		glPushMatrix();
+
+		Mat cwTurn = Mat();
+		cwTurn.turnRight(angle);
+		currentMat = currentMat * cwTurn;
+		draw(i-1);
+		currentMat = stack.front();
+		stack.pop_front();
+		glPopMatrix();
+		stack.push_front(currentMat);
+		glPushMatrix();
+
+		Mat ccwTurn = Mat();
+		ccwTurn.turnLeft(angle);
+		currentMat = currentMat * ccwTurn;
+		draw(i-1);
+
+		currentMat = stack.front();
+		stack.pop_front();
+		glPopMatrix();
+	}
+}
+
+void drawTwig(int i) {
+	if (i == 0)
+	{
+		load3DMat(currentMat);
+		glColor3f(0.33, 0.4, .01);
+		glBegin(GL_POLYGON);
+		glVertex2f(0.0, 0.0);
+		glVertex2f(0.0, 6.0);
+		glVertex2f(1.0, 6.0);
+		glVertex2f(1.0, 0.0);
+		glEnd();
+
+		// Translate the length of the stick
+		Mat stickTrans = Mat();
+		stickTrans.setTranslation(0, 6, 0, 1);
+		currentMat = currentMat * stickTrans;
+	}
+	else
+	{
+		Mat growMat = Mat();
+		growMat = growMat * R;
+		currentMat = currentMat * growMat;
+		drawTwig(i-1);
+	}
+}
+
 void drawLeaf(void) {
-  glColor3f(0.1,0.9,0.1); 
-  glBegin(GL_POLYGON);
-  glVertex2f(0.0,0.0);
-  glVertex2f(1.0,0.7);
-  glVertex2f(1.3,1.8);
-  glVertex2f(1.0,2.8);
-  glVertex2f(0.0,4.0);
-  glVertex2f(-1.0,2.8);
-  glVertex2f(-1.3,1.8);
-  glVertex2f(-1.0,0.7);
-  glEnd();
+	load3DMat(currentMat);
+	glColor3f(0.1,0.9,0.1);
+	glBegin(GL_POLYGON);
+	glVertex2f(0.0,0.0);
+	glVertex2f(1.0,0.7);
+	glVertex2f(1.3,1.8);
+	glVertex2f(1.0,2.8);
+	glVertex2f(0.0,4.0);
+	glVertex2f(-1.0,2.8);
+	glVertex2f(-1.3,1.8);
+	glVertex2f(-1.0,0.7);
+	glEnd();
 }
 
 void drawPlant(void) {
-
-   load2DMatrix(sqrt(3.0)/2.0, -1.0/2.0,      0.0,
- 	       1.0/2.0,       sqrt(3.0)/2.0, 4.0,
- 	       0.0,           0.0,           1.0);
-
-
-   drawLeaf();
-
+	currentMat.identity();
+	//currentMat.setTranslation(200,0,0,1);
+	draw(ITER);
 }
