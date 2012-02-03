@@ -3,9 +3,12 @@
 #include <GL/glut.h>
 #include "drawplant.h"
 #include "Mat.h"
-#include <list.h>
+#include <list>
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+
+using namespace std;
 
 int ITER=0; //number of iterations to go thru 
 list<Mat> stack;
