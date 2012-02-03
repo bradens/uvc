@@ -54,10 +54,12 @@ void draw(int i)
 		drawLeaf();
 	else
 	{
-		Mat shrinkMat = Mat();
-		shrinkMat = shrinkMat * r;
-		currentMat = currentMat * shrinkMat;
+		Mat newMat = Mat();
+		newMat = newMat * r;
+		scale *= r;
+		currentMat = currentMat * newMat;
 		drawTwig(i-1);
+
 		stack.push_front(currentMat);
 		glPushMatrix();
 
@@ -95,17 +97,22 @@ void drawTwig(int i) {
 		glEnd();
 
 		// Translate the length of the stick
-		Mat stickTrans = Mat();
-		stickTrans.setTranslation(0, 6, 0, 1);
-		currentMat = currentMat * stickTrans;
+		Mat newMat = Mat();
+		newMat.setTranslation(0, 6, 0, 1);
+		currentMat = currentMat * newMat;
 	}
 	else
 	{
-		Mat growMat = Mat();
-		growMat = growMat * R;
-		currentMat = currentMat * growMat;
+		Mat newMat = Mat();
+		newMat.scale(R);
+		scale *= R;
+		currentMat = currentMat * newMat;
 		drawTwig(i-1);
 	}
+	Mat newMat = Mat();
+	newMat.scale(1/scale);
+	currentMat = currentMat * newMat;
+	scale = 1;
 }
 
 void drawLeaf(void) {
@@ -123,8 +130,54 @@ void drawLeaf(void) {
 	glEnd();
 }
 
+void drawSquare(void) {
+	load3DMat(currentMat);
+	glColor3f(0.8, 0.8, 0.8);
+	glBegin(GL_TRIANGLES);
+	glVertex2f(0.0,0.0);
+	glVertex2f(2.0, 0.0);
+	glColor3f(0.4, 0.4, 0.4);
+	glVertex2f(1.0,1.0);
+
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f(2.0,0.0);
+	glVertex2f(2.0, 2.0);
+	glColor3f(0.4, 0.4, 0.4);
+	glVertex2f(1.0,1.0);
+
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f(2.0,2.0);
+	glVertex2f(0.0, 2.0);
+	glColor3f(0.4, 0.4, 0.4);
+	glVertex2f(1.0,1.0);
+
+	glColor3f(0.8, 0.8, 0.8);
+	glVertex2f(0.0,2.0);
+	glVertex2f(0.0, 0.0);
+	glColor3f(0.4, 0.4, 0.4);
+	glVertex2f(1.0,1.0);
+
+	glEnd();
+}
+
+void drawbg()
+{
+	Mat newMat = Mat();
+	load3DMat(newMat);
+	glBegin(GL_POLYGON);
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f(-300.0, 100.0);
+	glVertex2f(300.0, 100.0);
+	glColor3f(0.0f, 0.5f, 0.0f);
+	glVertex2f(300.0, 0.0);
+	glVertex2f(-300.0,0.0);
+	glEnd();
+}
+
 void drawPlant(void) {
+
+	drawbg();
 	currentMat.identity();
-	//currentMat.setTranslation(200,0,0,1);
+	currentMat.setTranslation(0,10,0,1);
 	draw(ITER);
 }

@@ -29,13 +29,19 @@ Mat::~Mat()
 
 }
 
+void Mat::scale(float s)
+{
+	this->data[0] = s;
+	this->data[5] = s;
+}
+
 Mat::Mat operator*(const Mat &M, const float &K)
 {
 	Mat newMat = Mat(M);
 
 	for (int i = 0;i < newMat.cc;i++)
 	{
-		for (int j = 0;j < newMat.rc;j++)
+		for (int j = 0;j < ( newMat.rc -1);j++)
 		{
 			newMat.data[j + i*newMat.rc] = newMat.data[j + i*newMat.rc] * K;
 		}
@@ -49,7 +55,7 @@ Mat::Mat operator*(const float &K, const Mat &M)
 
 	for (int i = 0;i < newMat.cc;i++)
 	{
-		for (int j = 0;j < newMat.rc;j++)
+		for (int j = 0;j < (newMat.rc-1);j++)
 		{
 			newMat.data[j + i*newMat.rc] = newMat.data[j + i*newMat.rc] * K;
 		}

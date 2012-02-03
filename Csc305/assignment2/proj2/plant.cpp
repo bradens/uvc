@@ -8,10 +8,11 @@
 #include "Vec.h"
 #include "drawplant.h"
 
+
 /* GLOBAL VARAIBLES */
 /* (storage is actually allocated here) */
-int W=1000;  /* window width */
-int H=800;  /* window height */
+int W=600;  /* window width */
+int H=400;  /* window height */
 
 /* local function declarations */
 void display(void);
@@ -73,7 +74,7 @@ void init() {
   glLoadIdentity();
   //create a viewing volume, see pg 124 of OGL Programming book (Version1.1)
   //note: numbers should be proportional to window size
-  glOrtho(-50.0/*left*/, 50.0/*right*/, 0.0/*bottom*/, 80.0/*top*/, -1.0/*near*/, 1.0/*far*/);
+  glOrtho(-300.0/*left*/, 300.0/*right*/, 0.0/*bottom*/, 400.0/*top*/, -1.0/*near*/, 1.0/*far*/);
   //thus the center in screen x is 0, bottom in y is 0, top is 80;
 }
 

@@ -29,7 +29,7 @@ class Mat {
 
   void turnLeft(float angle);
   void turnRight(float angle);
-
+  void scale(float s);
   Vec getTranslation();
   void setTranslation(const Vec &v);
   void setTranslation(const float &a, const float &b,
