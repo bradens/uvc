@@ -1,23 +1,29 @@
 #include <assert.h>
+#include <string>
 #include <math.h>
 #include <GL/glut.h>
-#include "drawplant.h"
 #include "Mat.h"
 #include <list>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <algorithm>
+#include "drawplant.h"
 
 using namespace std;
 
 int ITER=0; //number of iterations to go thru 
-list<Mat> stack;
+list<Mat> myStack;
 Mat currentMat;
 float r = 1/sqrt(2);
 float R = sqrt(2);
+float leafRed = .1;
+float leafGreen = .9;
+float leafBlue = .1;
 float scale = 1;
 float angle = M_PI/6; // Turning angle is pi/6
-
+string currentString = "L";
+list<string> storedStrings;
 
 /* Takes a 2D matrix in row-major order, and loads the 3D matrix which
    does the same trasformation into the OpenGL MODELVIEW matrix, in
@@ -50,71 +56,165 @@ void load3DMat(Mat mat)
 	glLoadMatrixf(M);
 }
 
-
-void draw(int i)
+/**
+ *
+ */
+void doAxiom()
 {
-	if (i == 0)
-		drawLeaf();
-	else
+//	cout << currentString << endl;
+	for (int i = 0;i < currentString.length();i++)
 	{
-		Mat newMat = Mat();
-		newMat = newMat * r;
-		scale *= r;
-		currentMat = currentMat * newMat;
-		drawTwig(i-1);
+		switch (currentString[i])
+		{
+			case 'L':
+			{
+				currentString.erase(i, 1);
+				currentString.insert(i, "rF[-L][+L]");
+				i += 10;
+				break;
+			}
+			case 'F':
+			{
+				currentString.erase(i, 1);
+				currentString.insert(i, "RF");
+				i += 2;
+				break;
+			}
+		}
+	}
+	storedStrings.push_front(currentString);
+//	cout << currentString << endl;
+}
 
-		stack.push_front(currentMat);
+/**
+ *
+ */
+void doReverseAxiom()
+{
+//	cout << currentString << endl;
+	storedStrings.pop_front();
+	currentString = storedStrings.front();
+//	cout << currentString << endl;
+}
+
+/**
+ * Recursively performs an iteration on a given L-System string.
+ */
+void draw(char l, bool angleRandom, bool leafRandom)
+{
+	Mat newM;
+	switch (l)
+	{
+	case 'L':
+		if (leafRandom)
+			drawRandomLeaf();
+		else
+			drawLeaf();
+		break;
+	case 'r':
+		newM = newM * r;
+		scale*= r;
+		currentMat = currentMat * newM;
+		newM.identity();
+		break;
+	case 'F':
+		drawTwig(1);
+		newM.setTranslation(0, 6, 0, 1);
+		currentMat = currentMat * newM;
+		newM.identity();
+		newM.scale(1/scale);
+		currentMat = currentMat * newM;
+		scale = 1;
+		newM.identity();
+		break;
+	case '[':
+		myStack.push_front(currentMat);
 		glPushMatrix();
-
-		Mat cwTurn = Mat();
-		cwTurn.turnRight(angle);
-		currentMat = currentMat * cwTurn;
-		draw(i-1);
-		currentMat = stack.front();
-		stack.pop_front();
+		break;
+	case ']':
+		currentMat = myStack.front();
+		myStack.pop_front();
 		glPopMatrix();
-		stack.push_front(currentMat);
-		glPushMatrix();
-
-		Mat ccwTurn = Mat();
-		ccwTurn.turnLeft(angle);
-		currentMat = currentMat * ccwTurn;
-		draw(i-1);
-
-		currentMat = stack.front();
-		stack.pop_front();
-		glPopMatrix();
+		break;
+	case '-':
+		if (angleRandom)
+		{
+			newM.turnRight(M_PI/(rand() % 6 + 4));
+			currentMat = currentMat * newM;
+			newM.identity();
+		}
+		else
+		{
+			newM.turnRight(angle);
+			currentMat = currentMat * newM;
+			newM.identity();
+		}
+		break;
+	case '+':
+		if (angleRandom)
+		{
+			newM.turnLeft(M_PI/(rand() % 6 + 4));
+			currentMat = currentMat * newM;
+			newM.identity();
+		}
+		else
+		{
+			newM.turnLeft(angle);
+			currentMat = currentMat * newM;
+			newM.identity();
+		}
+		break;
+	case 'R':
+		newM.scale(R);
+		scale *= R;
+		currentMat = currentMat * newM;
+		break;
 	}
 }
 
 void drawTwig(int i) {
-	if (i == 0)
-	{
-		load3DMat(currentMat);
-		glColor3f(0.33, 0.4, .01);
-		glBegin(GL_POLYGON);
-		glVertex2f(0.0, 0.0);
-		glVertex2f(0.0, 6.0);
-		glVertex2f(1.0, 6.0);
-		glVertex2f(1.0, 0.0);
-		glEnd();
+	load3DMat(currentMat);
+	glColor3f(0.33, 0.4, .01);
+	glBegin(GL_POLYGON);
+	glVertex2f(0.0, 0.0);
+	glVertex2f(0.0, 6.0);
+	glColor3f(0.5, 0.2, .01);
+	glVertex2f(1.0, 6.0);
+	glVertex2f(1.0, 0.0);
+	glEnd();
+}
 
-		// Translate the length of the stick
-		Mat newMat = Mat();
-		newMat.setTranslation(0, 6, 0, 1);
-		currentMat = currentMat * newMat;
-	}
-	else
+
+
+/**
+ * Draws a leaf, with randomization on the size and color.
+ */
+void drawRandomLeaf(void) {
+	Mat newM;
+	if ((rand() % 100) > 50)
 	{
-		Mat newMat = Mat();
-		newMat.scale(R);
+		newM.scale(R);
 		scale *= R;
-		currentMat = currentMat * newMat;
-		drawTwig(i-1);
+		currentMat = currentMat * newM;
 	}
-	Mat newMat = Mat();
-	newMat.scale(1/scale);
-	currentMat = currentMat * newMat;
+	float red = (float)(rand() % 100) / 100.0;
+	float green = (float)(rand() % 100) / 100.0;
+	float blue = (float)(rand() % 100) / 100.0;
+	load3DMat(currentMat);
+	glColor3f(red,green,blue);
+	glBegin(GL_POLYGON);
+	glVertex2f(0.0,0.0);
+	glVertex2f(1.0,0.7);
+	glVertex2f(1.3,1.8);
+	glVertex2f(1.0,2.8);
+	glVertex2f(0.0,4.0);
+	glVertex2f(-1.0,2.8);
+	glVertex2f(-1.3,1.8);
+	glVertex2f(-1.0,0.7);
+	glEnd();
+
+	newM.scale(1/scale);
+	currentMat = currentMat * newM;
 	scale = 1;
 }
 
@@ -168,19 +268,36 @@ void drawbg()
 	Mat newMat = Mat();
 	load3DMat(newMat);
 	glBegin(GL_POLYGON);
-	glColor3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.0f, .5f, 0.0f);
 	glVertex2f(-300.0, 100.0);
 	glVertex2f(300.0, 100.0);
-	glColor3f(0.0f, 0.5f, 0.0f);
+	glColor3f(0.0f, 0.1f, 0.0f);
 	glVertex2f(300.0, 0.0);
 	glVertex2f(-300.0,0.0);
 	glEnd();
 }
 
-void drawPlant(void) {
+void drawSnowPiles()
+{
 
+}
+
+void drawPlant(void) {
 	drawbg();
+
+	currentMat.identity();
+	currentMat.setTranslation(100,100,0,1);
+	for (int i = 0;i < currentString.length();i++)
+		draw(currentString.at(i), true, true);
+
 	currentMat.identity();
 	currentMat.setTranslation(0,10,0,1);
-	draw(ITER);
+	for (int i = 0;i < currentString.length();i++)
+		draw(currentString.at(i), true, false);
+
+}
+
+void initPlant()
+{
+	storedStrings.push_front(currentString);
 }

@@ -11,8 +11,8 @@
 
 /* GLOBAL VARAIBLES */
 /* (storage is actually allocated here) */
-int W=600;  /* window width */
-int H=400;  /* window height */
+int W=800;  /* window width */
+int H=600;  /* window height */
 
 /* local function declarations */
 void display(void);
@@ -22,11 +22,14 @@ void keyboard (unsigned char key, int x, int y);
 int main (int argc, char** argv) {
   int win;
 
+  initPlant();
   glutInit(&argc,argv);
  
   extern int ITER;
   if (argc ==2){
     ITER = atoi(argv[1]);
+    for (int i = 0;i < ITER;i++)
+    	doAxiom();
     printf("Plant will iterate over %d steps\n", ITER);
   }
 
@@ -50,14 +53,18 @@ void keyboard (unsigned char key, int x, int y){
   case '.':
     //Use keyboard to increment number of iterations
     ITER++;
+    doAxiom();
     printf("Redraw with plant iteration = %d\n", ITER);
     display();
     break;
   case ',':
     //Use keyboard to decrement number of iterations
     if (ITER > 0)
-      ITER--;
-    printf("Redraw with plant iteration = %d\n", ITER);
+    {
+    	ITER--;
+    	doReverseAxiom();
+    }
+	printf("Redraw with plant iteration = %d\n", ITER);
     display();
     break;
   case 'q':
@@ -77,7 +84,6 @@ void init() {
   glOrtho(-300.0/*left*/, 300.0/*right*/, 0.0/*bottom*/, 400.0/*top*/, -1.0/*near*/, 1.0/*far*/);
   //thus the center in screen x is 0, bottom in y is 0, top is 80;
 }
-
 
 void display() {
 
