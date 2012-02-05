@@ -118,7 +118,7 @@ void draw(char l, bool angleRandom, bool leafRandom)
 		newM.identity();
 		break;
 	case 'F':
-		drawTwig(1);
+		drawTwig();
 		newM.setTranslation(0, 6, 0, 1);
 		currentMat = currentMat * newM;
 		newM.identity();
@@ -172,7 +172,7 @@ void draw(char l, bool angleRandom, bool leafRandom)
 	}
 }
 
-void drawTwig(int i) {
+void drawTwig() {
 	load3DMat(currentMat);
 	glColor3f(0.33, 0.4, .01);
 	glBegin(GL_POLYGON);
@@ -284,17 +284,21 @@ void drawSnowPiles()
 
 void drawPlant(void) {
 	drawbg();
-
-	currentMat.identity();
+	
+    	currentMat.identity();
 	currentMat.setTranslation(100,100,0,1);
 	for (int i = 0;i < currentString.length();i++)
 		draw(currentString.at(i), true, true);
-
-	currentMat.identity();
+   
+    currentMat.identity();
+	currentMat.setTranslation(-100,80,0,1);
+	for (int i = 0;i < currentString.length();i++)
+		draw(currentString.at(i), true, true);
+    
+    currentMat.identity();
 	currentMat.setTranslation(0,10,0,1);
 	for (int i = 0;i < currentString.length();i++)
 		draw(currentString.at(i), true, false);
-
 }
 
 void initPlant()
