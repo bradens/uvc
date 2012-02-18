@@ -1,0 +1,29 @@
+GLfloat fishControl[4][4][3]  = {
+  {{-5.0, -.1, 0}, {-2.5, -1.0, 0}, {0, -1.5, 0}, { 3.5, -.7, 0}},
+  {{-4.9, -.05, 0}, {-2.0, 0, 1.0}, {0,0,1.0}, {3.3, -.5, 0}},
+  {{-4.9, .05, 0}, {-2.0,1,1},{0,1.0,1.0}, {3.3,-.2,0}},
+  {{-5.0, .1,0.0}, {-2.5,3.0,0}, {0,2.5,0},  {3.5,0.0,0.0}}
+  };
+
+void fish() {
+
+  /* set up evaluator for Bezier surface */
+  /* First, tell it where to find the control points */
+  glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &fishControl[0][0][0]);
+  /* Ask for a cubic Bezier surface (degree 3 blending functions, two parameters) */
+  glEnable(GL_MAP2_VERTEX_3);
+  /* Generate normals automatically at every vertex! */
+  glEnable(GL_AUTO_NORMAL);
+  /* Use a 16x16 grid of vertices in the u-v parameter space */
+  glMapGrid2f(16, 0.0, 1.0, 16, 0.0, 1.0);
+
+  /* usual drawing code */
+  glPushMatrix();
+  glTranslatef(0,10.0,5.0);
+  glRotatef(-90, 1.0, 0, 0);
+  glRotatef(180,0,0,1.0);
+  /* Produces a mesh of little quadrialterals approximating the Bezier surface */
+  glEvalMesh2(GL_FILL, 0, 16, 0, 16);
+  glPopMatrix();
+}
+  

@@ -8,19 +8,19 @@
 #ifndef _myMatrix_H
 #define _myMatrix_H
 
-#include "myVector.h"
+#include "Vec.h"
 #include <iostream>
 #include <math.h>
 
-class MyMat4f {
+class Mat {
 
  public:
   float data[16];  //opengl style matrix
   int rc;
   int cc;
-  MyMat4f();
-  MyMat4f(const MyMat4f &copied);
-  ~MyMat4f();
+  Mat();
+  Mat(const Mat &copied);
+  ~Mat();
 
   void print();
   void identity();
@@ -29,9 +29,9 @@ class MyMat4f {
 
   void turnLeft(float angle);
   void turnRight(float angle);
-
-  MyVec4f getTranslation();
-  void setTranslation(const MyVec4f &v);
+  void scale(float s);
+  Vec getTranslation();
+  void setTranslation(const Vec &v);
   void setTranslation(const float &a, const float &b,
 		      const float &c, const float&d);
 
@@ -41,18 +41,19 @@ class MyMat4f {
   float operator() (const unsigned int &i, const unsigned int &j) const;
   float& operator() (const unsigned int &i, const unsigned int &j);
 
-  MyMat4f operator=(const MyMat4f &other);
+  Mat operator=(const Mat &other);
   
-  bool operator==(const MyMat4f &other) const;
-  bool operator!=(const MyMat4f &other) const;
+  bool operator==(const Mat &other) const;
+  bool operator!=(const Mat &other) const;
   
-  MyMat4f operator*=(const float &k);
+  Mat operator*=(const float &k);
+  Mat operator*=(const Mat &other);
   
-  friend MyMat4f operator*(const MyMat4f &M, const float &K);
-  friend MyMat4f operator*(const float &K, const MyMat4f &M);
-  friend MyMat4f operator*(const MyMat4f &lhm, const MyMat4f &rhm);
+  friend Mat operator*(const Mat &M, const float &K);
+  friend Mat operator*(const float &K, const Mat &M);
+  friend Mat operator*(const Mat &lhm, const Mat &rhm);
   
-}; //end of class MyMat4f
+}; //end of class Mat
 
 
 #endif //_myMatrix_H

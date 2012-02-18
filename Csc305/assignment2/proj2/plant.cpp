@@ -4,14 +4,15 @@
 #include <string.h>
 #include <math.h>
 #include <GL/glut.h>
+#include "Mat.h"
+#include "Vec.h"
 #include "drawplant.h"
-#include "myMatrix.h"
-#include "myVector.h"
+
 
 /* GLOBAL VARAIBLES */
 /* (storage is actually allocated here) */
-int W=1000;  /* window width */
-int H=800;  /* window height */
+int W=800;  /* window width */
+int H=600;  /* window height */
 
 /* local function declarations */
 void display(void);
@@ -21,17 +22,16 @@ void keyboard (unsigned char key, int x, int y);
 int main (int argc, char** argv) {
   int win;
 
+  initPlant();
   glutInit(&argc,argv);
  
   extern int ITER;
   if (argc ==2){
     ITER = atoi(argv[1]);
+    for (int i = 0;i < ITER;i++)
+    	doAxiom();
     printf("Plant will iterate over %d steps\n", ITER);
   }
-
-  MyMat4f *a = new MyMat4f();
-  a->setTranslation(MyVec4f(2,2,2,2));
-  a->print();
 
   glutInitWindowSize(W,H);
   glutInitWindowPosition(100,100);
@@ -53,14 +53,18 @@ void keyboard (unsigned char key, int x, int y){
   case '.':
     //Use keyboard to increment number of iterations
     ITER++;
+    doAxiom();
     printf("Redraw with plant iteration = %d\n", ITER);
     display();
     break;
   case ',':
     //Use keyboard to decrement number of iterations
     if (ITER > 0)
-      ITER--;
-    printf("Redraw with plant iteration = %d\n", ITER);
+    {
+    	ITER--;
+    	doReverseAxiom();
+    }
+	printf("Redraw with plant iteration = %d\n", ITER);
     display();
     break;
   case 'q':
@@ -77,10 +81,9 @@ void init() {
   glLoadIdentity();
   //create a viewing volume, see pg 124 of OGL Programming book (Version1.1)
   //note: numbers should be proportional to window size
-  glOrtho(-50.0/*left*/, 50.0/*right*/, 0.0/*bottom*/, 80.0/*top*/, -1.0/*near*/, 1.0/*far*/);
+  glOrtho(-300.0/*left*/, 300.0/*right*/, 0.0/*bottom*/, 400.0/*top*/, -1.0/*near*/, 1.0/*far*/);
   //thus the center in screen x is 0, bottom in y is 0, top is 80;
 }
-
 
 void display() {
 

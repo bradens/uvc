@@ -26,28 +26,37 @@
 # Where the librarys are
 # What flags to use with the C compiler
 ########
-# comment this out for handin, this hard codes it to compile for mac
-set BOX = mac
+GLUI_LIBS = /Users/gooch/Teaching/glui_v2_1_beta/lib/
+GLUI_INC = /Users/gooch/Teaching/glui_v2_1_beta/
 
 ifeq ($(BOX),mac) 
-  LDLIBS =  -L/usr/X11R6/lib -lGLU  -lGL -lXmu -lXext -lX11 -lm -L/sw/lib/ -lglut -lstdc++
+ CARBON_LIB        = -framework Carbon
+  GL_LIBS           = -framework OpenGL $(CARBON_LIB)
+  LDLIBS = -L$(GLUI_LIBS) -lglui -L/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/ -lGLU  -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lm -L/sw/lib/ -lglut -lstdc++
+#  LDLIBS =  -L/usr/X11R6/lib -lGLU  -lGL -lXmu -lXext -lX11 -lm -L/sw/lib/ -lglut -lstdc++
   CFLAGS = -g 
 endif 
 
+
 ifeq ($(BOX),dell) 
-  LDLIBS =  -L/lusr/X11/lib -lglut -lGLU  -lGL -lXext -lX11 -lm -L/lusr/gnu/lib -lstdc++
+  LDLIBS =  -L/lusr/X11/lib -lglut -lGLU  -lGL -lXext -lX11 -lm
   CFLAGS = -g 
 endif 
 
 ifeq ($(BOX),linux) 
-  LDLIBS = -L/p/lib/Mesa -lglut  -lMesaGL -lMesaGLU -L/lusr/X11/lib -lXi -lXmu -lX11 -lm -L/lusr/gnu/lib -lstdc++
+  LDLIBS = -L/p/lib/Mesa -lglut  -lMesaGL -lMesaGLU -L/lusr/X11/lib -lXi -lXmu -lX11 -lm
   CFLAGS = -g -Wall
 endif
 
 ifeq ($(BOX),sun) 
-  LDLIBS = -L/p/lib/Mesa -lglut -lMesaGL -lMesaGLU -L/usr/openwin/lib -lXi -lXmu -lX11 -lm -L/lusr/gnu/lib -lstdc++
+  LDLIBS = -L/p/lib/Mesa -lglut -lMesaGL -lMesaGLU -L/usr/openwin/lib -lXi -lXmu -lX11 -lm
   CFLAGS = -g 
 endif
+
+ifeq ($(BOX),sgi) 
+  LDLIBS = -L/p/lib/glut/n32 -lglut -lGLU  -lGL -lXmu -lXext -lX11 -lm
+  CFLAGS = -g -fullwarn
+endif 
 
 ifeq ($(BOX),ibm) 
   LDLIBS = -L/p/lib/Mesa -lglut  -lMesaGL -lMesaGLU -lXi -lXmu -lX11 -lm
@@ -62,12 +71,16 @@ endif
 CC = cc 
 C++ = g++
 
+
 # Where to find the include files:
 ifeq ($(BOX),mac)
- INCLUDE = -I/usr/X11R6/include/ -I/sw/include/
+# INCLUDE = -I/usr/X11R6/include/ -I/sw/include/
+ INCLUDE = -I/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/ -I/usr/X11R6/include/ -I/sw/include/ -I$(GLUI_INC)
 else 
 INCLUDE = -I/p/include/Mesa -I/lusr/X11/include/
 endif
+
+
 
 ########
 # Stuff that depends on the specific program we're compiling
@@ -76,13 +89,13 @@ endif
 ########
 
 # The name of the output program 
-PROG = plant
+PROG = sea
 
 # Object files that go into the final executable
-OBJS = plant.o drawplant.o Vec.o Mat.o
+OBJS = sea.o 
 
 # Header files 
-HDRS = drawplant.h Vec.h Mat.h
+HDRS = 
 
 ########
 # Finally, the commands that actually make stuff
