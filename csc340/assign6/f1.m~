@@ -1,0 +1,9 @@
+function out = f1(x)
+    v = [];
+    i = 1;
+    while(i <= size(x))
+        fx = 1 / (x(i) * log(x(i)));
+        v = [v fx];
+        i = i+1;
+    end
+    out = v
