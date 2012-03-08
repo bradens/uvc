@@ -1,0 +1,135 @@
+2.
+
+format long
+x = linspace(2, 3, 50);
+y = f1(x);
+trapz(x, y)
+
+ans =
+
+   0.460584619523046
+
+x = linspace(2, 3, 1000);
+y = f1(x);
+trapz(x, y)
+
+ans =
+
+   0.460560805631399
+
+x = linspace(0, pi/4, 100);
+y = f2(x);
+trapz(x, y)
+
+ans =
+
+   0.884129765612554
+
+x = linspace(0, pi/4, 10000);
+y = f2(x);
+trapz(x, y)
+
+ans =
+
+   0.884126600006142
+
+=====================================
+                .M files
+% f1
+function out = f1(x)
+    out = 1 ./ (x .* log(x));
+
+% f2
+function out = f2(x)
+    out = (3.^x) .* sin(2 .* x);
+
+
+
+3. 
+
+======================================
+		itertrap.m
+function curr = itertrap(question3f, a, b, nmax, tol)
+    i = 0;
+    s = 0;
+    h = (b-a)/2;
+    fprintf('Starting integral approx\n');
+    while (i < nmax)
+       if ( i == 0)
+           curr = h * (question3f(a) + question3f(b));
+       else
+         k = 1;
+         h = (b-a) / 2^i;
+         while (k <= 2^(i-1))
+            s = s + question3f(a + ((2*k - 1)*h));
+            k=k+1;
+         end
+         curr = (.5 * last) + (s * h);
+         fprintf('%i', i), fprintf('%10.10f\n', curr);
+         if (abs(1 - last/curr) < tol)
+           return
+         end
+       end
+       i = i + 1;
+       s = 0;
+       last = curr;
+    end
+    fprintf('Failed to converge in %i', nmax), fprintf('iterations\n')
+    
+    
+% q3f1.m
+function out = q3f1(x)
+    out = exp(3*x) * sin(2*x);
+    
+Result: 
+
+>> itertrap(@q3f1, 0, pi/4, 20, 10^(-8))
+Starting integral approx
+1	2.9735872162
+2	2.6841728942
+3	2.6124629712
+4	2.5945838517
+5	2.5901172249
+6	2.5890007673
+7	2.5887216654
+8	2.5886518907
+9	2.5886344470
+10	2.5886300861
+11	2.5886289959
+12	2.5886287234
+13	2.5886286552
+14	2.5886286382
+
+ans =
+
+   2.588628638185434
+    
+% q3f2.m
+function out = q3f2(x)
+	out = exp(-2 * x);
+	
+Result :
+
+>> itertrap(@q3f2, 0, 1, 20, 10^(-10))
+Starting integral approx
+1	0.4677735414
+2	0.4413019757
+3	0.4345817473
+4	0.4328951446
+5	0.4324730824
+6	0.4323675411
+7	0.4323411542
+8	0.4323345573
+9	0.4323329081
+10	0.4323324958
+11	0.4323323927
+12	0.4323323670
+13	0.4323323605
+14	0.4323323589
+15	0.4323323585
+16	0.4323323584
+17	0.4323323584
+
+ans =
+
+   0.432332358390080

@@ -26,8 +26,8 @@
 # Where the librarys are
 # What flags to use with the C compiler
 ########
-GLUI_LIBS = /Users/gooch/Teaching/glui_v2_1_beta/lib/
-GLUI_INC = /Users/gooch/Teaching/glui_v2_1_beta/
+GLUI_LIBS = /Library/Frameworks/GLUI.framework/
+GLUI_INC = /Library/Frameworks/GLUI.framework
 
 ifeq ($(BOX),mac) 
  CARBON_LIB        = -framework Carbon
@@ -36,7 +36,6 @@ ifeq ($(BOX),mac)
 #  LDLIBS =  -L/usr/X11R6/lib -lGLU  -lGL -lXmu -lXext -lX11 -lm -L/sw/lib/ -lglut -lstdc++
   CFLAGS = -g 
 endif 
-
 
 ifeq ($(BOX),dell) 
   LDLIBS =  -L/lusr/X11/lib -lglut -lGLU  -lGL -lXext -lX11 -lm
