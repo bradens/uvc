@@ -1,0 +1,22 @@
+3. 
+a) 
+/* =========   Assign7f.m ========== */
+function y = assign7f( x )
+    y = sin(1 ./ x);
+
+
+>> format long
+>> [Q, fnc] = quad(@assign7f, 0.1, 2, (1 * 10^-5));
+>> Q
+
+Q =
+
+   1.145574937627094
+
+>> fnc
+
+fnc =
+
+    49
+
+b) 

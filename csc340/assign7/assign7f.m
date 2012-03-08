@@ -1,6 +1,5 @@
-function [ out ] = f( x )
+function y = assign7f( x )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-    out = sin(1 ./ x);
-end
+    y = sin(1 ./ x);
 
