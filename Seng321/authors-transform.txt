@@ -1,0 +1,6 @@
+braden = Braden Simpson <braden@uvic.ca>
+jgriffis = jgriffis <jgriffis>
+jmoseley = jmoseley <jmoseley>
+jssmythe = jssmythe <jssmythe>
+mjpattie = mjpattie <mjpattie>
+wesda = wesda <wesda>
