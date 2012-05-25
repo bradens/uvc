@@ -10,17 +10,41 @@ public class Hamilton
    public static int new_hamilton_path(Graph G)
    {
        /* Put your new code here. */
-	   
-	   
-	   
-	   
-       return(1);
+	   // Check if after adding a new edge, the graph is a cycle, if so, return true
+	   G = addEdge(G);
+	   return hamilton_cycle(G);
    }
 
+   /**
+    * This function is used to add an Edge to an existing graph.
+    * @param G
+    * @return
+    */
+   public static Graph addEdge(Graph G)
+   {
+	   for (int i=0; i <G.n; i++)
+	   {
+		   G.print_int(i);
+		   System.out.print(": ");
+		   for (int j=0; j < G.n; j++)
+		   {
+			   if (G.Adj[i][j] == 0)
+			   {
+				   G.Adj[i][j] = 1;
+				   G.Adj[j][i] = 1;
+				   return G;
+			   }
+		   }
+		   System.out.println();
+	   }
+	   return G;
+   }
+   
    public static int new_hamilton_cycle(Graph G)
    {
        /* Put your new code here. */
-       return(1);
+	   // Check if after removing an edge, you have a hamilton path, if so, return true
+	   return(1);
    }
 
    public static int hamilton_path(Graph G)
