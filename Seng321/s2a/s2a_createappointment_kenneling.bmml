@@ -1,0 +1,111 @@
+<mockup version="1.0" skin="sketch" measuredW="1094" measuredH="620">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="60" y="10" w="1024" h="600" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Purrfur%20-%20Cat%20Grooming%20and%20Kenneling%0Ahttp%3A//www.purrfur.com/</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::ButtonBar" x="259" y="200" w="653" h="33" measuredW="575" measuredH="31" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Home%2C%20Cat-a-logue%2C%20Create%20Appointment%2C%20Manage%20Appointment%2C%20View%20Cats</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Image" x="67" y="80" w="712" h="109" measuredW="754" measuredH="128" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./purrfur2_1.png</src>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::LinkBar" x="806" y="170" w="-1" h="-1" measuredW="257" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>%2C%2C</hrefs>
+        <text>Contact%20Us%2C%20My%20Account%2C%20Log%5Bin/out%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::FieldSet" x="75" y="235" w="184" h="338" measuredW="200" measuredH="170" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cat-a-logue%20Preview</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="90" y="255" w="138" h="125" measuredW="475" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28Some%20items%20from%20the%20Cat-a-logue%20will%20appear%20here%2C%20enticing%20the%20customer%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Label" x="754" y="346" w="199" h="139" measuredW="848" measuredH="25" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28User%20will%20only%20be%20able%20to%20select%20a%20date%20range%20from%20the%20popup%20calendars%20if%20it%20is%20available%20%28denoted%20by%20green%20boxes%20for%20available%20days%29%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::FieldSet" x="264" y="236" w="807" h="340" measuredW="200" measuredH="170" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create%20Appointment</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::TextInput" x="487" y="364" w="228" h="-1" measuredW="64" measuredH="29" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Balinese</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Button" x="964" y="536" w="97" h="-1" measuredW="52" measuredH="28" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Book</text>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::TextInput" x="487" y="332" w="228" h="-1" measuredW="50" measuredH="29" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sasha</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::TextArea" x="403" y="437" w="310" h="124" measuredW="200" measuredH="140" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sasha%20is%20very%20sleepy%20and%20lazy%2C%20and%20likes%20to%20meow%20a%20lot.</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Label" x="403" y="262" w="117" h="25" measuredW="117" measuredH="25" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Appointment%20Type</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::ComboBox" x="531" y="261" w="184" h="-1" measuredW="90" measuredH="25" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kenneling</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::Label" x="403" y="335" w="67" h="25" measuredW="67" measuredH="25" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cat%20Name</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Label" x="403" y="367" w="68" h="25" measuredW="68" measuredH="25" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cat%20Breed</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Label" x="403" y="408" w="143" h="25" measuredW="143" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Special%20Considerations</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Label" x="404" y="291" w="125" h="26" measuredW="122" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Appointment%20Dates</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::DateChooser" x="531" y="291" w="184" h="-1" measuredW="126" measuredH="29" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>02/04/2012</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::DateChooser" x="780" y="291" w="184" h="-1" measuredW="126" measuredH="29" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>02/11/2012</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Label" x="737" y="291" w="-1" h="-1" measuredW="18" measuredH="25" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>to</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
