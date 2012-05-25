@@ -29,27 +29,29 @@ public class Graph
       count=0;
       while (G.read_graph())
       {
-          count++;
-          System.out.println("Input graph: " + count);
-          G.print_graph();
-
-          hp     = Hamilton.hamilton_path(G);
-          hp_new = Hamilton.new_hamilton_path(G);
-          if (hp != hp_new)
-          {
-             System.out.println("Error- new HP routine disagrees with old one.");
-          }
-
-          hc     = Hamilton.hamilton_cycle(G);
-          hc_new = Hamilton.new_hamilton_cycle(G);
-          if (hc!= hc_new)
-          {
-             System.out.println("Error- new HC routine disagrees with old one.\n");
-          }
-   
-          System.out.println("Hamilton Path:  " + answer[hp]);
-          System.out.println("Hamilton Cycle: " + answer[hc]);
-          System.out.println();
+//          count++;
+//          System.out.println("Input graph: " + count);
+//          G.print_graph();
+//
+//          hp     = Hamilton.hamilton_path(G);
+//          hp_new = Hamilton.new_hamilton_path(G);
+//          if (hp != hp_new)
+//          {
+//             System.out.println("Error- new HP routine disagrees with old one.");
+//          }
+//
+//          hc     = Hamilton.hamilton_cycle(G);
+//          hc_new = Hamilton.new_hamilton_cycle(G);
+//          if (hc!= hc_new)
+//          {
+//             System.out.println("Error- new HC routine disagrees with old one.\n");
+//          }
+//   
+//          System.out.println("Hamilton Path:  " + answer[hp]);
+//          System.out.println("Hamilton Cycle: " + answer[hc]);
+//          System.out.println();
+//    	  System.out.println("//////////////////////////////////////////////////////////\n\n");
+    	  System.out.println("HC is " + Hamilton.new_hamilton_path(G));
       }
    }
    boolean read_graph()

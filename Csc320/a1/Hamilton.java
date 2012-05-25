@@ -11,7 +11,9 @@ public class Hamilton
    {
        /* Put your new code here. */
 	   // Check if after adding a new edge, the graph is a cycle, if so, return true
+	   G.print_graph();
 	   G = addEdge(G);
+	   G.print_graph();
 	   return hamilton_cycle(G);
    }
 
