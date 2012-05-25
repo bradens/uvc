@@ -1,7 +1,0 @@
-<h1>Shifts</h1>
-
-<ul>
-{% for shift in shift_list %}
-	<li><a href="/schedule/{{ shift.id }}/">{{ shift.employee_id }} : {{ shift.start }} to {{ shift.end }}</a></li>
-{% endfor %}
-</ul>
