@@ -1,0 +1,8 @@
+Braden Simpson
+V00685500
+
+Lab 2.
+
+1. 
+   My approach to part task 2 was to use a python script that tried to create a symbolic link from a file /tmp/XYZ to /etc/shadow and /etc/passwd, in the time window between access() and fwrite() are called in vulp.c
+   This approach is simple, and works about 2% of times, however using the script to brute force this is easy.  Once able to write to /etc/passwd and /etc/shadow, you can write to the 
