@@ -1,0 +1,98 @@
+{% extends "structure/base_employee.html" %}
+
+{% block css %}
+	@import url('/static/css/core.css');
+	@import url('/static/css/scheduling/scheduling.css');
+	@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block script %}
+	<script type = "text/javascript" src="/static/js/scheduling/scheduling.js"></script>
+	{% include "structure/setnav.html" with type="schedulingNav" %}
+{% endblock %}
+
+{% block title %}Shifts{% endblock %}
+	
+{% block content %}
+
+<h1>Schedule</h1>
+<br/>
+<script>
+	$(function() {
+		$(".datepicker").datepicker({
+			dateFormat: "yy-mm-dd"
+		});
+	});
+</script>
+{% if isManager %}
+<div id='shiftForm'>
+	<span class="formTitle">Create Shift</span>
+
+	<div>
+		<label for="date" >Date :</label>
+		<input id="date" class='datepicker formInputBox' type="text" style="width: 85px" />
+	</div>
+	<div>
+		<label for="startTime" >Start Time :</label>
+		<select id="startTime" class="formSelectBox">
+			<option value=""></option>
+			<option value="9:30">9:30</option>
+			<option value="10:30">10:30</option>
+			<option value="11:30">11:30</option>
+			<option value="12:30">12:30</option>
+			<option value="13:30">1:30</option>
+			<option value="14:30">2:30</option>
+			<option value="15:30">3:30</option>
+			<option value="16:30">4:30</option>
+		</select>
+	</div>
+	<div>
+		<label for="endTime" >End Time :</label>
+		<select id="endTime" class="formSelectBox">
+			<option value=""></option>
+			<option value="10:30">10:30</option>
+			<option value="11:30">11:30</option>
+			<option value="12:30">12:30</option>
+			<option value="13:30">1:30</option>
+			<option value="14:30">2:30</option>
+			<option value="15:30">3:30</option>
+			<option value="16:30">4:30</option>
+			<option value="17:30">5:30</option>
+		</select>
+	</div>
+	<div>
+    	<label for="emplyee_id" >Employee ID :</label>
+    	<input id="employee_id" class='formInputBox' type="text"/>
+	</div>
+	<div>
+		<a class="button big primary" onclick="scheduleController.createShift();">Create</a>
+		<!--<button name="createButton" type="button" class="button primary">Update</button>
+		<button name="createButton" type="button" class="button primary">Delete</button>-->
+	</div>
+</div>
+{% endif %}
+<div id="calculateForm">
+	<span class="formTitle">Calculate Hours</span>
+	<div>
+		<label for="calculateEmpId">Employee ID :</label>
+		<input type="text" id="calculateEmpId" class="formInputBox" />
+	</div>
+	<div>
+		<label for="fromDate" >From :</label>
+		<input id="fromDate" class='datepicker formInputBox' type="text" style="width: 85px" />
+	</div>
+	<div>
+		<label for="toDate" >To :</label>
+		<input id="toDate" class='datepicker formInputBox' type="text" style="width: 85px" />
+	</div>
+	<div>
+		<button id="calculateButton" class="big primary" type="button" onclick="scheduleController.getHours()">Calculate</button>
+	</div>
+	<div style="clear: both">
+		<label for="calculated_hours" >Hours Calculated:</label>
+        <input id="calculated_hours" class='formInputBox' readonly="readonly" type="text"/>
+	</div>
+</div>
+{% include "structure/calendartable.html" with entries=shift_list name="shiftTable" %}
+{% endblock %}
+

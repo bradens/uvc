@@ -1,0 +1,67 @@
+{% extends "structure/base.html" %}
+
+{% block css %}
+	{{ super }}
+	@import url('/static/css/catalogue/catalogue.css');
+	@import url('/static/css/login/login.css');
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block extra_header %}
+	<script type="text/javascript" src="/static/js/login/login.js"></script>
+	<script type="text/javascript" src="/static/js/catalogue/catalogue.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class='aboutUsContent'>
+	<div class="aboutUs">
+		<span class="title aboutUsTitle">Love cats? So do we.</span>
+		<span class="title aboutUsSubtitle">At Purrfur, we love cats, and we'd love to meet yours.</span>
+		<br/>
+		<p id="aboutUsBlurb">Whether your cat needs a little pampering or some TLC while you're away, our staff will be sure to give your cat the care it deserves. Please <a class="link" href='javascript:' onclick="$('#usrname').focus();"><span>login</span></a>, or, if you don't have an account, <a class="link" href='javascript:' onclick="$('#email').focus();"><span>register</span></a> for a free one.</p>
+	</div>
+</div>
+<div class='loginContent'>
+	<div class='form loginForm'>
+		<span class="title loginTitle">Login</span>
+		<br/>
+		<div>
+			<label for="usrname">Username / Email :</label>
+			<input class='formInputBox' type="text" id="usrname"/>
+		</div>
+		<div>
+			<label for="password" >Password :</label>
+			<input id="password" class='formInputBox' type="password"/>
+		</div>
+		<span id="loginError">&nbsp;</span>
+		<div class="loginButtons">
+			<a class="forgot big button" href="/login/forgotPassword">Forgot your password?</a>
+			<a class="login big primary positive button" onclick="loginController.login();">Login <span class="icon rightarrow"></span></a>
+		</div>
+	</div>
+	<div class='form registerForm'>
+		<span class="title registerTitle">Register</span>
+		<br/>
+		<div>
+			<label for="email">Email :</label>
+			<input class='formInputBox' type="text" id="email"/>
+		</div>
+		<div>
+			<label for="regpassword" >Password :</label>
+			<input id="regpassword" class='formInputBox' type="password"/>
+		</div>
+		<div>
+			<label for="cfmpassword" >Confirm Password :</label>
+			<input id="cfmpassword" class='formInputBox' type="password"/>
+		</div>
+		<a onclick="loginController.submit();" class="submit big primary button">Submit<span class="icon key"></span></a>
+	</div>
+</div>
+<div class='catalogueContent'>
+	<div class="catalogueWrap">
+		<span class='title'>Cat-a-logue</span>
+		{% include "catalogue/listing.html" with items=items %}
+	</div>
+</div>
+{% endblock %}

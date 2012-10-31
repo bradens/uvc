@@ -1,0 +1,77 @@
+{% extends "structure/base_employee.html" %}
+
+{% block css %}
+	@import url('/static/css/core.css');
+	@import url('/static/css/scheduling/scheduling.css');
+{% endblock %}
+
+{% block script %}
+	<script type = "text/javascript" src="/static/js/scheduling/scheduling.js"></script>
+	{% include "structure/setnav.html" with type="schedulingNav" %}
+{% endblock %}
+
+{% block title %}Shifts{% endblock %}
+	
+{% block content %}
+
+<h1>Schedule</h1>
+<br/>
+
+<form id="shiftForm" method="post" action="/schedule/{{shift.id}}/updateData" >
+	<span class="formTitle">Edit Shift</span>
+	<script>
+		$(function() {
+			$(".datepicker").datepicker();
+		});
+	</script>
+
+	<div>
+		<label for="date" >Date :</label>
+		<input id="date" name="date" class='datepicker formInputBox' type="text" style="width: 85px" value = "{{ date }}"/>
+	</div>
+	<div>
+		<label for="startTime" >Start Time :</label>
+		<select id="startTime" name="startTime" class="formSelectBox" >
+			<option value="{{startTime}}" selected="selected">{{startTime}}</option>
+			<option value="9:30">9:30</option>
+			<option value="10:30">10:30</option>
+			<option value="11:30">11:30</option>
+			<option value="12:30">12:30</option>
+			<option value="13:30">1:30</option>
+			<option value="14:30">2:30</option>
+			<option value="15:30">3:30</option>
+			<option value="16:30">4:30</option>
+		</select>
+	</div>
+	<div>
+		<label for="endTime" >End Time :</label>
+		<select id="endTime" name="endTime" class="formSelectBox">
+			<option value="{{endTime}}" selected="selected">{{endTime}}</option>
+			<option value="10:30">10:30</option>
+			<option value="11:30">11:30</option>
+			<option value="12:30">12:30</option>
+			<option value="13:30">1:30</option>
+			<option value="14:30">2:30</option>
+			<option value="15:30">3:30</option>
+			<option value="16:30">4:30</option>
+			<option value="17:30">5:30</option>
+		</select>
+	</div>
+	<div>
+    	<label for="employee_id" >Employee ID :</label>
+    	<input id="employee_id" name="employee_id" class='formInputBox' type="text" value = "{{shift.employee_id}}" />
+	</div>
+	<!--<div>
+        <script type="text/javascript">
+        $(update(){
+            jQuery.get("/scheduling/updateData/",{{shift.id}});
+        });
+        </script>-->
+    <div>
+		<button name="updateButton" type="submit" class="button big primary">Update</button>
+    	<!--<a href="/schedule/{{shift.id}}/updateData">Update</a>-->
+    	<a style="margin-left:10px" class="button big primary" href="/schedule/">Back to schedule list</a>
+    </div>
+</form>
+</br/>
+{% endblock %}

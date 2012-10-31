@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/seng321/group4/!svn/ver/127/claws/dashboard
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/seng321/group4/!svn/ver/74/claws/dashboard/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/seng321/group4/!svn/ver/7/claws/dashboard/__init__.py
+END
+views.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/seng321/group4/!svn/ver/129/claws/dashboard/views.pyc
+END
+__init__.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/seng321/group4/!svn/ver/129/claws/dashboard/__init__.pyc
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/seng321/group4/!svn/ver/7/claws/dashboard/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/seng321/group4/!svn/ver/7/claws/dashboard/models.py
+END

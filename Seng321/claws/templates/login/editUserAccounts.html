@@ -1,0 +1,24 @@
+{% extends "structure/base_manager.html" %}
+
+{% block css %}
+	@import url('/static/css/login/pending.css');
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript" src="/static/js/login/login.js"></script>
+	{% include "structure/setnav.html" with type="managementNav" %}
+{% endblock %}
+
+{% block title %}Edit Users Accounts{% endblock %}
+
+{% block content %}
+	<h1>Purrfur Users</h1>
+
+	<div id="pendingUsersContainer">
+	{% for usr in users %}
+		<div class="editUserBlock">
+			<span><a class="primary button" href="/login/editUserAccountForm/{{usr.id}}">Edit User</a></span><span>{{ usr.username }} </span>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}

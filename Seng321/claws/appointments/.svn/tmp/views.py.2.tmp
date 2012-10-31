@@ -1,0 +1,252 @@
+from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.http import HttpResponseRedirect, Http404, HttpResponse, HttpResponseNotFound, HttpResponseForbidden
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.template import RequestContext
+from appointments.models import Appointment, KennellingAppointment
+from scheduling.models import ScheduleManager
+from itertools import chain
+from users.views import inEmpGroup, inManGroup, inCusGroup
+from django.forms import ModelForm
+from django.core.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime, date, timedelta
+from django.core.serializers import serialize
+from random import randint
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def appointment_list(request):
+	if inCusGroup(request.user):
+		a = Appointment.objects.filter(customer_id=request.user).order_by('-start')
+		apps = []
+		kennels = []
+		for app in a:
+			try:
+				k = app.kennellingappointment
+				kennels.append(k)
+			except KennellingAppointment.DoesNotExist:
+				apps.append(app)
+		return render_to_response('appointments/customer_list.html', {'apps': apps, 'kennels' : kennels })
+	elif inEmpGroup(request.user) or inManGroup(request.user):
+		apps = Appointment.objects.all().order_by('-start')
+		return render_to_response('appointments/employee_list.html', {'apps': apps})
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def detail(request, event_id):
+	try:
+		app = KennellingAppointment.objects.get(pk=event_id)
+	except KennellingAppointment.DoesNotExist:
+		try:
+			app = Appointment.objects.get(pk=event_id)
+		except Appointment.DoesNotExist:
+			return render_to_response('/error.html', {'error' : "That appointment is not available." })
+	if inEmpGroup(request.user) or inManGroup(request.user):
+		return render_to_response('appointments/employee_detail.html', {'app': app })
+	elif inCusGroup(request.user) and app.customer_id == request.user:
+		return render_to_response('appointments/detail.html', {'app': app})
+	else:
+		return render_to_response('/error.html', {'error' : "That appointment is not available." })
+	
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def log(request, event_id):
+	app = get_object_or_404(KennellingAppointment, pk=event_id)
+	if inEmpGroup(request.user) or inManGroup(request.user):
+		return render_to_response('appointments/edit_log.html', {'app': app})
+	elif app.customer_id == request.user:
+		return render_to_response('appointments/log.html', {'app': app})
+	else:
+		return render_to_response('/error.html', {'error' : "That appointment is not available." })
+	
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u), login_url='/')
+def updateLog(request, event_id):
+	if request.method == 'POST':
+		logText = request.POST.get('logText', '')
+		if len(logText) > 0:
+			app = get_object_or_404(KennellingAppointment, pk=event_id)
+			app.log = logText
+			app.save()
+	return HttpResponseRedirect("/appointments/" + event_id)
+	
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def cam(request, event_id):
+	app = get_object_or_404(KennellingAppointment, pk=event_id)
+	if inEmpGroup(request.user) or inManGroup(request.user) or app.customer_id == request.user:
+		if app.camera_id == -1:
+			return HttpResponseNotFound()
+		else:
+			return render_to_response('appointments/cam.html', {'app': app, 'gifnum': app.camera_id})
+	else:
+		return HttpResponseNotFound()
+
+@csrf_exempt
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def delete(request, event_id):
+	app = get_object_or_404(Appointment, pk=event_id)
+	if inEmpGroup(request.user) or inManGroup(request.user):
+		return render_to_response('appointments/delete.html', { 'app' : app, 'parent' : 'structure/base_employee.html' });
+	elif (inCusGroup(request.user) and app.customer_id == request.user):
+		return render_to_response('appointments/delete.html', { 'app' : app, 'parent' : 'structure/base_customer.html' });
+		
+@csrf_exempt
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def deleteConfirmed(request, event_id):
+	app = get_object_or_404(Appointment, pk=event_id)
+	if inEmpGroup(request.user) or inManGroup(request.user) or (inCusGroup(request.user) and app.customer_id == request.user):
+		app.delete()
+	return redirect('/appointments/')
+
+@csrf_exempt
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def create(request):
+	if inCusGroup(request.user):
+		return render_to_response('appointments/appointment_form.html', { 'parent' : 'structure/base_customer.html' } )
+	else:
+		users = User.objects.filter(groups__name='customer')
+		return render_to_response('appointments/appointment_form.html', { 'users' : users, 'parent' : 'structure/base_employee.html', 'employee_view' : True  })
+
+@csrf_exempt
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def createnew(request):
+	if request.method == 'POST':
+		cat_name = request.POST.get('cat_name', '')
+		cat_breed = request.POST.get('cat_breed', '')
+		special_considerations = request.POST.get('special_considerations', '')
+		start = request.POST.get('start_time', '')
+		end = request.POST.get('end', '')
+		# figure out what customer the appointment belongs to
+		if inEmpGroup(request.user) or inManGroup(request.user):
+			user = User.objects.filter(id=request.POST.get('user', ''))[0]
+		else:
+			user = request.user
+		#make it a regular appointment or kennelling appointment based on type
+		if request.POST.get('type') == 'kennel':
+			appointment_obj = KennellingAppointment(cat_name=cat_name, cat_breed=cat_breed, special_considerations=special_considerations, start=start, end=end, customer_id=user, camera_id=-1)
+		else:
+			appointment_obj = Appointment(cat_name=cat_name, cat_breed=cat_breed, special_considerations=special_considerations, start=start, end=end, customer_id=user)
+		appointment_obj.save()
+		return HttpResponseRedirect('/appointments/')
+	return render_to_response("/error.html");
+		
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def edit(request, event_id):
+	try:
+		app = KennellingAppointment.objects.get(pk=event_id)
+	except KennellingAppointment.DoesNotExist:
+		try:
+			app = Appointment.objects.get(pk=event_id)
+		except Appointment.DoesNotExist:
+			return render_to_response('/error.html', {'error' : "That appointment is not available." })
+	if inEmpGroup(request.user) or inManGroup(request.user):
+		users = User.objects.filter(groups__name='customer')
+		return render_to_response('appointments/edit_form.html', {'app': app, 'users' : users, 'parent' : 'structure/base_employee.html' })
+	elif (inCusGroup(request.user) and app.customer_id == request.user):
+		return render_to_response('appointments/edit_form.html', {'app': app, 'parent' : 'structure/base_customer.html' })
+	else:
+		return render_to_response('/error.html', {'error' : "That appointment is not available." })
+
+@csrf_exempt
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def editsub(request, event_id):
+	if request.method == 'POST':
+		try:
+			app = KennellingAppointment.objects.get(pk=event_id)
+		except KennellingAppointment.DoesNotExist:
+			try:
+				app = Appointment.objects.get(pk=event_id)
+			except Appointment.DoesNotExist:
+				return render_to_response('/error.html', {'error' : "That appointment is not available." })
+		if not (inEmpGroup(request.user) or inManGroup(request.user)):
+			if not app.customer_id == request.user:
+				return render_to_response('/error.html', {'error' : "That appointment is not available." })
+		app.cat_name = request.POST.get('cat_name', '')
+		app.cat_breed = request.POST.get('cat_breed', '')
+		app.special_considerations = request.POST.get('special_considerations', '')
+		app.start = request.POST.get('start_time', '')
+		app.end = request.POST.get('end', '')
+		app.camera_id = request.POST.get('camera_id', '')
+		if (inEmpGroup(request.user) or inManGroup(request.user)) and not request.POST.get('user', '') == app.customer_id.id:
+			app.customer_id = User.objects.filter(id=request.POST.get('user', ''))[0]
+		app.save()
+		return HttpResponseRedirect('/appointments/')
+	return render_to_response("/error.html");
+	
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u), login_url='/')
+def getAppointmentList(request):
+	if (request.GET.get('start') == None or request.GET.get('end') == None):
+		return HttpResponse("")
+	start = datetime.strptime(request.GET.get('start'), "%Y-%m-%d")
+	end = datetime.strptime(request.GET.get('end'), "%Y-%m-%d")
+	apps = []
+	i = 0
+	for d in daterange(start, end):
+		day = []
+		day.append("day-"+str(i))
+		kennels = []
+		aps = []
+		a = KennellingAppointment.objects.filter(start__lte=d, end__gte=d).order_by('-start')
+		for app in a:
+			k = app.kennellingappointment
+			kennels.append("_".join([k.cat_name, str(k.id)]))
+		a = Appointment.objects.filter(start__year=d.year, start__month=d.month, start__day=d.day)
+		for app in a:
+			try:
+				k = app.kennellingappointment
+			except KennellingAppointment.DoesNotExist:
+				aps.append("_".join([app.cat_name, app.start.strftime("%H"), str(app.id)]))
+		day.append(",".join(kennels))
+		day.append(",".join(aps))
+		apps.append(",".join(day))
+		i += 1
+	return HttpResponse(",".join(apps))
+	
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def getGroomingAvailability(request):
+	start = request.GET.get('startTime')
+	end = request.GET.get('endTime')
+	elementId = request.GET.get('elementId')
+	result = ScheduleManager.canfit(start, end, "APPOINTMENT")
+	return HttpResponse(str(elementId) + ":" + str(result))
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def getKennellingAvailability(request):
+	day = datetime.strptime(request.GET.get('startDay'), "%Y-%m-%d").date()
+	weekDelta = timedelta(weeks=1)
+	startDate = day-(weekDelta*5)
+	endDate = day+(weekDelta*10)
+	ud = ""
+	for d in daterange(startDate, endDate):
+		if not ScheduleManager.canfit(d, None, "KENNELLING"):
+			ud += d.strftime("%Y-%m-%d") + ","
+	return HttpResponse(ud)
+	
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u) or inCusGroup(u), login_url='/')
+def getKennellingAvailability2(request):
+	day = datetime.strptime(request.GET.get('startDay'), "%Y-%m-%d").date()
+	weekDelta = timedelta(weeks=1)
+	startDate = day
+	endDate = day+(weekDelta*11)
+	ud = ""
+	for d in daterange(startDate, endDate):
+		if not ScheduleManager.canfit(d, None, "KENNELLING"):
+			ud += d.strftime("%Y-%m-%d") + ","
+	return HttpResponse(ud)
+
+def daterange(start_date, end_date):
+	for n in range((end_date - start_date).days):
+		yield start_date + timedelta(n)

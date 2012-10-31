@@ -1,0 +1,14 @@
+{% extends "structure/base_employee.html" %}
+
+{% block title %}Appointment Log{% endblock %}
+
+{% block content %}
+<h1>Appointment Log</h1>
+<form action="/appointments/{{ app.id }}/updateLog" method="post">
+	<textarea class="formInputArea" style="margin:10px 0 0 0;" rows="15" cols="50" name="logText">{{ app.log|striptags }}</textarea>
+	<br/>
+	<button type="submit" class="button big positive primary">Save</button>
+	<a class="button primary big" href="/appointments/{{ app.id }}/">Back</a>
+</form>
+<br />
+{% endblock %}

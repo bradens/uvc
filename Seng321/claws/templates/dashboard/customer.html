@@ -1,0 +1,19 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block script %}
+	{% include "structure/setnav.html" with type="homeNav" %}
+{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="dashboardContent">
+	<p>Welcome! Looking to get familiar with the new site? Look no further!</p>
+	<p>Want to <b>schedule a grooming or kenneling appointment</b> for your furry friend? Start on the <a class="link" href="/appointments/create"><span>create appointment page</span></a>.</p>
+	<p>Visit the <a class="link" href="/appointments"><span>appointments page</span></a> to <b>view, modify, or delete your appointments</b>.<br/> If your pet is currently staying at Purrfur, this is where you can find the <b>appointment logs</b> and <b>CatCam</b> service.</p>
+	<p>Browse Purrfur's stock of <b>cat food, toys, and other related products</b> via the <a class="link" href="/catalogue"><span>Cat-a-logue page</span></a>.</p>
+	<p>Need to <b>change your personal information</b>? Click the link at the top right of the screen to edit your account settings.</p>
+</div>
+{% endblock %}

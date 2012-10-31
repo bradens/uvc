@@ -1,0 +1,59 @@
+table.listTable {
+	width: auto;
+}
+td.listCatName {
+	width: 100px;
+	max-width: 200px;
+	border: 1px solid #CCCCCC;
+	text-align: center;
+	overflow: auto;
+}
+td.listDate {
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 15px;
+	width: auto;
+}
+td.listLinks {
+	padding: 10px;
+	width: 100px;
+	border: 1px solid #CCCCCC;
+	width: auto;
+}
+a.listLink {
+	text-decoration: underline;
+	font-size: 16px;
+	color: #000000;
+}
+a.listButton {
+	font-size: 16px;
+	color: #000000;
+}
+a.listLinkUnavailable {
+	font-size: 16px;
+}
+td.detailTitle {
+	text-align: right;
+	vertical-align: top;
+	font-weight: bold;
+	font-size: 14px;
+	color: #000000;
+	padding: 5px;
+}
+td.detailLinks {
+	text-align: center;
+	vertical-align: top;
+	font-weight: bold;
+	font-size: 14px;
+	color: #000000;
+	padding: 5px;
+}
+td.detailData {
+	text-align: left;
+	font-size: 14px;
+	max-width: 700px;
+	overflow: auto;
+}
+.logContent {
+	font-size: 16px;
+}

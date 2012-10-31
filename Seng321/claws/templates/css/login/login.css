@@ -1,0 +1,121 @@
+.aboutUs {
+	margin: 20px 2% 20px 2%;
+	overflow: hidden;
+	font-size:18px;
+}
+
+.createdContent {
+	margin: 20px auto;
+	width: 550px;
+	font-size:18px;
+}
+
+.createdContent a.button {
+	margin: 10px;
+	float: right;
+}
+
+.aboutUs p {
+	line-height: 170%;
+	clear: both;
+}
+
+.aboutUsContent {
+	height: 200px;
+}
+
+.aboutUsTitle {
+	float: left;
+	font-size: 42px;
+	color: #222;
+	text-shadow: 0px 0px 5px #D2D2FF, 0 1px 0px white;
+	margin-left: 0px;
+}
+
+.aboutUsSubtitle {
+	float: left;
+	margin-left: 140px;
+	clear: both;
+	font-size: 30px;
+	color: #222;
+	text-shadow: 0px 0px 5px #D2D2FF, 0 1px 0px white;
+}
+
+#aboutUsBlurb {
+	width: 90%; 
+	margin: auto; 
+	padding-top: 12px; 
+	text-align: center;
+}
+
+.loginForm label {
+	width:140px;
+}
+.registerForm label {
+	width: 150px;
+}
+
+.form .title {
+	font-size:30px;
+	margin-bottom:20px;
+	display:inline-block;
+}
+.form {
+	display:inline-block;
+	width:46%;
+	padding-top: 20px;
+	height:93%;
+}
+.loginForm {
+	float:left;
+	border-right: thin dashed grey;
+	margin-left: 2%;
+	padding-right:20px;
+}
+.registerForm {
+	margin-right: 1%;
+	margin-left: 20px;
+}
+.loginButtons {
+	margin:19px auto 0 auto;
+	width:auto;
+	display:inline-block;
+	float:right;
+}
+.loginContent {
+	height:260px;
+	-moz-box-shadow: 0 0 8px 1px #222;
+	-webkit-box-shadow: 0 0 8px 1px #222;
+	box-shadow: 0 0 8px 1px #222;
+}
+
+.catalogueContent {
+	border-top:thin solid #666;
+	height:auto;
+	min-height:300px;
+}
+
+.catalogueContent .catalogueWrap {
+	margin: 20px 2% 20px 2%;
+	overflow: hidden;
+}
+.catalogueContent .catalogueWrap .title {
+	font-size:30px;
+} 
+
+.catalogueBox {
+	width:93%;
+	margin:20px auto 20px auto;
+}
+
+.contentWrap { 
+	padding:0px;	
+}
+
+#loginError {
+	display: block;
+	color: red;
+	margin-left: 160px;
+	font-size: 15px;
+	font-weight: bold;
+}

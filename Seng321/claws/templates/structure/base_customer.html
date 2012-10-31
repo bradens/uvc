@@ -1,0 +1,10 @@
+{% extends "structure/base.html" %}
+
+{% block css %}
+{% endblock %}
+
+{% block nav_bar %}
+	{% include "structure/usercp.html" with customer_view="True" %}
+	{% include "structure/nav_customer.html" %}
+{% endblock %}
+

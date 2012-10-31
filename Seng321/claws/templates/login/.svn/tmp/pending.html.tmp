@@ -1,0 +1,21 @@
+{% extends "structure/base_manager.html" %}
+
+{% block css %}
+	
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript" src="/static/js/login/login.js"></script>
+	{% include "structure/setnav.html" with type="managementNav" %}
+{% endblock %}
+
+{% block title %}Pending Users{% endblock %}
+
+{% block content %}
+	<h1>Pending Users</h1> 
+	{% for usr in users %}
+		{% if not usr.is_active %}
+		<p style="font-size:medium">{{ usr.email }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="button" onclick="loginController.activate({{usr.id}});">Confirm</a><a class="button" onclick="loginController.deny({{usr.id}});">Deny</a></p>
+		{% endif %}
+	{% endfor %}
+{% endblock %}

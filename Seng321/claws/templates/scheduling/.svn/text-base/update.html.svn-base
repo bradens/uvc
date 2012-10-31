@@ -1,0 +1,6 @@
+{% extends "structure/base_employee.html" %}
+{% block css %}
+	@import url('/static/css/core.css');
+	@import url('/static/css/scheduling/scheduling.css');
+{% endblock %}
+<p>Update complete</p>

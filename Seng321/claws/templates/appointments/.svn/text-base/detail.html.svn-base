@@ -1,0 +1,83 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}Appointment Details{% endblock %}
+
+{% block css %}
+	@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block content %}
+<h1>Appointment Details</h1>
+<table class="listTable">
+<tr>
+	<td class="detailTitle">
+	Cat Name:
+	</td>
+	<td class="detailData">
+	{{ app.cat_name }}
+	</td>
+</tr>
+<tr>
+	<td class="detailTitle">
+	Breed:
+	</td>
+	<td class="detailData">
+	{{ app.cat_breed }}
+	</td>
+</tr>
+<tr>
+	<td class="detailTitle">
+	Start:
+	</td>
+	<td class="detailData">
+	{% if app.is_kennelling %}
+	{{ app.start|date:"N d, Y" }}
+	{% else %}
+	{{ app.start }}
+	{% endif %}
+	</td>
+</tr>
+<tr>
+	<td class="detailTitle">
+	End:
+	</td>
+	<td class="detailData">
+	{% if app.is_kennelling %}
+	{{ app.end|date:"N d, Y" }}
+	{% else %}
+	{{ app.end }}
+	{% endif %}
+	</td>
+</tr>
+{% if app.special_considerations %}
+<tr>
+	<td class="detailTitle">
+	Special Considerations:
+	</td>
+	<td class="detailData">
+	{{ app.special_considerations }}
+	</td>
+</tr>
+{% endif %}
+<tr>
+	<td class="detailLinks" colspan="2">
+	<a class="button big primary" href="/appointments/">Back</a>
+	&nbsp;&nbsp;&nbsp;
+	<a class="button big primary" href="/appointments/{{ app.id }}/edit">Edit</a>
+	&nbsp;&nbsp;&nbsp;
+{% if app.is_kennelling %}
+	<a class="button big primary" href="/appointments/{{ app.id }}/log">Log</a>
+	&nbsp;&nbsp;&nbsp;
+	{% if app.camera_id == -1 %}
+		<a class="button big" style="color:#CCCCCC" href="#">Cam</a>
+		&nbsp;&nbsp;&nbsp;
+	{% else %}
+		<a class="button big primary" href="/appointments/{{ app.id }}/catcam">Cam</a>
+		&nbsp;&nbsp;&nbsp;
+	{% endif %}
+{% endif %}
+	<a class="button big primary negative" href="/appointments/{{ app.id }}/delete">Delete</a>
+	</td>
+</tr>
+</table>
+{% endblock %}

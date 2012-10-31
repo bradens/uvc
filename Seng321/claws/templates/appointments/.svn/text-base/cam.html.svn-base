@@ -1,0 +1,19 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}CatCam{% endblock %}
+
+{% block content %}
+<h1>CatCam</h1>
+
+<br/>
+<p>Cam ID: {{ app.camera_id }}<p>
+<br/>
+
+<div id="catcamContainer" style="width: 500px; text-align: center">
+	<img src="/static/images/catcam_{{ gifnum }}.gif" style="margin: auto" />
+</div>
+
+<br/>
+
+<a class="button big primary" href="{% if back %}{{ back }}{% else %}/appointments/{% endif %}">Back</a>
+{% endblock %}

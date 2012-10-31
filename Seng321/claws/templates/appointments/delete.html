@@ -1,0 +1,14 @@
+{% extends parent %}
+
+{% block title %}Delete Appointment{% endblock %}
+
+{% block css %}
+	@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block content %}
+<h1>Confirm Deletion</h1>
+<a class="link listLink" href="/appointments/{{ app.id }}/deleteConf">Yes, Delete This Appointment</a>
+&nbsp;&nbsp;&nbsp;
+<a class="link listLink" href="/appointments/">Cancel</a>
+{% endblock %}

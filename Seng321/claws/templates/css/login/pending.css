@@ -1,0 +1,23 @@
+#pendingUsersContainer div {
+	width: 600px;
+	padding: 8px;
+	border-bottom: 1px solid grey;
+}
+
+#pendingUsersContainer span, #pendingUsersContainer p {
+	font-size: medium;
+}
+
+#pendingUsersContainer div:last-child {
+	border: none;
+}
+
+.pendingUserBlock span:first-child {
+	display: inline-block;
+	width: 120px;
+}
+
+.editUserBlock span:first-child {
+	display: inline-block;
+	width: 80px;
+}

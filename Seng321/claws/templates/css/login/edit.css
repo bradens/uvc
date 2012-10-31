@@ -1,0 +1,30 @@
+
+.editAccountForm label {
+	width: 150px;
+}
+
+.form .title {
+	font-size:30px;
+	margin-bottom:20px;
+	display:inline-block;
+}
+.form {
+	display:inline-block;
+	width:46%;
+	padding-top: 20px;
+	height:93%;
+}
+
+.editAccountForm {
+	margin-right: 2%;
+	margin-left: 20px;
+}
+
+.editAccountForm .usernameDiv {
+	padding-bottom: 12px;
+}
+
+.editAccountForm .username {
+	padding-left: 15px;
+	font-size: 15px;
+}

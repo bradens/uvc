@@ -1,0 +1,9 @@
+<div class='NavBar'>
+	<ul>
+		<a href="/dash/" class="homeNav"><li><span>Home</span></li></a>
+		<a href="/catalogue" class="catalogueNav"><li><span>Cat-a-logue</span></li></a>
+		<a href="/appointments" class="appointmentsNav"><li><span>Appointments</span></li></a>
+		<a href="/schedule" class="schedulingNav"><li><span>Scheduling</span></li></a>
+		<a href="/employee/pending" class="managementNav"><li><span>Accounts</span></li></a>
+	</ul>
+</div>

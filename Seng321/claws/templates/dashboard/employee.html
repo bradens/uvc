@@ -1,0 +1,19 @@
+{% extends "structure/base_employee.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block script %}
+	{% include "structure/setnav.html" with type="homeNav" %}
+{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="dashboardContent">
+	<p>To <b>view the current Cat-a-logue</b>, use the <a class="link" href="/catalogue"><span>Cat-a-logue page</span></a>.</p>
+	<p>To <b>view, modify, create, or delete cat appointments</b>, including <b>editing logs</b> and <b>enabling the CatCam</b>, use the <a class="link" href="/appointments"><span>appointments page</span></a>.</p>
+	<p>To <b>view the staff schedule</b>, use the <a class="link" href="/schedule"><span>scheduling page</span></a>.</p>
+	<p>To <b>activate and edit customer accounts</b>, use the <a class="link" href="/employee/pending"><span>accounts page</span></a>.</p>
+	
+</div>
+{% endblock %}

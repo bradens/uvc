@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/seng321/group4/!svn/ver/70/claws/templates/catalogue
+END
+item.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/seng321/group4/!svn/ver/44/claws/templates/catalogue/item.html
+END
+singleitem.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/seng321/group4/!svn/ver/34/claws/templates/catalogue/singleitem.html
+END
+actions.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/seng321/group4/!svn/ver/44/claws/templates/catalogue/actions.html
+END
+emp.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/seng321/group4/!svn/ver/70/claws/templates/catalogue/emp.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/seng321/group4/!svn/ver/70/claws/templates/catalogue/index.html
+END
+listing.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/seng321/group4/!svn/ver/62/claws/templates/catalogue/listing.html
+END
+man.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/seng321/group4/!svn/ver/70/claws/templates/catalogue/man.html
+END

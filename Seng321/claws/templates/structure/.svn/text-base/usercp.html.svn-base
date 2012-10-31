@@ -1,0 +1,16 @@
+<div class="cp">
+	<ul class="cpUL">
+		{% if customer_view %}
+		<a href="/login/editaccountForm">
+			<li>
+				Edit Account		
+			</li>
+		</a>
+		{% endif %}
+		<a href="/login/logout">
+			<li>
+				Logout
+			</li>
+		</a>
+	</ul>
+</div>

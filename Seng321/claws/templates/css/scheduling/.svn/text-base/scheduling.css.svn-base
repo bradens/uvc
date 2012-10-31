@@ -1,0 +1,37 @@
+#shiftForm {
+	width: 360px;
+	float: left;
+	border-right: 1px dashed gray;
+}
+
+#shiftForm label {
+	width: 100px;
+}
+
+#shiftForm input {
+	width: 200px;
+}
+
+#calculateForm {
+	padding-left: 20px;
+	width: 360px;
+	float: left;
+}
+
+#calculateForm label {
+	width: 130px;
+}
+
+#calculateForm input {
+	width: 200px;
+}
+
+#calculateButton {
+	float: right;
+	margin-bottom: 11px;
+}
+
+.formTitle {
+	font-size: 20px;
+}
+

@@ -1,0 +1,12 @@
+{% extends "structure/base_manager.html" %}
+
+{% block extra_header %}
+
+{% endblock %}
+
+{% block title %}Pending Users{% endblock %}
+
+{% block content %}
+	<h1>Forgot Password</h1>
+	<h2>An email has been sent to your account containing a temporary password for your account</h2>
+{% endblock %}

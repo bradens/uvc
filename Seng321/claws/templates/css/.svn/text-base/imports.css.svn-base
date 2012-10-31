@@ -1,0 +1,7 @@
+@import url('/static/css/reset.css');
+@import url('/static/css/css3buttons.css');
+@import url('/static/fonts/opensans/stylesheet.css');
+@import url('/static/css/core.css');
+@import url('/static/css/theme.css');
+@import url('/static/css/jquery-ui-1.8.18.custom.css');
+@import url('/static/css/dashboard/dashboard.css');

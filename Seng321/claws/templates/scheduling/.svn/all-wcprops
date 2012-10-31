@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/seng321/group4/!svn/ver/128/claws/templates/scheduling
+END
+detail.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/seng321/group4/!svn/ver/128/claws/templates/scheduling/detail.html
+END
+delete.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/seng321/group4/!svn/ver/128/claws/templates/scheduling/delete.html
+END
+update.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/seng321/group4/!svn/ver/116/claws/templates/scheduling/update.html
+END
+app_edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/seng321/group4/!svn/ver/116/claws/templates/scheduling/app_edit.html
+END
+edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/seng321/group4/!svn/ver/128/claws/templates/scheduling/edit.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/seng321/group4/!svn/ver/129/claws/templates/scheduling/index.html
+END
+delete_confirmed.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/seng321/group4/!svn/ver/116/claws/templates/scheduling/delete_confirmed.html
+END

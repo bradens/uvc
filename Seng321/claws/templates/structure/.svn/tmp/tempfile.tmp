@@ -1,0 +1,19 @@
+<!--
+    Include this file and then instantiate it like:
+    var calendar = new calTable(<element where class=name>);
+    then call rewrite(data)
+-->
+<table class="cal scheduleTable {{ name }}">
+	<tbody>
+		<tr class="header">
+			<th>&nbsp;</th>
+			<th>Sunday</th>
+			<th>Monday</th>
+			<th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+			<th>Saturday</th>
+		</tr>
+	</tbody>
+</table>

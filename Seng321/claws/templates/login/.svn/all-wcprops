@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/seng321/group4/!svn/ver/105/claws/templates/login
+END
+edit_account.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/seng321/group4/!svn/ver/99/claws/templates/login/edit_account.html
+END
+forgotPassSent.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/seng321/group4/!svn/ver/86/claws/templates/login/forgotPassSent.html
+END
+forgotPassword.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/seng321/group4/!svn/ver/86/claws/templates/login/forgotPassword.html
+END
+pending.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/seng321/group4/!svn/ver/99/claws/templates/login/pending.html
+END
+editUserAccounts.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/seng321/group4/!svn/ver/99/claws/templates/login/editUserAccounts.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/seng321/group4/!svn/ver/82/claws/templates/login/index.html
+END
+created.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/seng321/group4/!svn/ver/105/claws/templates/login/created.html
+END

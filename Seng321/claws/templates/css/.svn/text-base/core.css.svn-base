@@ -1,0 +1,167 @@
+h1 {
+	font-size:30px;
+}
+
+span.label {
+	float: left;
+	display:inline-block;
+}
+
+input.formInputBox {
+	font-weight: inherit;
+	font-style: inherit;
+	font-family: inherit;
+	margin: 0px 2px 10px 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 60%;
+	-webkit-box-shadow: 0px 0px 3px 2px rgba(0,0,150,.15);
+	box-shadow: 0px 0px 3px 2px rgba(0,0,150,.15);
+	padding: 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border: #999 thin solid;
+	font-size: 14px;
+	background-color: rgb(230, 230, 255);
+	-moz-transition-property: background-color;
+	-moz-transition-duration: .25s;
+	transition: background-color .25s; 
+	-webkit-transition: background-color .25s;
+	line-height: 1.5;
+}
+
+select.formSelectBox {
+	font-weight: inherit;
+	font-style: inherit;
+	font-family: inherit;
+	margin: 0px 2px 10px 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-box-shadow: 0px 0px 3px 2px rgba(0,0,150,.15);
+	box-shadow: 0px 0px 3px 2px rgba(0,0,150,.15);
+	padding: 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border: #999 thin solid;
+	font-size: 14px;
+	background-color: rgb(230, 230, 255);
+	-moz-transition-property: background-color;
+	-moz-transition-duration: .25s;
+	transition: background-color .25s; 
+	-webkit-transition: background-color .25s;
+	line-height: 1.5;
+}
+
+textarea.formInputArea {
+	font-weight: inherit;
+	font-style: inherit;
+	font-family: inherit;
+	margin: 0px 2px 10px 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 60%;
+	-webkit-box-shadow: 0px 0px 3px 2px rgba(0,0,150,.15);
+	box-shadow: 0px 0px 3px 2px rgba(0,0,150,.15);
+	padding: 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border: #999 thin solid;
+	font-size: 14px;
+	background-color: rgb(230, 230, 255);
+	-moz-transition-property: background-color;
+	-moz-transition-duration: .25s;
+	transition: background-color .25s; 
+	-webkit-transition: background-color .25s;
+	line-height: 1.5;
+}
+
+label {
+	font-size:15px;
+	align:right;
+	padding-right:2px;
+	display:inline-block;
+}
+
+a.link {
+	color:gray;
+	text-decoration:none;
+}
+
+a.link span {
+	border-bottom: thin dotted gray;
+	display:inline;
+	-webkit-transition: all .5s;
+	transition: all .5s;
+	-moz-transition-property: all;
+	-moz-transition-duration: .5s;
+	display:inline-block;
+}
+
+a.link:hover span {
+	color:#222;
+	border-bottom: thin dashed #222;
+	background-color: rgba(0,0,0,.1);
+}
+
+input.formInputBox:hover, textarea.formInputArea:hover, select.formSelectBox:hover {
+	background-color: rgb(190,190,220);
+}
+input.formInputBox:focus, textarea.formInputArea:focus, select.formSelectBox:focus {
+	background-color: rgb(245,245,255);
+}
+
+/** Button css overrides **/
+
+a.button, button {
+	font-family: inherit;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+
+table.cal {
+	border:thin solid lightblue;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+table.cal th.scrollArw {
+	padding: 5px;
+	border: 1px solid #CCCCCC;
+	margin: 5px;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+}
+table.cal th, table.cal td {
+    padding : 4px;
+    border-left: thin solid lightblue;
+    overflow: auto;
+    max-width: 100px;
+}
+table.cal th{
+    border-bottom: 2px solid lightblue;
+    font-family: "OpenSansBold";
+}
+table.cal tbody tr:nth-child(odd) {
+    -webkit-transition: background-color .15s ease-in;
+    background-color:rgb(230,230,255);
+}
+table.cal tbody tr:hover {
+    background-color:lightblue;
+    color: #333;
+}
+table.cal tr:hover td {
+    border-color:#E6E6FF;
+}
+
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }

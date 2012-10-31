@@ -1,0 +1,84 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block css %}
+	@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block script %}
+	{% include "structure/setnav.html" with type="appointmentsNav" %}
+{% endblock %}
+{% block content %}
+
+<h1>Appointments</h1>
+			
+<table class="listTable">
+<tr>
+	<td style="text-align:left" class="detailTitle" colspan="3">
+	Grooming Appointments
+	</td>
+</tr>
+{% if not apps %}
+	<tr>
+		<td class="listDate" colspan="3">
+		No Grooming Appointments
+		</td>
+	</tr>
+{% else %}
+	{% for appointment in apps %}
+		<tr>
+			<td class="listCatName">
+				<a class="link listLink" href="/appointments/{{ appointment.id }}/">
+					{{ appointment.cat_name }}
+				</a>
+			</td>
+			<td class="listDate">
+				Start: {{ appointment.start|date:"M d, Y H:i A" }}<br>
+				End: &nbsp;&nbsp;{{ appointment.end|date:"M d, Y H:i A" }}
+			</td>
+			<td class="listLinks">
+				<a class="button negative link listButton" href="/appointments/{{ appointment.id }}/delete">Delete</a>
+			</td>
+		</tr>
+	{% endfor %}
+{% endif %}
+<tr>
+	<td style="text-align:left" class="detailTitle" colspan="3">
+	Kennelling Appointments
+	</td>
+</tr>
+{% if not kennels %}
+	<tr>
+		<td class="listDate" colspan="3">
+		No Kennelling Appointments
+		</td>
+	</tr>
+{% else %}
+	{% for appointment in kennels %}
+		<tr>
+			<td class="listCatName">
+				<a class="link listLink" href="/appointments/{{ appointment.id }}/">
+					{{ appointment.cat_name }}
+				</a>
+			</td>
+			<td class="listDate">
+				Start: {{ appointment.start|date:"M d, Y" }}<br>
+				End: &nbsp;&nbsp;{{ appointment.end|date:"M d, Y" }}
+			</td>
+			<td class="listLinks">
+				<a class="button negative link listButton" href="/appointments/{{ appointment.id }}/delete">Delete</a>
+				&nbsp;&nbsp;&nbsp;
+				<a class="button link listButton" href="/appointments/{{ appointment.id }}/log">Log</a>
+				&nbsp;&nbsp;&nbsp;
+				{% if appointment.camera_id == -1 %}
+					<a class="button link listLinkUnavailable" href="javascript:">Cam</a>
+				{% else %}
+					<a class="button link listButton" href="/appointments/{{ appointment.id }}/catcam">Cam</a>
+				{% endif %}
+			</td>
+		</tr>
+	{% endfor %}
+{% endif %}
+</table>
+{% endblock %}

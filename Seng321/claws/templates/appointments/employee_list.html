@@ -1,0 +1,20 @@
+{% extends "structure/base_employee.html" %}
+
+{% block css %}
+@import url('/static/css/core.css');
+@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block script %}
+	{{ super }}
+	<script type="text/javascript" charset="utf-8" src="/static/js/appointments/table_view.js"></script>
+	{% include "structure/setnav.html" with type="appointmentsNav" %}
+{% endblock %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
+<h1>Appointments</h1>
+<p style="font-size: 18px; padding: 10px 0px;">To make a new appointment, use the <a class="link" href="/appointments/create"><span>create appointment page</span></a>.</p>
+{% include "structure/calendartable.html" with entries=apps name="appTable" %}
+{% endblock %}

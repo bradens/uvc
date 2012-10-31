@@ -1,0 +1,19 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}Appointment Log{% endblock %}
+
+{% block content %}
+<<<<<<< .mine
+<h1>Appointment Log</h1>
+<p style="font-size: 14px;">{{ app.log }}<br/><br/>
+<a class="button big primary" href="/appointments/{{ app.id }}/">Back</a>
+=======
+<h1>Appointment Log</h1><br>
+{% if app.log == "" %}
+No log for this appointment yet.
+{% else %}
+<pre>{{ app.log }}</pre>
+{% endif %}
+<br><br><a class="button big primary" href="/appointments/{{ app.id }}/">Back</a>
+>>>>>>> .r109
+{% endblock %}

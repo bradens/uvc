@@ -1,0 +1,20 @@
+{% extends "structure/base_manager.html" %}
+
+{% block title %}Delete Shift{% endblock %}
+
+{% block css %}
+	@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block content %}
+<h1>Confirm Deletion</h1>
+
+<p>Employee ID: <b>{{ shift.employee_id }}</b></p>
+
+<p>From <b>{{ shift.start }}</b> to <b>{{ shift.end }}</b><br/>
+Duration: <b>{{ shift.get_duration }} hours</b>.</p>
+
+<a class="link listLink" href="/schedule/{{ shift.id }}/delete_confirmed">Yes, delete this shift</a>
+&nbsp;&nbsp;&nbsp;
+<a class="link listLink" href="/schedule/">Cancel</a>
+{% endblock %}

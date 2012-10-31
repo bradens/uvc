@@ -1,0 +1,213 @@
+{% extends parent %}
+
+{% block css %}
+	{{ super }}
+	@import url('/static/css/core.css');
+	@import url('/static/css/appointments/dateselect/timeframe.css');
+	@import url('/static/css/appointments/dateselect/gui.css');
+	@import url('/static/css/appointments/timeselect/timePicker.css');
+	@import url('/static/css/appointments/create/create.css');
+{% endblock %}
+
+{% block script %}
+{% if employee_view %}
+	{% include "structure/setnav.html" with type="appointmentsNav" %}
+{% else %}
+	{% include "structure/setnav.html" with type="createNav" %}
+{% endif %}
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/appointments/dateselect/prototype.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/appointments/dateselect/timeframe.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/appointments/timeselect/timePicker.js"></script>
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function() {
+	{% if app.is_kennelling %}
+		$(start_time).value = "";
+		$(form_selector).innerHTML = $(date_selector).innerHTML.replace("cals", "calendars").replace("cals_form", "calendar_form").replace("st", "start");
+		var jqhs = jQuery.get("/appointments/data/getKennellingAv", { startDay : (new Date()).strftime("%Y-%m-%d") })
+		.success(function(data) {
+			$(document).tf.parseUnavailable(data);
+		});
+		$(document).tf = new Timeframe('calendars', {startField: 'start_time', endField: 'end', earliest: new Date(), range_start: '{{ app.start|date:"Y-m-d H:i" }}', range_end: '{{ app.end|date:"Y-m-d H:i" }}' });
+		$(start_time).value = '{{ app.start|date:"Y-m-d H:i" }}';
+		$(end).value = '{{ app.end|date:"Y-m-d H:i" }}';
+	{% else %}
+		$(form_selector).innerHTML = $(time_selector).innerHTML.replace("timeTable___", "timeTable");
+		generate();
+		$(document).tp = new timePicker('{{ app.start|date:"Y-m-d H:i" }}');
+	{% endif %}
+});
+
+function validate()
+{
+	err = true;
+	if ($(cat_name).value == "")
+	{
+		$(cat_name_error).innerHTML = "Please enter a cat name.";
+		err = false;
+	}
+	else if($(cat_name).value.length > 50)
+	{
+		$(cat_name_error).innerHTML = "That cat name is too long.";
+		err = false;
+	}
+	else
+	{
+		$(cat_name_error).innerHTML = "";
+	}
+	
+	if ($(cat_breed).value == "")
+	{
+		$(cat_breed_error).innerHTML = "Please enter a cat breed.";
+		err = false;
+	}
+	else if($(cat_breed).value.length > 50)
+	{
+		$(cat_breed_error).innerHTML = "That cat breed is too long.";
+		err = false;
+	}
+	else
+	{
+		$(cat_breed_error).innerHTML = "";
+	}
+	
+	if ($(start_time).value == "" || $(end).value == "")
+	{
+		$(date_time_error).innerHTML = "Please select a date/time.";
+		err = false;
+	}
+	return err;
+}
+</script>
+<!--[if lt IE 8]>
+<style type="text/css" media="screen">
+  div.timeframe_calendar li a, div.timeframe_calendar table {
+	display: inline;
+  }
+</style>
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="/static/css/appointments/dateselect/ie6.css" type="text/css" media="screen" title="ie6" charset="utf-8"/>
+<![endif]-->
+{% endblock %}
+{% block title %}Edit Appointment{% endblock %}
+
+{% block content %}
+
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+		<h1>Edit Appointment</h1>
+		<form id="appointmentForm" onsubmit="return validate()" action="/appointments/{{ app.pk }}/editsubmit" method="post">
+
+		<div class="formColumn">
+			<div>
+				<label for="cat_name">Cat Name :</label>
+				<input class="formInputBox appointmentFormInputBox" value="{{ app.cat_name }}" type="text" name="cat_name" id="cat_name" /> 
+				<span class="app_error" id="cat_name_error"></span><br/ >
+			</div>
+
+			<div>
+				<label for="cat_breed">Cat Breed :</label>
+				<input class="formInputBox appointmentFormInputBox" value="{{ app.cat_breed }}" type="text" name="cat_breed" id="cat_breed" /> 
+				<span class="app_error" id="cat_breed_error"></span><br />
+			</div>
+
+			{% if users %}
+			<div>
+				<label for="user">User :</label>
+				<select class="formSelectBox" name="user">
+					{% for user in users %}
+					<option {% if app.customer_id == user %}selected {% endif %}value="{{ user.id }}">{{ user.username }}</option>
+					{% endfor %}
+				</select><br />
+			</div>
+			{% endif %}
+			
+			{% if app.is_kennelling %}
+			{% if users %}
+			<div>
+				<label for="camera_id">Access Cam :</label>
+				<select class="formSelectBox" name="camera_id">
+					<option {% if app.camera_id == -1 %}selected {% endif %}value="-1">None</option>
+					<option {% if app.camera_id == 1 %}selected {% endif %}value="1">1</option>
+					<option {% if app.camera_id == 2 %}selected {% endif %}value="2">2</option>
+					<option {% if app.camera_id == 3 %}selected {% endif %}value="3">3</option>
+					<option {% if app.camera_id == 4 %}selected {% endif %}value="4">4</option>
+					<option {% if app.camera_id == 5 %}selected {% endif %}value="5">5</option>
+					<option {% if app.camera_id == 6 %}selected {% endif %}value="6">6</option>
+					<option {% if app.camera_id == 7 %}selected {% endif %}value="7">7</option>
+					<option {% if app.camera_id == 8 %}selected {% endif %}value="8">8</option>
+					<option {% if app.camera_id == 9 %}selected {% endif %}value="9">9</option>
+					<option {% if app.camera_id == 10 %}selected {% endif %}value="10">10</option>
+				</select>
+			</div>
+			{% endif %}
+			{% endif %}
+		</div>
+
+		<div class="formColumn">
+			<label for="special_considerations">Special Considerations :</label>
+			<textarea style="width:380px; margin-left: 0px;" class="formInputArea" name="special_considerations" rows="4" />{{ app.special_considerations }}</textarea><br />
+		</div>
+
+		<div style="clear: both">
+			<input type="hidden" name="start_time" id="start_time">
+			<input type="hidden" name="end" id="end">
+			<div id="form_selector">
+			</div>
+			<span class="app_error" id="date_time_error"></span>
+
+			<div id="editButtons">
+				<button type="submit" class="button big primary positive editButton" value="edit">Save</button>
+				<a href="/appointments/{{ app.id }}" class="button big primary editButton">Cancel</a><br />
+			</div>
+
+			</form>	
+			<div id="time_selector" style="position: absolute;visibility: hidden">
+				<table id="timeTable___" class="timePicker">
+				<tr>
+					<td class="tpScrllArrw" onclick="tp.scrollLeft()"><center>&lt;</center></td>
+					<td colspan="12">
+						<center>
+						<span class="timePickerTime"><b>Selected Time: </b></span>
+						<span class="timePickerTime" id="tpTmeDspYr">####</span> - 
+						<span class="timePickerTime" id="tpTmeDspMn">##</span> - 
+						<span class="timePickerTime" id="tpTmeDspDy">##</span> &nbsp; 
+						<span class="timePickerTime" id="tpTmeDspHr">##</span>
+						</center>
+					</td>
+					<td class="tpScrllArrw" onclick="tp.scrollRight()"><center>&gt;</center></td>
+				</tr>
+				<tr>
+					<td class="timePickerHeader" colspan="4">
+						<center><span id="tpLftClmnHead">Day 1</span></center>
+					</td>
+					<td class="timePickerHeaderBorder">
+					<span></span>
+					</td>
+					<td class="timePickerHeader" colspan="4">
+						<center><span id="tpCntrClmnHead">Day 1</span></center>
+					</td>
+					<td class="timePickerHeaderBorder">
+					<span></span>
+					</td>
+					<td class="timePickerHeader" colspan="4">
+						<center><span id="tpRghtClmnHead">Day 1</span></center>
+					</td>
+				</tr>
+				</table>
+			</div>
+			<div id="date_selector" style="position: absolute;visibility: hidden">
+			  <div id="cals"></div>
+			  <div id="cals_form">
+				<!--<div id="labels" style="position: absolute;visibility: hidden">
+				  <a href="#" id="reset"></a>
+				</div>
+				<div id="fields" style="position: absolute;visibility: hidden">
+					<input type="hidden" name="st" value="" id="st"/>
+					<input type="hidden" name="filler" value="" id="filler"/>
+				</div>-->
+			  </div>
+			</div>
+		</div>
+	
+	{% endblock %}

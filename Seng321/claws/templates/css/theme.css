@@ -1,0 +1,145 @@
+/* This file contains the styles and structure for every page *
+ * Included in every html file								  */
+ 
+body {
+	font: 12px "OpenSansLight", Helvetica, Arial, sans-serif;
+	width: 100%;
+	height:auto;
+	background-image: url("/static/images/whitegrad.png");
+	background-position: 0 300px;
+	min-height:600px;
+	background-repeat: repeat-x;
+	font-weight:100;
+	background-color: #2b2a2b;
+	text-shadow: 0px 1px 0px white;
+	color:#222;
+}
+
+.wrap {
+	background-image: linear-gradient(bottom, #A0A0FF 0%, #0B9CBA 100%);
+	background-image: -o-linear-gradient(bottom, #A0A0FF 0%, #0B9CBA 100%);
+	background-image: -moz-linear-gradient(bottom, #A0A0FF 0%, #0B9CBA 100%);
+	background-image: -webkit-linear-gradient(bottom, #A0A0FF 0%, #0B9CBA 100%);
+	background-image: -ms-linear-gradient(bottom, #A0A0FF 0%, #0B9CBA 100%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #A0A0FF),
+		color-stop(1, #0B9CBA)
+	);
+	border-bottom: thin solid #222;
+	min-height:483px;
+	height:483px;
+	width:100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+	/*box-shadow: 0 10px 200px 1px aliceblue;		This seems to lag chrome*/
+	margin-bottom:200px;
+}
+
+.NavBar {
+	min-width: 1000px;
+	width:85%;
+	height: 50px;
+	margin: 10px auto 10px auto;
+}
+
+.NavBar ul {
+	margin:0;
+	width:100%;
+	list-style:none;	
+}
+
+.NavBar ul a {
+	text-align:center;
+	height: 30px;
+	width: 140px;
+	display:inline-block;
+	padding:10px;
+	font-size:18px;
+	font: 18px "OpenSansRegular", Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px lightblue;
+	margin-right: -3px;
+	color: black;
+	text-decoration: none;
+	background-color: rgba(255, 255, 255, .3);
+	-webkit-transition: all .3s;
+	-moz-transiton-property: background-color, color;
+	-moz-transition-duration: .3s;
+	transition: all .3s;
+	box-shadow:0 0 8px 1px #222;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	cursor:pointer;
+}
+
+.NavBar ul a:hover {
+	background-color: rgba(0, 0, 0, .3);
+	color: #EEE;
+	text-shadow: 0px 1px 1px #222;
+}
+
+.NavBar ul a.activeNav {
+	background-color: rgba(0, 0, 0, .3);
+	color: #EEE;
+	text-shadow: 0px 1px 1px #222;
+}
+
+.NavBar ul a:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.NavBar ul a:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.banner {
+	display: inline-block;
+	margin-left: 10px;
+	margin-bottom:5px;
+	width:auto;
+	height:auto;
+	color:white;
+	text-shadow: 0 1px 3px black;
+}
+
+.banner .title {
+	font-variant:small-caps;
+	font-size:72px;
+}
+
+.banner .subTitle {
+	font: 20px "OpenSansRegular", Arial, Helvetica, sans-serif; 
+	font-variant:small-caps;
+	padding-left: 5px;
+}
+
+.bannerimg {
+	position: relative;
+	top: -151px;
+	left: 77%;
+	height: 0;
+	width: 0;
+}
+
+.mainContent {
+	width:85%;
+	height:auto;
+	min-height:700px;
+	margin:10px auto 10px auto;
+	border: thin solid #666;
+	border-radius:5px;
+	background-color:rgb(240,240,240);
+	box-shadow:0 33px 80px 1px #222;
+	min-width:1000px;
+}
+
+.contentWrap {
+	padding:20px;
+}

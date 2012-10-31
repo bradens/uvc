@@ -1,0 +1,35 @@
+{% extends "structure/base_customer.html" %}
+
+{% block css %}
+	@import url('/static/css/login/edit.css');
+{% endblock %}
+
+{% block extra_header %}
+	<script type="text/javascript" src="/static/js/login/login.js"></script>
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class='form editAccountForm'>
+	<span class="title">Edit Account</span>
+	<div class="usernameDiv">
+		<label>Username :</label>
+		<span class="username">{{ user.username }}</span>
+	</div>
+	<div>
+		<label for="email">User Email :</label>
+		<input class="formInputBox" type="text" name="email" id="email" value="{{ user.email }}" /> 
+	</div>
+	<div>
+		<label for="password">Password :</label>
+		<input class="formInputBox" type="password" name="password" id="password" value=""/> 
+	</div> 
+	<div>
+		<label for="password">Confirm Password :</label>
+		<input class="formInputBox" type="password" name="password_confirm" id="password_confirm" value=""/>
+	</div> 
+	<a onclick="loginController.editaccount_submit({{ user.id }});" class="big positive primary button">Submit <span class="icon rightarrow"></span></a>
+	<a href="{{ cancel_link }}" class="big primary button">Cancel</a>
+</div>
+{% endblock %}

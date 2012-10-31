@@ -1,0 +1,147 @@
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.utils import simplejson
+from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib.auth.models import User, Group
+from catalogue.models import Item
+from django.contrib import auth
+from django.contrib.auth import authenticate, logout
+from users.models import PendingUser
+#from users.views import inEmpGroup, inManGroup
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+def index(request):
+    if (request.user.is_authenticated()):
+		if (inEmpGroup(request.user)):
+			return HttpResponseRedirect('/appointments')
+		elif (inManGroup(request.user)):
+			return HttpResponseRedirect('/scheduling')
+		elif (inCusGroup(request.user)):
+			return HttpResponseRedirect('/users/pending')
+    else:
+        return render_to_response('login/index.html', {'items': Item.objects.all()})
+
+def newUserSuccess(request):
+    #TODO redirect to dashboard if logged in
+    return render_to_response('login/created.html')
+
+@login_required
+@user_passes_test(lambda u: inManGroup(u) or inEmpGroup(u), login_url='')
+def pendingUsers(request):
+    return render_to_response('login/pending.html', {'users': User.objects.all() })
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/')
+
+def login(request):
+    #TODO redirect to dashboard if logged in
+    username = request.POST.get('username')
+    pwd = request.POST.get('password')
+    
+    cUrl = '/dash/customer'
+    eUrl = '/dash/employee'
+    mUrl = '/dash/manager'
+    
+    user = authenticate(username=username, password=pwd)
+    if user is not None:
+        if user.is_active:
+            if (inEmpGroup(user)):
+                response = {'url' : eUrl }
+            elif (inManGroup(user)):
+                response = {'url' : mUrl }
+            else:
+                response = {'url' : cUrl }
+        else:
+            response = {'err' : "Your account is not Active!" }
+    else:
+        response = {'err' : "Your username and password were incorrect." }
+    if (response.get('url') != None):
+        auth.login(request, user)
+    return HttpResponse(simplejson.dumps(response), mimetype="text/javascript")
+
+
+# These return true if the user is in the group
+def inEmpGroup(user):
+    if (user.groups.filter(name='employee').count() == 0):
+        return False
+    else:
+        return True
+def inCusGroup(user):
+    if (user.groups.filter(name='customer').count() == 0):
+        return False
+    else:
+        return True
+def inManGroup(user):
+    if (user.groups.filter(name='manager').count() == 0):
+        return False
+    else:
+        return True
+    
+def setUserGroup(user, groupname):
+    Group.objects.get(groupname=groupname).user_set.add(user)
+    user.save()
+
+def newUser(request):
+    if request.method == 'POST':
+    	username = request.POST.get('username', '')
+    	email = request.POST.get('email', '')
+    	password = request.POST.get('password', '')
+#	cPassword = request.POST.get('cPassword', '')
+    
+    
+	#check desired username against existing usernames
+	#if password == cPassword:
+	user = User.objects.create_user(username, email, password)
+	user.is_active = False
+
+	user.save();
+    
+    #usr = PendingUser(username=username, password=password, email=email)
+    #usr.save()
+    
+    response = {}
+    response.update({'url': '/login/created'})
+    return HttpResponse(simplejson.dumps(response), mimetype="text/javascript")
+			
+            
+# TODO this method needs to create a django user object from the PendingUser model and then 
+# delete the pending user model.
+def activateUser(request):
+    if request.method == 'POST':
+	user = request.POST.get('user', '')
+	user.set_active = True
+
+    return render_to_response('login/pending.html', {'users': User.objects.all() })
+
+# NOTE -- THIS METHOD IS JUST HERE TO CREATE USER DATA
+# COMMENT OUT FOR PRODUCTION CODE
+def initialize(request):
+    group = Group(name="customer")
+    group.save()
+    group = Group(name="manager")
+    group.save()
+    group = Group(name="employee")
+    group.save()
+    
+    username = 'emp1'
+    email = 'emp1@purfurr.com'
+    password = 'emp1'
+    user = User.objects.create_user(username, email, password)
+    Group.objects.get(name="employee").user_set.add(user)
+    user.save()
+    
+    username = 'man1'
+    email = 'man1@purfurr.com'
+    password = 'man1'
+    user = User.objects.create_user(username, email, password)
+    Group.objects.get(name="manager").user_set.add(user)
+    user.save()
+    
+    username = 'cus1'
+    email = 'cus1@purfurr.com'
+    password = 'cus1'
+    user = User.objects.create_user(username, email, password)
+    Group.objects.get(name="customer").user_set.add(user)
+    user.save()
+    
+    return HttpResponse(status=200)

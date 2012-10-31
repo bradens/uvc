@@ -1,0 +1,73 @@
+table.timePicker {
+	padding: 6px;
+	border: 1px solid #CCCCCC;
+	background: #BBBBBB;
+}
+
+span.timePickerTime {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+td.tpScrllArrw {
+	padding: 5px;
+	border: 1px solid #CCCCCC;
+	margin: 5px;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+}
+td.tpScrllArrw a{
+	text-decoration:none;
+	color:black;
+}
+
+td.timePickerBorder {
+	border: 1px solid #CCCCCC;
+	background: #EEEEEE;
+	width: 0px;
+	height: 40px;
+	border-right: 2px solid #CCCCCC;
+	border-left: 2px solid #CCCCCC;
+}
+td.timePickerField {
+	text-align: center;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	cursor: pointer;
+	background: #EEEEEE;
+	width: 60px;
+	height: 40px;
+}
+td.timePickerFieldSelected {
+	text-align: center;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	cursor: pointer;
+	background: #A6F578;
+	width: 60px;
+	height: 40px;
+}
+td.timePickerFieldUnavailable {
+	text-align: center;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	background: #F59778;
+	width: 60px;
+	height: 40px;
+}
+
+td.timePickerHeader {
+	padding: 8px;
+	border: 1px solid #CCCCCC;
+	background: #0B9CBA;
+	font-size: 15px;
+	font-weight: 900;
+}
+td.timePickerHeaderBorder {
+	width: 0px;
+	border: 1px solid #BBBBBB;
+	border-right: 2px solid #BBBBBB;
+	border-left: 2px solid #BBBBBB;
+	background: #A0A0FF;
+}

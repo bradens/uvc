@@ -1,0 +1,19 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}Appointment Log{% endblock %}
+
+{% block css %}
+	@import url('/static/css/appointments/list/list.css');
+{% endblock %}
+
+{% block content %}
+<h1>Appointment Log</h1><br>
+{% if app.log == "" %}
+<pre class="logContent">No log for this appointment yet.</pre>
+{% else %}
+<pre class="logContent">{{ app.log }}</pre>
+{% endif %}
+<br><br>
+
+<a class="button big primary" href="{% if back %}{{ back }}{% else %}/appointments/{% endif %}">Back</a>
+{% endblock %}

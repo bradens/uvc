@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/seng321/group4/!svn/ver/128/claws
+END
+manage.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/seng321/group4/!svn/ver/1/claws/manage.py
+END
+group4
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/seng321/group4/!svn/ver/127/claws/group4
+END
+demo
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/seng321/group4/!svn/ver/130/claws/demo
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/seng321/group4/!svn/ver/1/claws/__init__.py
+END
+settings.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/seng321/group4/!svn/ver/129/claws/settings.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/seng321/group4/!svn/ver/126/claws/urls.py
+END

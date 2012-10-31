@@ -1,0 +1,165 @@
+.catalogueBox {
+	margin: 20px auto 20px auto;
+	width: 89%;
+}
+
+
+/* === catalogue item css === */
+.catalogueItem {
+	cursor:pointer;
+	font-family: "OpenSansRegular";
+	background: #EEE;
+	background-repeat: no-repeat;
+	background-size: 200px 200px;
+	border-radius: 5px;
+	margin: 15px 10px;
+	padding: 16px 10px 10px;
+	position: relative;
+	width: 175px;
+	height: 175px;
+	box-shadow: 0 0 5px rgba(0,0,0,.5);
+	display:inline-block;
+	-webkit-transition: all .3s;
+	-moz-transiton-property: background-color, color;
+	-moz-transition-duration: .3s;
+}
+
+.catalogueItem:hover .overlay {
+	opacity:1;
+}
+
+.catalogueItem > span {
+	background: #329632;
+	text-shadow: 0 1px 0px black;
+	color: white;
+	font-size: 17px;
+	padding: 0 6px;
+	position: absolute;
+	font-variant: small-caps;
+	top: -16px;
+	max-width:150px;
+	left: 10px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+.catalogueItem > span::after {
+	border-bottom: 16px solid #000032;
+	border-right: 15px solid transparent;
+	content: "";
+	display: block;
+	height: 0;
+	position: absolute;
+	right: -15px;
+	top: 0;
+	width: 0;
+}
+.overlay {
+	text-shadow:0 1px 0px #222;
+	color:#EEE;
+	opacity: 0;
+	background-color: rgba(0,0,0,.6);
+	height: 100%;
+	width: 100%;
+	padding: 16px 10px 10px;
+	margin: -16px -10px -10px -10px;
+	border-radius: 5px;
+	-webkit-transition: all .3s;
+	-moz-transiton-property: background-color, color;
+	-moz-transition-duration: .3s;
+	transition: all .3s;
+	overflow:hidden;
+}
+
+.catalogueItem .button {
+	position:absolute;
+	right:10px;
+	bottom:10px;
+}
+
+.catalogueItem .button:active {
+	top:auto;
+	bottom:9px;
+}
+
+.catalogueItem .itemDesc, .catalogueItem .itemPrice {
+	height:13px;
+	display:inline-block;
+	word-wrap:break-word;
+	width:175px;
+}
+
+/* === Dialogue Styles === */
+
+.viewItemDlg, .addItemDlg {
+	display:none;
+	background-color:rgba(0,0,0,.5);
+}
+
+.viewItemDlgWrap {
+	box-shadow: 0 0 40px 1px #329632;
+	padding:0;
+	
+}
+
+.viewItemDlgWrap .ui-widget-header {
+	background-color:#96E696 !important;
+	background-image: none;
+	border:none;
+	border-bottom: thin solid #222;
+	color: #222;
+	border-radius:0;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	-khtml-border-radius:0;
+	font-size:18px;
+	font-variant:small-caps;
+}
+
+.viewItemDlgWrap .ui-state-hover {
+	border:none;
+	color: #329632;
+}
+
+.viewItemDlg div.itemInfo, .addItemDlg div.itemInfo {
+	float:left;
+	width:200px;
+	font-size:14px
+}
+
+.viewItemDlg div.itemInfo .iLabel{
+	font-family: "OpenSansBold";
+}
+
+.viewItemDlg img, .addItemDlg img {
+	float:right;
+}
+
+.addItemDlg label {
+	width: 100px;
+}
+
+.addItemDlg div.itemInfo {
+	width:330px;
+}
+
+.addItemDlg input, .addItemDlg textarea {
+	width:200px;
+}
+.addItemDlg textarea {
+	display:block;
+	height:183px;
+	width:300px;
+	margin-top:10px;
+}
+
+.addItemButtons {
+	float:right;
+	text-align:right;
+	margin-top:60px;
+}
+
+/* === Action bar styles === */
+.catActions {
+	padding:20px;	
+}

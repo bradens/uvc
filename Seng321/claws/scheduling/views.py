@@ -1,0 +1,117 @@
+from django.shortcuts import render_to_response, get_object_or_404
+from scheduling.models import Shift
+from users.views import inEmpGroup, inManGroup
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.serializers import serialize
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.utils import simplejson
+from django.shortcuts import render_to_response, get_object_or_404
+from datetime import datetime
+from datetime import timedelta
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u), login_url='/')
+def schedule(request):
+	shift_list = Shift.objects.all().order_by('-start')
+	return render_to_response('scheduling/index.html', {'shift_list': shift_list, 'isManager': inManGroup(request.user) })
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u), login_url='/')
+def update(request, event_id):
+	print "ran update"
+	shift = get_object_or_404(Shift, pk=event_id)
+	date = request.POST.get('date')
+	shift.employee_id = request.POST.get('employee_id')
+	print shift.employee_id
+	shift.start = datetime.strptime(date+" "+request.POST.get('startTime'),"%Y-%m-%d %H:%M")
+	shift.end = datetime.strptime(date+" "+request.POST.get('endTime'),"%Y-%m-%d %H:%M")
+	shift.save()
+	return HttpResponseRedirect('/schedule/')
+#return render_to_response('scheduling/update.html', {'shift': shift})
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u), login_url='/')
+def detail(request, event_id):
+	shift = get_object_or_404(Shift, pk=event_id)
+	return render_to_response('scheduling/detail.html', {'shift': shift, 'isMan': inManGroup(request.user)})
+
+@login_required
+@user_passes_test(lambda u: inManGroup(u), login_url='/')
+def delete(request, event_id):
+	shift = get_object_or_404(Shift, pk=event_id)
+	return render_to_response('scheduling/delete.html', {'shift': shift})
+
+@login_required
+@user_passes_test(lambda u: inManGroup(u), login_url='/')
+def delete_confirmed(request, event_id):
+	shift = get_object_or_404(Shift, pk=event_id)
+	shift.delete();
+	return HttpResponseRedirect("/schedule")
+
+@login_required
+@user_passes_test(lambda u: inManGroup(u), login_url='/')
+def edit(request, event_id):
+	shift = get_object_or_404(Shift, pk=event_id)
+	date = shift.start.strftime("%Y-%m-%d")
+	startTime = shift.start.strftime("%H:%M")
+	endTime = shift.end.strftime("%H:%M")
+	return render_to_response('scheduling/edit.html', {'shift': shift,'date':date,'startTime':startTime,'endTime':endTime})
+
+@login_required
+@user_passes_test(lambda u: inEmpGroup(u) or inManGroup(u), login_url='/')
+def getHours(request):
+	startTime = datetime.strptime(request.GET.get('startTime'),"%Y-%m-%d")
+	endTime = datetime.strptime(request.GET.get('endTime'),"%Y-%m-%d")
+	emp_id = request.GET.get('empId')
+	h = 0
+	for s in Shift.objects.filter(start__gte=startTime,end__lte=endTime,employee_id__iexact=emp_id):
+		h+=s.get_duration()
+	return HttpResponse(h)
+
+
+@login_required
+@user_passes_test(lambda u: inManGroup(u), login_url='/')
+def create(request):
+	if request.method == 'POST':
+		emp_id = request.POST.get('employee_id')
+		startTime = request.POST.get('startTime')
+		endTime = request.POST.get('endTime')
+		date = request.POST.get('date')
+		shift_obj = Shift(start=startTime, end =endTime, employee_id = emp_id, eventType='s')
+		shift_obj.save()
+		return HttpResponse(status=200)
+	return render_to_response("/error.html");
+
+def getData(request): 
+	#print request.GET()
+
+	#print request.GET.get('weekStart')
+	weekStart = datetime.strptime(request.GET.get('weekStart'),"%Y-%m-%d %H:%M")
+	weekEnd = datetime.strptime(request.GET.get('weekEnd'),"%Y-%m-%d %H:%M")
+	print "weekStart = "
+	print weekStart
+	print "weekStart = " 
+	print weekEnd
+	bars = ""
+	
+	for i in range(0,7):
+		#print weekStart , weekEnd  
+		dayStart = weekStart+timedelta(days=i)
+		print "dayStart = "
+		print dayStart
+		dayEnd = dayStart + timedelta(hours=9)
+		print "dayEnd = " 
+		print dayEnd
+		
+		bars+="day_"+str(i)+","
+		shift = Shift.objects.filter(start__gte=dayStart,end__lte=dayEnd).order_by('-start')
+		for s in shift:
+			print s.employee_id
+			t = s.start
+			while(t<s.end):
+				print "wrote into bars"
+				bars+=t.strftime("%H")+"_"+str(s.employee_id)+"_"+str(s.id)+","			
+				t=t+timedelta(hours=1)
+		print "COMPLETE"	
+	return HttpResponse(bars)
+#return HttpResponse(simplejson.dumps(bars),mimetype='text/javascript')

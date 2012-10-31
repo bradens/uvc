@@ -1,0 +1,23 @@
+{% extends "structure/base_customer.html" %}
+
+{% block title %}Cat-a-logue |{{ item.name }}{% endblock %}
+
+{% block css %}
+	{{ super }}
+	@import url('/static/css/catalogue/catalogue.css');
+{% endblock %}
+
+{% block extra_header %}
+	<script type="text/javascript" src="/static/js/catalogue/catalogue.js"></script>
+	{% include "structure/setnav.html" with type="catalogueNav" %}
+{% endblock %}
+
+{% block content %}
+	<div class="catalogueContent">
+		<div class="catalogueBox">
+		{% for item in items %}
+			{% include "catalogue/item.html" with item=item %}
+		{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<div class="catalogueBox">
+	{% for item in items %}
+		{% include "catalogue/item.html" with item=item showActions=showActions%}
+	{% endfor %}
+</div>
+<div class="viewItemDlg" title="name">
+	<div class="itemInfo">
+		<span class="iLabel">Price: </span><span class="iprice"></span>
+		<br/>
+		<span class="iLabel">Description: <br/></span><span class="idescription"></span></div>
+		<img height="250px" width="250px"></img>
+	</div>
+</div>
+{% if showActions %}
+	<div class="addItemDlg" title="Add Item">
+		<div class="itemInfo">
+			<label class="iLabel">Name: </label><input class="addName formInputBox"></input>
+			<br/>
+			<label class="iLabel">Price: </label><input class="addPrice formInputBox"></input>
+			<br/>
+			<label class="iLabel">ImageURL: </label><input class="addImageUrl formInputBox"></input><br/>
+			<label class="iLabel">Description: <br/></label><textarea class="addDesc formInputArea"></textarea></div>
+			<img height="250px" width="250px"></img>
+			<div class="addItemButtons">
+				<a class="button positive primary" onclick="catalogController.finishAdd();">Submit</a>
+				<a class="button negative" onclick="$('.addItemDlg').dialog('close')">Cancel</a>
+			</div>
+		</div>
+	</div>
+{% endif %}

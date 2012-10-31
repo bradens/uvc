@@ -1,0 +1,134 @@
+<!--
+    Include this file and then instantiate it like:
+    var calendar = new calTable(<element where class=name>);
+    then call rewrite(data)
+-->
+<table class="cal scheduleTable {{ name }}">
+<<<<<<< .mine
+    <tbody>
+        <tr class="header">
+            <th>&nbsp;</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+        </tr>
+        <tr>
+            <td>9:30</td>
+            <td id='sun9'></td>
+            <td id='mon9'></td>
+            <td id='tue9'></td>
+            <td id='wed9'></td>
+            <td id='thu9'></td>
+            <td id='fri9'></td>
+            <td id='sat9'></td>
+        </tr>
+        <tr>
+            <td>10:30</td>
+            <td id='sun10'></td>
+            <td id='mon10'></td>
+            <td id='tue10'></td>
+            <td id='wed10'></td>
+            <td id='thu10'></td>
+            <td id='fri10'></td>
+            <td id='sat10'></td>
+            </tr>
+        <tr>
+            <td>11:30</td>
+            <td id='sun11'></td>
+            <td id='mon11'></td>
+            <td id='tue11'></td>
+            <td id='wed11'></td>
+            <td id='thu11'></td>
+            <td id='fri11'></td>
+            <td id='sat11'></td>
+        </tr>
+        <tr>
+            <td>12:30</td>
+            <td id='sun12'></td>
+            <td id='mon12'></td>
+            <td id='tue12'></td>
+            <td id='wed12'></td>
+            <td id='thu12'></td>
+            <td id='fri12'></td>
+            <td id='sat12'></td>
+        </tr>
+        <tr>
+            <td>13:30</td>
+            <td id='sun13'></td>
+            <td id='mon13'></td>
+            <td id='tue13'></td>
+            <td id='wed13'></td>
+            <td id='thu13'></td>
+            <td id='fri13'></td>
+            <td id='sat13'></td>
+        </tr>
+        <tr>
+            <td>14:30</td>
+            <td id='sun14'></td>
+            <td id='mon14'></td>
+            <td id='tue14'></td>
+            <td id='wed14'></td>
+            <td id='thu14'></td>
+            <td id='fri14'></td>
+            <td id='sat14'></td>
+        </tr>
+        <tr>
+            <td>15:30</td>
+            <td id='sun15'></td>
+            <td id='mon15'></td>
+            <td id='tue15'></td>
+            <td id='wed15'></td>
+            <td id='thu15'></td>
+            <td id='fri15'></td>
+            <td id='sat15'></td>
+        </tr>
+        <tr>
+            <td>16:30</td>
+            <td id='sun16'></td>
+            <td id='mon16'></td>
+            <td id='tue16'></td>
+            <td id='wed16'></td>
+            <td id='thu16'></td>
+            <td id='fri16'></td>
+            <td id='sat16'></td>
+        </tr>
+        <tr>
+            <td>17:30</td>
+            <td id='sun17'></td>
+            <td id='mon17'></td>
+            <td id='tue17'></td>
+            <td id='wed17'></td>
+            <td id='thu17'></td>
+            <td id='fri17'></td>
+            <td id='sat17'></td>
+        </tr>
+        <tr>
+            <td>18:30</td>
+            <td id='sun18'></td>
+            <td id='mon18'></td>
+            <td id='tue18'></td>
+            <td id='wed18'></td>
+            <td id='thu18'></td>
+            <td id='fri18'></td>
+            <td id='sat18'></td>
+        </tr>        
+    </tbody>
+=======
+	<tbody>
+		<tr class="header">
+			<th>&nbsp;</th>
+			<th>Sunday</th>
+			<th>Monday</th>
+			<th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+			<th>Saturday</th>
+		</tr>
+	</tbody>
+>>>>>>> .r84
+</table>
