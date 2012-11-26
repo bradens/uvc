@@ -1,0 +1,262 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Laboratory Report LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{amssymb, amsmath}
+\usepackage{fixltx2e}
+\usepackage{hyperref}
+
+\title{Search for Extraterrestrial Intelligence \\ Astronomy 101} % Title
+
+\author{Braden Simpson \\ braden@uvic.ca \\ V00685500} % Author name
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+
+\begin{tabular}{lr}
+Date Performed: 05/11/2012\\ % Date the experiment was performed
+\end{tabular}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\newcommand{\sub}{\textsubscript}
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Objective}
+This lab teaches the Drake equation and all of it's variables.  It will calculate the individual variables and then eventually estimate the number of intelligent civilizations that are within reach.\\
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+
+The search for extraterrestrial intelligence (SETI) is the study performed by many astronomers all over the world with the hopes of discovering extraterrestrial life, but more specifically intelligent extraterrestrial life.  Some of the ways we plan to communicate with the \emph{aliens} is by using electromagnetic radiation monitoring with telescopes.  This is because that is the quickest method of communication and all our other methods of communication would take far too long. 
+
+\begin{equation}
+\label{eq:drake}
+N_c = N_*f_pn_ef_Lf_iF_S
+\end{equation} 
+
+The Drake equation mentioned above is described in the lab manual is a composition of all the known factors that can be used to compute the chances of intelligent life to form.  The equation is very simplified and can only be used as a very rough estimate, and since many of the variables are subjective to the researcher, it is hard to tell what the correct estimate should be.  One such variable could be the 'time taken to create a civilization,' for instance. \\
+
+This report will use the Drake equation in a very rough estimate way, by assuming many values for the variables in the equation in order to simplify the calculations.  Further on in the lab I explain each variable and perform the necessary calculations and estimations.\\
+
+Some of the assumptions this report makes are: evenly spread stars across the Milky Way, many small planets are undetectable by current means but do exist, surface temperature of a planet is caused mostly by distance from its star, wherever life can form it will rapidly, and intelligent civilizations can craft tools (what makes them intelligent).\\
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Equipment}
+
+The equipment used for this report is as follows: an image of the centre of the Milky Way Galaxy, a measurement magnifying glass, a calculator, a computer running Windows XP, and a modelling program for radial velocity, star luminosity calculations and data graphs.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 4
+%----------------------------------------------------------------------------------------
+
+\section{Procedure}
+\label{sec:proc}
+
+Using the measurement magnifying glass, we took the picture of the Milky Way Galaxy and measured how many stars appear in a ${1mm}^{2}$ area of the image.  This result is shown in Table~\ref{tab:drake}.  Next we used Equation~\ref{eq:stars} to get the total number of stars in the Milky way based on our ${1mm}^{2}$ sample.\\
+
+Then, using the computers and the program to edit the planet model's mass, radius, and inclination inside to find planets similar to the size of Earth and Jupiter.   The results for this can be seen in Section~\ref{sec:qna}.    Next we used the data from the lab that found 500 extra solar planets out of 4000 observed stars.  Therefore the fraction of stars that have planets is 1/8.\\
+
+Then, we made an estimate for how many habitable planets are in each Solar System.  This was done by using data from Earth, and assuming that all life needs water to exist. Therefore the temperature must be in between 273K and 373K.  Therfore there must be a minimum and maximum distance from each star and that is calculated with Equation~\ref{eq:mm} for a given
+planet to have liquid water. These distance were put onto the data given in Table~\ref{tab:planets}, and then equation~\ref{eq:ne} was then used in order to give 
+a rough estimate on average how many solar systems have planets. \\
+
+Next, an estimate was made of what fraction of habitable planets contain life.  This was an assumption made to be more optimistic in our results.  The assumption is that each habitable planet will have life, therefore the n\textsubscript{e} is 1.\\
+
+Then we made an estimate for what fraction of life is intelligent, which is defined as the ability to create and use tools.  Next we assumed that civilizations last 500 thousand years.  Results from these calculations with Equation~\ref{eq:civ} can be see in Table~\ref{tab:drake}.\\
+
+And finally we were able to plug in all the results into the Drake equation (Equation~\ref{eq:drake}) which calculated the number of intelligent civilizations resulting in 25.78 civilizations being inside of our Milky Way Galaxy. Additionally, it was found that the nearest civilization to ours would be approximately 5553.803 light years away by using Equation~\ref{eq:near}.\\
+
+%----------------------------------------------------------------------------------------
+%	SECTION 6
+%----------------------------------------------------------------------------------------
+
+\section{Tables and Measurements}
+\label{sec:tnm}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{l c c}
+\hline
+Drake Parameter & Measurement & Result\\
+\hline
+\hline
+${N}_{*}$ & 11 & 1.65 Billion\\
+${f}_{p}$ & 4000,500 & 1/8\\ 
+${n}_{e}$ & 5, 4 & 1.25\\
+${f}_{L}$ & - & 1.00\\
+${f}_{i}$ & - & 0.2\\
+${F}_{s}$ & 500,000 & 1.00x${10}^{-5}$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Measurements of parameters inside the Drake Equation.\label{tab:drake}}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{l c c}
+\hline
+Planetary Property & Value \\
+\hline
+\hline
+Radius\sub{planet}		&1.00 R\sub{j}\\
+Inclination				&85 degrees\\
+Mass\sub{planet}		&0.64 M\sub{j}\\
+Orbital\sub{period}		&3.525 days\\
+Semi-Major Axis		&0.047 AU\\
+Radius\sub{star}		&1.15 R\sub{o}\\
+Mass\sub{star}			&1.10 M\sub{o}\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Data recorded from the program for the extrasolar planet.}
+\end{table}
+
+\clearpage
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{l c c}
+\hline
+Solar System & Planet & Distance (AU)\\
+\hline
+\hline
+Our Solar System & Mercury & 0.387\\
+Our Solar System & Venus & 0.723\\
+Our Solar System & Earth & 1.00\\
+Our Solar System & Mars & 1.524\\
+Our Solar System & Jupiter & 5.203\\
+Ups Andromedae & - & 0.06\\
+Ups Andromedae & - & 0.83\\
+Ups Andromedae & - & 2.51\\
+55 Cancre & - &  0.04\\
+55 Cancre & - &  0.11\\
+55 Cancre & - &  0.24\\
+55 Cancre & - &  0.78\\
+55 Cancre & - &  5.77\\
+HD160691 & - &  0.09\\
+HD160691 & - &  0.92\\
+HD160691 & - &  1.5\\
+HD160691 & - &  4.17\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Given data of solar system planet's distance from the star.\label{tab:planets}}
+\end{table}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 7
+%----------------------------------------------------------------------------------------
+
+\section{Calculations}
+\label{sec:calc}
+
+${N}_{*}$ in Table~\ref{tab:drake} can be
+multiplied by 150,000,000 to make up the ratio of the measured size of 1 square millimetre. Equation~\ref{eq:stars} below 
+shows this.
+\begin{equation}
+\label{eq:stars}
+\text{N}_{*} = S * 150,000,000
+\end{equation}
+
+To calculate the fraction of stars which have planets, Equation~\ref{eq:planets} below is used. By dividing the measurement of
+${f}_{p}$ in Table~\ref{tab:drake} by the total number of stars in our sample size, we get the percentage of stars which are 
+estimated to have planets around them.
+\begin{equation}
+\label{eq:planets}
+\text{f}_{p} = \frac{{P}_{estimated}}{{S}_{total}}
+\end{equation}
+
+To calculate the distance a planet must be away from its star to account for a given surface temperature, the following
+equation may be used.
+\begin{equation}
+\label{eq:mm}
+\text{D}_{p} = \frac{82944}{{T}_{P}^{2}}
+\end{equation}
+
+We assume that any planet that is habitable has life on it.  Therefore any planet that is in between the distance calculated by \ref{eq:mm} will be a planet with life on it.
+\begin{equation}
+\label{eq:life}
+\text{f}_{L} = \frac{3.9 Billion}{4.0 Billion}
+\end{equation}
+
+To calculate the lifetime of a civilization, we take the measurement of ${F}_{S}$ in Table~\ref{tab:drake} which is the estimated
+lifetime of a civilization and divide it by the lifetime of a normal start such as our Sun. This can be found in Equation~\ref{eq:civ}.
+\begin{equation}
+\label{eq:civ}
+\text{f}_{L} = \frac{500,000}{10.0 Billion}
+\end{equation}
+
+To calculate the number of intelligent civilizations inside of out Milky Way Galaxy, we simply take all of the parameters to the Drake equation and multiply them together. This can be seen in Equation~\ref{eq:drake}.
+\begin{equation}
+\label{eq:drake}
+\text Intelligent Civilizations = {N}_{*} * {f}_{p} * {n}_{e} * {f}_{L} * {f}_{i} * {F}_{s}
+\end{equation}
+
+To calculate the nearest civilization in our galaxy to ours, we find the average area a civilization occupies in the Galaxy and then take the square root of it. This can be seen below in Equation~\ref{eq:near}.
+\begin{equation}
+\label{eq:near}
+\text Nearest Civilization = \sqrt{\frac{\pi * 45,000^{2}}{Intelligent Civilizations}}
+\end{equation}
+
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 7
+%----------------------------------------------------------------------------------------
+
+\section{Questions}
+\label{sec:qna}
+
+The following questions and answers are asked inside of lab 8,Search for Extraterrestrial Intelligence, inside of the lab manual
+for ASTR101. The questions have been repeated for the reader.
+
+\begin{enumerate}
+\item[Q.] Would you be able to detect a Jupiter mass planet in a one year orbit using radial velocity variations?
+\item[A.] You would be able to detect a Jupiter mass planet as it has enough mass to pull the star around giving a reading in radial velocity.  The radial velocity apex was at +- 25 which is easily observable.
+\item[Q.] What about planets like the Earth?
+\item[A.] An Earth sized planet would not be able to be detected because it is too small to show a dip in the star's luminosity
+\item[Q.] Find the distances a planet would need to be from a star like the sun to have a surface temperature of 373K and 273K
+\item[A.] 0.596AU and 1.11AU, respectively.
+\item[A.] In this report's estimated case, the distance to the nearest civilization is 5553.803 light years while each civilization is estimated to survive for around 500,000 years. This means that the civilizations would be detectable sometime during the lifetime of the civilizations. 
+\item[Q.] Would our earliest radio signals have made it to the nearest civilizations yet?
+\item[A.] Our earliest radio signals are still <100 years old, and it takes ~5000 years to reach the other civilization, meaning they won't have even gotten 2 percent of the way there yet.  
+\item[Q.] Based upon your above calculated distance to the nearest alien civilizations, do you expect it to detect any civilizations?
+Would conversations between civilizations be possible?
+\item[A.] Yes, based on the above calculations, it takes ~5000 years to communicate one way, therefore 10000 years for round trip communication.  We have civilizations that last 500,000 years, so there would be more than 50 communication's trips worth of time.  However, we need to compensate for the time it takes for each civilization to develop to the point of light speed communication, but I think it is still possible.  
+\item[Q.] What can you decipher about the creatures that made this plaque? Explain what you base it on.
+\item[A.] We can determine that the satellite left from the third planet of its origin solar system and the direction it took
+to leave that solar system. We know there are two different sexes among the same origin species. We know the origin
+species height in comparison to the satellite. We can see how the origin species has mapped their star given certain
+distances away from pulsars and which pulsars are indicated by the distance and spin rate given in the left hand side
+of the plaque. Finally, we know the hydrogen molecule for a standard measuring device.
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 8
+%----------------------------------------------------------------------------------------
+
+\section{Conclusion}
+This report has given a method of estimating the number of civilizations in the Milky Way, and then determining whether communications between civilizations is actually viable.  The measurements are crude and there is a very large margin of error, but the concept of SETI is a valuable and interesting topic, and I think this lab was a very good introduction to SETI.
+\end{document}

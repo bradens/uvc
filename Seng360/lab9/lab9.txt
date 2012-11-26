@@ -1,0 +1,20 @@
+Lab 9 
+Braden Simpson
+V00685500
+
+1. There are a few ways to protect against XSS attacks. The best is by encoding untrusted content (whatever the user might be inputting into the form) by using different encoding methods, depending on where the untrusted data is being inserted.  For instance, if the untrusted data is being inserted like : 
+<div>UNTRUSTED DATA</div>
+Then the data should be HTML entity encoded.  But if the untrusted data is being put inside an xml document then it will be to be xml encoded.
+
+Or if it's being placed into other parts of the document ie.
+<script>x = 'UNTRUSTED DATA'</script>
+Will require that it be javascript escaped.
+
+Etc. 
+
+Another method of mitigating XSS vulnerability is to set the HTTPONLY flag on the cookie.  What this does in supported browsers is, if the flag is set and a client script tries to read the cookie, the script will be fed an empty string instead of the cookie.  This is a safety gaurd developed by microsoft and supported by almost every browser now.  
+
+References : 
+HTTPONLY: https://www.owasp.org/index.php/HTTPOnly
+Escaping: https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#Why_Can.27t_I_Just_HTML_Entity_Encode_Untrusted_Data.3F
+
