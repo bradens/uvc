@@ -1,9 +1,31 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
 \usepackage[english]{babel} % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 
 \usepackage{sectsty} % Allows customizing section commands
 \allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
@@ -30,13 +52,17 @@
 
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
 
-\title{
-\large{\textsc{University of Victoria Software Engineering}}\huge\\ [0pt] % Your university, school and/or department name(s)
-\horrule{0.5pt}\\[0.4cm]
-\textsc{Case Study : Develop a Policy To Protect Information On Laptops Against Attacks}\\
-\author{Braden Simpson\\braden@uvic.ca\\V00685500}
-\date{January 7, 2013}
+\title{	
+\normalfont \normalsize 
+\textsc{University of Victoria Software Engineering} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Case Study : Develop a Policy To Protect Information On Laptops Against Attacks  \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
+
+\author{Braden Simpson} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
 
 \begin{document}
 
