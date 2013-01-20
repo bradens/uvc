@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.14)  15 JAN 2013 11:57
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.14)  20 JAN 2013 15:31
 entering extended mode
-**C:/Users/braden/workspace/uvc/seng460/assignment_3.tex
-(C:/Users/braden/workspace/uvc/seng460/assignment_3.tex
+**C:/Users/braden/workspace/uvc/seng460/a2/assignment_2.tex
+(C:/Users/braden/workspace/uvc/seng460/a2/assignment_2.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -411,7 +411,7 @@ les
 \f@ncyO@olf=\skip60
 \f@ncyO@orf=\skip61
 )
-(C:\Users\braden\workspace\uvc\seng460\assignment_3.aux)
+(C:\Users\braden\workspace\uvc\seng460\a2\assignment_2.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
 LaTeX Font Info:    ... okay on input line 67.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
@@ -493,45 +493,107 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 70.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
+Underfull \hbox (badness 10000) in paragraph at lines 78--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+
+ []
+
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 84.
+(Font)              scaled to size 10.07397pt on input line 85.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 84.
+(Font)              scaled to size 7.63599pt on input line 85.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 84.
+(Font)              scaled to size 5.51999pt on input line 85.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 84.
+(Font)              scaled to size 10.07397pt on input line 85.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 84.
+(Font)              scaled to size 7.63599pt on input line 85.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 84.
+(Font)              scaled to size 5.51999pt on input line 85.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 84.
+(Font)              scaled to size 8.27998pt on input line 85.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 84.
+(Font)              scaled to size 6.99199pt on input line 85.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 84.
+(Font)              scaled to size 8.27998pt on input line 85.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 84.
- [1
+(Font)              scaled to size 6.99199pt on input line 85.
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
+
+ []
+
+[1
 
 
 {C:/Users/braden/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(C:\Users\braden\workspace\uvc\seng460\assignment_3.aux) ) 
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 115--116
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 122.
+[3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+[5] [6] (C:\Users\braden\workspace\uvc\seng460\a2\assignment_2.aux) ) 
 Here is how much of TeX's memory you used:
- 3805 strings out of 494045
- 52868 string characters out of 3148384
- 211940 words of memory out of 3000000
- 7032 multiletter control sequences out of 15000+200000
- 90070 words of font info for 104 fonts, out of 3000000 for 9000
+ 3836 strings out of 494045
+ 53270 string characters out of 3148384
+ 213940 words of memory out of 3000000
+ 7051 multiletter control sequences out of 15000+200000
+ 112277 words of font info for 118 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 35i,10n,47p,685b,223s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiK
-TeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type
-1/adobe/utopia/putr8a.pfb>
-Output written on assignment_3.pdf (1 page, 21905 bytes).
+ 35i,10n,47p,690b,269s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Progra
+m Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 2.9
+/fonts/type1/adobe/utopia/putb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/a
+dobe/utopia/putr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/adobe/utopia/pu
+tri8a.pfb>
+Output written on assignment_2.pdf (6 pages, 60586 bytes).
 PDF statistics:
- 11 PDF objects out of 1000 (max. 8388607)
+ 34 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
