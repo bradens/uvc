@@ -1,0 +1,134 @@
+\documentclass[10pt, twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{graphics}
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{sectsty} % Allows customizing section commands
+\usepackage[margin=0.5in]{geometry}
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+%%\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+\title{
+\begin{minipage}{1\textwidth}
+\begin{flushleft}
+\large{\textbf{\textsc{ABC Corporation}}\\
+Policy No. 1\\
+\emph{Laptop Security}\\
+Information Security Branch\\
+Office of the Chief Information Officer\\
+ABC Corp\\
+\small http://www.abccorp.com
+}\huge\\ [0pt] % Your university, school and/or department name(s)
+\end{flushleft}
+\end{minipage}
+\horrule{0.1pt}\\[0.0cm]
+\date{}
+}
+\begin{document}
+
+\maketitle 
+\section{Subject Area Description}
+Laptops are in use across ABC corporation.  They are used for portable computing and providing a method for productivity while out of the office.  Laptops are intended for business use only.  Laptops have different ports on them including USB, CD-ROM drives, SD-card readers, and more.  These laptops can have sensitive business data on them when employees are using them for work, and this data can include: customer information, business reports, analyitics, inside information, proposals, and more.  When dealing with such sensitive information, the laptops need to have their information protected.\\ 
+
+ABC corp has very sensitive information on the laptops, and it is very important that each employee knows about the dangers of leaving their laptops unattended or unlocked.  Although ABC uses advanced methods of keeping the data on hard drives encrypted and safe, keeping these laptops secure is of utmost importance.  The realization of a threat of a compromised ABC laptop would have cause irreparable damage to ABC.  This policy addresses security concerns regarding compromised ABC laptops and offers guidanace and standards for employees to protect their asset, and ABC.\\
+\section{Areas of Concern}
+The most important asset is not the laptop itself, but the information on it.  ABC is concerned with the control of sensitive information on company laptops, and with new methods of attack for data theft, ABC has identified these some primary concerns with technical and physical use of ABC laptops:
+
+ \begin{itemize}
+ 	\item Unattended Laptops in sleep mode or powered on
+ 	\item Encryption keys for hard disk security stored in DRAM
+ 	\item Stolen ABC laptops
+ 	\item DRAM with low refresh rates
+ 	\item Unnecessary sensitive data stored on company laptops
+ 	\item Cold boot attacks\footnote{Attacks that are used by stealing the contents of RAM, containing the encryption key, then gaining access to the encrypted hard disk.  http://en.wikipedia.org/wiki/Cold\_boot\_attack}
+ 	\item Unencrypted sensitive data
+ 	\item Bad data separation, causing one compromised laptop to give access to many assets in the company
+\end{itemize}
+
+\section{Intended Outcome}
+The policies around ABC corp. laptops are intended to: 
+\begin{itemize}
+	\item Reduce the risk of a cold boot attack succeeding
+	\item Improve awareness among ABC employees about the importance the welfare of sensitive data on their laptops
+	\item Decrease the amount of stolen ABC laptops
+	\item Educate ABC employees about deleting data when unneeded
+	\item Improve knowledge of safe Laptop transport and storage 
+	\item Reduce the risk of a compromised laptop, and reduce the amount of damage a stolen laptop would incur.
+\end{itemize}
+\newpage
+\section{\textit{Responsibilities of all Personnel}}
+\begin{description}
+	\item[Things to do] \hfill
+		\begin{itemize}
+			\item Never leave a laptop unattended without tethering it to a secure object with the given cable locks.  
+			\item Only leave your laptop unattended at the office, or another safe location.
+			\item Whenever left for more than 20 minutes, ensure that the laptop is powered down.
+			\item Ensure that sensitive data is used only when absolutely necessary, and when it is used it is deleted securely after it is no longer needed. 
+			\item Use the encryption key FOB\footnote{A small device that uses rolling codes to enable encryption on the hard disk by a proximity to the device} given to you by the IT department, and ensure it is always with you.  
+		\end{itemize}
+	\item[Things to avoid] \hfill
+		\begin{itemize}
+			\item Use the ABC laptop for personal use
+			\item Store sensitive data on the laptop for long periods of time
+			\item Leaving an encryption FOB with a laptop
+		\end{itemize}
+	\item[Things to report] \hfill
+		\begin{itemize}
+			\item Other employees not adhering to the security standards
+			\item Potential attempts at stealing laptops
+			\item File a incident report immediately after a laptop is missing
+		\end{itemize}
+\end{description}
+
+\section{\textit{Responisibilities of IT Personnel}}
+\begin{description}
+	\item[Things to do] \hfill
+		\begin{itemize}
+			\item Install Encrypytion key FOBS and issue them to all employees at ABC. 
+			\item Seal the DRAM with a physical lock onto the motherboard to prevent attackers from physically stealing the DRAM
+			\item Disable booting from any media other than the encrypted hard disk by changing BIOS settings.
+		\end{itemize}
+	\item[Things to avoid] \hfill
+		\begin{itemize}
+			\item Improperly installing any of the security features described in the policy.
+			\item Moving sensitive data from any of the laptops, or storing any sensitive information on an unsecure medium
+		\end{itemize}
+\end{description}
+\section{Compliance}
+In order to have universal compliance of the policy, all aspects of the company must be involved in the compliance techniques.  Over a period of 3 months, there will be standardized security refreshers among the staff.  
+\begin{description}
+\item[Responsibilities for HR] \hfill
+	\begin{itemize}
+		\item Organize the meetings for employees to get security refreshers from the IT department. 
+		\item Advertise the importance of laptop security around the office with posters, emails, and meeting sessions.
+		\item Perform routine checks of the office by checking for unattended laptops and misuse of security technology		
+	\end{itemize}
+\item[Responsibilities for IT] \hfill
+	\begin{itemize}
+		\item Perform routine checks on the health of the physical security measures in place.
+		\item Ensure that the laptop cannot boot from any other media than the encrypted hard disk
+		\item Ensure that the FOB is working correctly 
+		\item Ensure that proper training is given to all ABC employees regarding the security policies
+	\end{itemize}
+\end{description}
+\end{document}
