@@ -1,0 +1,71 @@
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{University of Victoria Software Engineering} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Intellectual Property and Privacy \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Braden Simpson} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+\section{Introduction}
+Privacy and Intellectual Property are not new ethical issues, however they are ever persistent problems and are more prevalent now then ever.  In this report I will talk about the ethical issues of sharing Intellectual Property on the internet, as well as the issues surrounding privacy of people's documents that are uploaded to the \emph{Cloud}.\footnote{The cloud refers to processing and storage that is done in server farms and data centers distributed across the globe.}\\
+
+This report will focus specifically on the interesting case of Kim Dotcom (formerly Shmitz), and his struggles with the law around his extremely popular website \emph{Megaupload.com}.  It will analyze the stance of both the United States Government, and Kim, as well as some other parties that are involved.  Finally, this report will try to map some ethical theories to the claims given by all parties.  
+
+\section{Dotcom and Megaupload}
+\emph{Megaupload} was a website created for the sole purpose of providing a cloud storage and sharing service, for users from any group, from random anonymous users, or large businesses that need to share files.  It quickly became an internet giant, taking up approximately four percent of all the worlds bandwidth, and becoming the 13th most popular website.\cite{42}  The website had been a free place to share anything, whether it is a full-length hollywood films, or copyrighted music, or even copyright free material.  However, \emph{Megaupload} servers and Kim Dotcom's residence were raided in January 2012, taking down the website permanently and starting a long slew of legal battles between Dotcom and the US Government.  \\
+
+Kim Dotcom is a self declared defender of freedom on the internet, and he has denied all criminal charges facing him, arguing that the internet is a free and open place, where information and innovation is meant to be shared.  From an interview with Dotcom, he states "...We have done nothing wrong.  I'm no criminal.  [Megaupload] has not been set up to be some piracy haven..." \cite{43} Although the Government has labeled Dotcom as the "King of Piracy", he claims that he is simply offering a service for the people, and it it on the people to determine what is right and wrong to share.  Dotcom is building his claim basical on a utilitarianism theory, saying that because everyone is gaining as a whole from the claim, its the best course of action.  
+
+ \section{US Government and The MPAA}
+The MPAA originally tried to get \emph{Megaupload} to inspect every file being shared to see if it violates copyrights and automatically remove it if so.  This however was a violation of the Electronic Privacy Act of America, which gives people's privately uploaded files the same confidentiality as emails. \\
+
+The MPAA, or Motion Picture Association of America, is the primary attacker of Dotcom, and stands to have lost the most due to \emph{Megaupload}.  They think that filesharing sites like \emph{Megaupload} should not have the ability to transfer files that are copyright protected.  They would rather strip the users of their right to sharing any information, than to have their content being shared for free.  This is an example of an ethical egoism-action theory, because the MPAA is simply trying to get personal gains for their industry at the cost of file sharing for the world.
+
+\section{Conclusions and Current Events}
+The MPAA and Dotcom are still at war.  Dotcom is on bail in New Zealand, and has just launched his next file sharing website, named \emph{Mega}.  \emph{Mega} is a stab at the US government, as it essentially offers the same services as \emph{Megaupload} did, but it uses an encryption scheme on each of it's files uploaded, using a key that not even \emph{Mega} knows, so the data is truly private, until other people are given a link(and key) to the data.  \emph{Mega} has been really successful; during the first 14 hours of launch, the website had over 500,000 registered users, and over 1 million unique views.\cite{44}  It would appear as though the MPAA is fighting a losing battle against filesharing websites like \emph{[Mega]upload}.
+
+\bibliographystyle{IEEEtran} 
+\bibliography{assignment_1}
+\end{document}

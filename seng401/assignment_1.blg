@@ -1,0 +1,78 @@
+This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: assignment_1.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: assignment_1.bib
+I was expecting a `,' or a `}'---line 6 of file assignment_1.bib
+ :     
+ :     audience = {international },
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 14 of file assignment_1.bib
+ :     
+ :     audience = {international },
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 22 of file assignment_1.bib
+ :     
+ :     audience = {international },
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.13 (2008/09/30) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty booktitle in 42
+Warning--empty year in 42
+Warning--empty booktitle in 43
+Warning--empty year in 43
+Warning--empty booktitle in 44
+Warning--empty year in 44
+
+Done.
+You've used 3 entries,
+            4039 wiz_defined-function locations,
+            822 strings with 7618 characters,
+and the built_in function-call counts, 1187 in all, are:
+= -- 74
+> -- 12
+< -- 0
++ -- 6
+- -- 3
+* -- 64
+:= -- 235
+add.period$ -- 6
+call.type$ -- 3
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 95
+empty$ -- 131
+format.name$ -- 3
+if$ -- 235
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 13
+newline$ -- 38
+num.names$ -- 3
+pop$ -- 51
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 90
+stack$ -- 0
+substring$ -- 3
+swap$ -- 33
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 3
+warning$ -- 6
+while$ -- 3
+width$ -- 4
+write$ -- 50
+(There were 3 error messages)
