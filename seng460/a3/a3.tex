@@ -91,23 +91,26 @@ The following table is made to identify the value of certain assets at the Unive
 The asset values listed in the previous table are a start for the STRA, but when the actual project is underway, the team should investigate further and produce breakdowns for each row listed.  One of the most important assets is the university's reputation, which is shown in the table.
 
 \section{Threat Assessment Phase}
+The Threat Assessment Phase is done by completing a table like the following table, in which the likelihood and gravity of threats are combined to create a threat level, which is applied to any of the aspects of Confidentiality, Integrity, and Availability.  The threat level is computed using the tables provided in the case study\cite{caseStudy}
 \small
 \begin{center}
-\begin{adjustwidth}{-4cm}{}
-    \begin{tabular}{ l | l | l | l | l | l | l | l | l}
+\label{tab:tap}
+\begin{adjustwidth}{-4.3cm}{}
+    \begin{tabular}{ l | l | l | l | l | l | l | l | l} 
     \hline
     ID No. & Class & Agent & Event & Likelihood & Gravity & Confid. & Avail. & Integrity \\
+    \hline\hline
     31 & Deliberate & Individuals & Network Exploitation & Medium & High &  & Medium &  \\ 
-    32 & Deliberate & Individuals & Social Engineering & Medium & Medium & Medium &  &  \\
-    40 & Deliberate & Groups/Individuals & Delete/Destroy Records & High & Medium &  &  & High \\
+    32 & Deliberate & Individuals & Social Engineering & High & High & High & High & High \\
+    40 & Deliberate & Groups/Individuals & Delete/Destroy Records & Medium & Medium &  &  & Medium \\
     41 & Deliberate & Groups/Individuals & Corrupt Data & Medium & Medium &  &  & Medium \\
     42 & Deliberate & Groups/Individuals & Encrypt Files & Medium & Medium &  & Medium &  \\
-    43 & Deliberate & Groups/Individuals & Misconfigure Software & High & Medium &  & High & High \\
+    43 & Deliberate & Groups/Individuals & Misconfigure Software & High & Medium & High & High & High \\
     44 & Deliberate & Groups/Individuals & Misconfigure Hardware & Medium & High &  & High &  \\
     46 & Deliberate & Wannabees & DOS Attack & Medium & Medium &  & Medium &  \\
-    47 & Deliberate & Wannabees & Malicious Code & Low & Medium & Low & Low & Low \\
-    48 & Deliberate & Wannabees & File Corruption & Medium & Medium &  &  & Medium \\
-    60 & Deliberate & Script Kiddies & Web Defacement & Low & Low &  &  & Very Low \\
+    47 & Deliberate & Wannabees & Malicious Code & Low & High & Medium & Medium & Medium \\
+    48 & Deliberate & Wannabees & File Corruption & Low & Medium &  &  & Low \\
+    60 & Deliberate & Script Kiddies & Web Defacement & Low & Medium & Low & Low & Very Low \\
     94 & Deliberate & Hackers & Identity Theft & Medium & High & High &  &  \\
     103 & Deliberate & Companies & Patent Infringement & Low & Medium & Low &  &  \\
     106 & Deliberate & Individuals & Spam & High & Low & Medium &  &  \\
@@ -136,5 +139,7 @@ The asset values listed in the previous table are a start for the STRA, but when
 \end{adjustwidth}
 \end{center}
 \normalsize
-
+The UVic IT Department would need to make a more complete version of the above table, and then continue on to perform vulnerability assessments, residual risk assessments and developing final recommendations for the IT department.
+\bibliographystyle{IEEEtran} 
+\bibliography{a3}
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.1.22)  24 JAN 2013 17:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.1.22)  25 JAN 2013 12:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -720,13 +720,8 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/futs/b/n' tried instead on input line 49.
-LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 51.
-
-
-LaTeX Warning: Citation `caseStudy' on page 1 undefined on input line 51.
-
 LaTeX Font Info:    Try loading font information for TS1+futs on input line 57.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/fourier/ts1futs.fd
 File: ts1futs.fd 2004/03/26 Fontinst v1.926 font definitions for TS1/futs.
@@ -757,30 +752,25 @@ Overfull \hbox (26.1614pt too wide) in paragraph at lines 71--88
  []
 
 
-Overfull \hbox (107.68399pt too wide) in paragraph at lines 97--136
+Overfull \hbox (99.14809pt too wide) in paragraph at lines 99--139
 [][] 
  []
 
-[2] [3] (./a3.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[2] (./a3.bbl) [3] (./a3.aux) ) 
 Here is how much of TeX's memory you used:
- 2813 strings out of 493485
- 33764 string characters out of 3143526
- 106213 words of memory out of 3000000
- 6056 multiletter control sequences out of 15000+200000
- 94739 words of font info for 91 fonts, out of 3000000 for 9000
+ 2825 strings out of 493485
+ 33921 string characters out of 3143526
+ 107213 words of memory out of 3000000
+ 6067 multiletter control sequences out of 15000+200000
+ 90209 words of font info for 88 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 28i,10n,43p,599b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/adobe/utopia/putr8a.pfb>
-Output written on a3.pdf (3 pages, 38525 bytes).
+ 28i,10n,43p,595b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/b
+ase/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb>
+Output written on a3.pdf (3 pages, 30403 bytes).
 PDF statistics:
- 23 PDF objects out of 1000 (max. 8388607)
- 15 compressed objects within 1 object stream
+ 19 PDF objects out of 1000 (max. 8388607)
+ 12 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
