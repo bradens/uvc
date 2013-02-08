@@ -21,9 +21,23 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{interview}
+\BIBentryALTinterwordspacing
+Investigations, ``{Interviews, Domain Inc},'' Victoria, BC, Canada. [Online].
+  Available:
+  \url{http://www.ece.uvic.ca/~henrylee/2013/05/05Investigations-Case.pdf}
+\BIBentrySTDinterwordspacing
+
 \bibitem{emails}
 \BIBentryALTinterwordspacing
 E.~Admin, ``{Email Logs, Domain Inc},'' Victoria, BC, Canada. [Online].
+  Available:
+  \url{http://www.ece.uvic.ca/~henrylee/2013/05/05Investigations-Case.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{iis}
+\BIBentryALTinterwordspacing
+I.~Admin, ``{IIS Logs, Domain Inc},'' Victoria, BC, Canada. [Online].
   Available:
   \url{http://www.ece.uvic.ca/~henrylee/2013/05/05Investigations-Case.pdf}
 \BIBentrySTDinterwordspacing
