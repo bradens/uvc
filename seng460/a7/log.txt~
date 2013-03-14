@@ -1,0 +1,297 @@
+FINGERPRINTING:
+
+1) Look for physical information on the organization (Uvic HACKTHIS)
+Contact Us
+Want to get ahold of UVic HACKTHIS????
+Phone: 1-900-HACK-THIS (1-900-422-5847)
+Email: info@hackthis.foo
+In Person: 1234 Main St, Victoria, BC, V8Z 3P4
+
+(taken from http://infosec.uvic.ca/HackTHIS/contact.html) 
+
+2) Look at all the features that the website offers (potentially different attack vectors) 
+(http://infosec.uvic.ca/HackTHIS/support.html)    
+infosec » hackthis
+Support
+Welcome to the HACKTHIS support portal. We value product satisfaction.
+To access product support, you will need to enter your Customer ID and your password.
+
+Customer ID: 
+Password: 
+
+* Note: your default password is your phone number
+
+
+Has a customer support form.  Potentially vulnerable to an injection, in addition to a place that has good potential for social engineering.  There is also the information that passwords are users phone numbers, so as soon as you know the customer's phone # (not exactly secret usually), the password is known. 
+
+3) Look for a 'robots.txt' file that might have extra information on the whereabouts of some files.
+
+braden@w055-160:~/workspace/uvc/seng460/a7$ curl http://infosec.uvic.ca/HackTHIS/robots.txt
+User-agent: *
+Disallow: /intranet
+Disallow: /documents
+Disallow: /interesting_stuff_here
+
+
+(http://infosec.uvic.ca/HackTHIS/intranet/)
+FILE: United_way_campaign_..		0kb
+employee_contact_list..			0kb
+network_config.txt			94kb
+
+(http://infosec.uvic.ca/HackTHIS/intranet/network_config.txt)
+net 142.104.0.160 
+mask 255.255.255.240 
+gw 142.104.0.174
+dns 142.104.0.164
+zone hackthis.foo
+
+This gives us some ips to work with
+
+traceroute one of the ips (lets try net) 
+[braden@lime ~]$ traceroute 142.104.0.160
+traceroute to 142.104.0.160 (142.104.0.160), 64 hops max, 52 byte packets
+ 1  142.104.55.253 (142.104.55.253)  24.029 ms  16.498 ms  12.179 ms
+ 2  dmc6clec120.bb.uvic.ca (142.104.252.14)  4.736 ms  34.048 ms  43.479 ms
+ 3  dmc6clec120.bb.uvic.ca (142.104.252.14)  173.628 ms !X^C
+
+
+Fingerprint one of the servers (ping and traceroute)
+
+[braden@lime ~]$ ping dvl.infosec.uvic.ca
+PING dvl.infosec.uvic.ca (142.104.0.177): 56 data bytes
+64 bytes from 142.104.0.177: icmp_seq=0 ttl=62 time=60.013 ms
+
+[braden@lime ~]$ traceroute 142.104.0.177
+traceroute to 142.104.0.177 (142.104.0.177), 64 hops max, 52 byte packets
+ 1  142.104.55.253 (142.104.55.253)  11.592 ms  1.742 ms  3.312 ms
+ 2  dmc6clec120.bb.uvic.ca (142.104.252.14)  34.654 ms  20.933 ms  13.331 ms
+ 3  dmc6clec120.bb.uvic.ca (142.104.252.14)  17.946 ms !X^C
+
+
+SCANNING
+
+[braden@lime ~]$ sudo nmap -sP 142.104.0.164/28
+
+Starting Nmap 6.25 ( http://nmap.org ) at 2013-03-08 12:07 PST
+Nmap scan report for dvwa.infosec.uvic.ca (142.104.0.161)
+Host is up (0.0039s latency).
+Nmap scan report for 142.104.0.164
+Host is up (0.0096s latency).
+Nmap scan report for dmc2cled050.bb.uvic.ca (142.104.0.174)
+Host is up (0.0061s latency).
+
+Port scanning
+
+braden@lime ~]$ sudo nmasudo  nmap -sS -PO 142.104.0.164
+Starting Nmap 6.25 ( http://nmap.org ) at 2013-03-08 12:09 PST
+Nmap scan report for 142.104.0.164
+Host is up (0.028s latency).
+Not shown: 995 filtered ports
+PORT      STATE  SERVICE
+3333/tcp  closed dec-notes
+6666/tcp  closed irc
+7777/tcp  closed cbt
+12345/tcp closed netbus
+31337/tcp closed Elite
+
+[braden@lime ~]$ sudo nmap -sS -PO 142.104.0.161
+Starting Nmap 6.25 ( http://nmap.org ) at 2013-03-08 12:08 PST
+Nmap scan report for dvwa.infosec.uvic.ca (142.104.0.161)
+Host is up (0.018s latency).
+Not shown: 995 filtered ports
+PORT      STATE  SERVICE
+3333/tcp  closed dec-notes
+6666/tcp  closed irc
+7777/tcp  closed cbt
+12345/tcp closed netbus
+31337/tcp closed Elite
+
+Using Metasploit on dvl.infosec.uvic.ca
+
+NMAP scan
+
+msf > db_connect postgres:********@localhost
+[*] Rebuilding the module cache in the background...
+msf > connect dvl.infosec.uvic.ca 80
+[*] Connected to dvl.infosec.uvic.ca:80
+
+msf > nmap dvl.infosec.uvic.ca
+[*] exec: nmap dvl.infosec.uvic.ca
+
+
+Starting Nmap 6.25 ( http://nmap.org ) at 2013-03-08 13:09 PST
+Nmap scan report for dvl.infosec.uvic.ca (142.104.0.177)
+Host is up (0.019s latency).
+Not shown: 992 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+631/tcp  open  ipp
+3306/tcp open  mysql
+5801/tcp open  vnc-http-1
+5901/tcp open  vnc-1
+6000/tcp open  X11
+6001/tcp open  X11:1
+
+Nmap done: 1 IP address (1 host up) scanned in 2.43 seconds
+
+msf > db_autopwn -p -e -t
+[-] The db_autopwn command is DEPRECATED
+[-] See http://r-7.co/xY65Zr instead
+[-]
+[-] Warning: The db_autopwn command is not officially supported and exists only in a branch.
+[-]  This code is not well maintained, crashes systems, and crashes itself.
+[-]  Use only if you understand it's current limitations/issues.
+[-]  Minimal support and development via neinwechter on GitHub metasploit fork.
+[-]
+[*] Analysis completed in 10 seconds (0 vulns / 0 refs)
+[*]
+[*] ================================================================================
+[*]                             Matching Exploit Modules
+[*] ================================================================================
+[*]  142.104.0.177:22 exploit/apple_ios/ssh/cydia_default_ssh (port match)
+[*]  142.104.0.177:22 exploit/linux/ssh/f5_bigip_known_privkey (port match)
+[*]  142.104.0.177:22 exploit/linux/ssh/symantec_smg_ssh (port match)
+[*]  142.104.0.177:22 exploit/unix/ssh/tectia_passwd_changereq (port match)
+[*]  142.104.0.177:22 exploit/windows/ssh/freeftpd_key_exchange (port match)
+[*]  142.104.0.177:22 exploit/windows/ssh/freesshd_authbypass (port match)
+[*]  142.104.0.177:22 exploit/windows/ssh/freesshd_key_exchange (port match)
+[*]  142.104.0.177:22 exploit/windows/ssh/sysax_ssh_username (port match)
+[*]  142.104.0.177:80 exploit/bsdi/softcart/mercantec_softcart (port match)
+[*]  142.104.0.177:80 exploit/linux/http/ddwrt_cgibin_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/dolibarr_cmd_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/esva_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/linksys_apply_cgi (port match)
+[*]  142.104.0.177:80 exploit/linux/http/openfiler_networkcard_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/piranha_passwd_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/symantec_web_gateway_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/symantec_web_gateway_file_upload (port match)
+[*]  142.104.0.177:80 exploit/linux/http/symantec_web_gateway_lfi (port match)
+[*]  142.104.0.177:80 exploit/linux/http/symantec_web_gateway_pbcontrol (port match)
+[*]  142.104.0.177:80 exploit/linux/http/vcms_upload (port match)
+[*]  142.104.0.177:80 exploit/linux/http/wanem_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/webcalendar_settings_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/webid_converter (port match)
+[*]  142.104.0.177:80 exploit/linux/http/zen_load_balancer_exec (port match)
+[*]  142.104.0.177:80 exploit/linux/http/zenoss_showdaemonxmlconfig_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/activecollab_chat (port match)
+[*]  142.104.0.177:80 exploit/multi/http/ajaxplorer_checkinstall_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/apprain_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/auxilium_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/axis2_deployer (port match)
+[*]  142.104.0.177:80 exploit/multi/http/cuteflow_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/eaton_nsm_code_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/extplorer_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/familycms_less_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/freenas_exec_raw (port match)
+[*]  142.104.0.177:80 exploit/multi/http/gitorious_graph (port match)
+[*]  142.104.0.177:80 exploit/multi/http/glassfish_deployer (port match)
+[*]  142.104.0.177:80 exploit/multi/http/horde_href_backdoor (port match)
+[*]  142.104.0.177:80 exploit/multi/http/hp_sitescope_uploadfileshandler (port match)
+[*]  142.104.0.177:80 exploit/multi/http/jboss_bshdeployer (port match)
+[*]  142.104.0.177:80 exploit/multi/http/jboss_deploymentfilerepository (port match)
+[*]  142.104.0.177:80 exploit/multi/http/jboss_invoke_deploy (port match)
+[*]  142.104.0.177:80 exploit/multi/http/jenkins_script_console (port match)
+[*]  142.104.0.177:80 exploit/multi/http/lcms_php_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/log1cms_ajax_create_folder (port match)
+[*]  142.104.0.177:80 exploit/multi/http/manageengine_search_sqli (port match)
+[*]  142.104.0.177:80 exploit/multi/http/mobilecartly_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/movabletype_upgrade_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/netwin_surgeftp_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/op5_license (port match)
+[*]  142.104.0.177:80 exploit/multi/http/op5_welcome (port match)
+[*]  142.104.0.177:80 exploit/multi/http/openfire_auth_bypass (port match)
+[*]  142.104.0.177:80 exploit/multi/http/php_cgi_arg_injection (port match)
+[*]  142.104.0.177:80 exploit/multi/http/php_volunteer_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/phpldapadmin_query_engine (port match)
+[*]  142.104.0.177:80 exploit/multi/http/phpmyadmin_3522_backdoor (port match)
+[*]  142.104.0.177:80 exploit/multi/http/phpscheduleit_start_date (port match)
+[*]  142.104.0.177:80 exploit/multi/http/phptax_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/plone_popen2 (port match)
+[*]  142.104.0.177:80 exploit/multi/http/pmwiki_pagelist (port match)
+[*]  142.104.0.177:80 exploit/multi/http/qdpm_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/rails_json_yaml_code_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/rails_xml_yaml_code_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/sflog_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/sit_file_upload (port match)
+[*]  142.104.0.177:80 exploit/multi/http/snortreport_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/sonicwall_gms_upload (port match)
+[*]  142.104.0.177:80 exploit/multi/http/splunk_mappy_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/splunk_upload_app_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/spree_search_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/spree_searchlogic_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/struts_code_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/struts_code_exec_exception_delegator (port match)
+[*]  142.104.0.177:80 exploit/multi/http/sun_jsws_dav_options (port match)
+[*]  142.104.0.177:80 exploit/multi/http/testlink_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/tomcat_mgr_deploy (port match)
+[*]  142.104.0.177:80 exploit/multi/http/traq_plugin_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/vbseo_proc_deutf (port match)
+[*]  142.104.0.177:80 exploit/multi/http/webpagetest_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/http/wikka_spam_exec (port match)
+[*]  142.104.0.177:80 exploit/multi/misc/indesign_server_soap (port match)
+[*]  142.104.0.177:80 exploit/multi/php/php_unserialize_zval_cookie (port match)
+[*]  142.104.0.177:80 exploit/multi/realserver/describe (port match)
+[*]  142.104.0.177:80 exploit/multi/wyse/hagent_untrusted_hsdata (port match)
+[*]  142.104.0.177:80 exploit/unix/http/contentkeeperweb_mimencode (port match)
+[*]  142.104.0.177:80 exploit/unix/http/ctek_skyrouter (port match)
+[*]  142.104.0.177:80 exploit/unix/http/freepbx_callmenum (port match)
+[*]  142.104.0.177:80 exploit/unix/http/lifesize_room (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/awstats_configdir_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/awstats_migrate_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/awstatstotals_multisort (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/barracuda_img_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/base_qry_common (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/basilic_diff_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/cacti_graphimage_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/cakephp_cache_corruption (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/citrix_access_gateway_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/coppermine_piceditor (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/dogfood_spell_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/egallery_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/foswiki_maketext (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/generic_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/guestbook_ssi_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/hastymail_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/invision_pboard_unserialize_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/joomla_tinybrowser (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/mambo_cache_lite (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/mitel_awc_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/mybb_backdoor (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/nagios3_history_cgi (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/nagios3_statuswml_ping (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/nagios_graph_explorer (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/narcissus_backend_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/openview_connectednodes_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/openx_banner_edit (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/oracle_vm_agent_utl (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/oscommerce_filemanager (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/pajax_remote_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_charts_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_eval (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_include (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_vbulletin_template (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_wordpress_foxypress (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_wordpress_lastpost (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/php_xmlrpc_eval (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/phpbb_highlight (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/phpmyadmin_config (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/projectpier_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/qtss_parse_xml_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/redmine_scm_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/sphpblog_file_upload (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/sugarcrm_unserialize_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/tikiwiki_graph_formula_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/tikiwiki_jhot_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/tikiwiki_unserialize_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/trixbox_langchoice (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/twiki_history (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/twiki_maketext (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/twiki_search (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/webmin_show_cgi_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/wp_advanced_custom_fields_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/wp_asset_manager_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/wp_google_document_embedder_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/wp_property_upload_exec (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/xoda_file_upload (port match)
+[*]  142.104.0.177:80 exploit/unix/webapp/zoneminder_packagecontrol_exec (port match)
