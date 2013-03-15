@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\large{\textsc{University of Victoria Software Engineering}}\huge\\ [0pt] % Your university, school and/or department name(s)
+\horrule{0.5pt}\\[0.4cm]
+\textsc{Case Study : Application Security\\Biergarten}\\
+\author{Braden Simpson\\braden@uvic.ca\\V00685500}
+\date{March 10, 2013}
+}
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	INTRO
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+\label{sec:intro}
+This is a report regarding the upgrade of the Biergarten online web portal, it will overview the expansion, the new features and requirements, as well as applying the STRIDE\cite{owaspstride} threat model, created by Microsoft.  It will finally incorporate a DREAD\cite{owaspdread} evaluation of an XSS attack on the proposed web application.
+
+\section{STRIDE Threat Assessment}
+\label{sec:stride}
+This section includes a feature listing, including their STRIDE evaluations.  The goal of STRIDE is to be intentionally high-level in the thinking, and to simply apply the model to the abstract parts.  It is a first step to assessing the threats in a system.
+
+\subsection{Common System Components}
+\label{sec:components}
+The common system components between the Tourist Information portal and the Municipal portal are aspects of the system that are most integral to a web application.  These include:
+\begin{itemize}
+	\item Site Specific Templates
+	\item User Creation and Administration
+	\item Access Rights
+	\item Generic CMS\footnote{A Content Management System is web-based system for uploading, creating, and managing content} operations 
+\end{itemize}
+
+Each of these components will be evaluated with the STRIDE model to assess the threats. 
+
+\subsubsection{Site Specific Templates}
+Site specific templates are a good idea for design, since they offer a common look and feel for the user.  However they can be a be a potential threat for security. One potential problem with site templates is \textbf{spoofing}, by means of phishing users by duplicating a websites' HTML and CSS, on a separate domain and tricking users to enter their credentials.
+
+\subsubsection{User Creation and Administration}
+\label{sec:user}
+User creation and administration is obvious to have as a central model.  This however, depending on the implementation, could lead to violations of many aspects of the STRIDE model, including: \textbf{spoofing}, \textbf{elevation}, \textbf{tampering}, and \textbf{repudiation}.  Since the users are very core to the security of the whole system, their security is paramount. 
+
+\subsubsection{Access Rights}
+\label{sec:access}
+Access rights are another close-knit feature to Section~\ref{sec:user}.  The method of bootstrapping the users with their automatic permissions for each site, if not developed correctly could have serious threats, most likely in the area of \textbf{elevation}, but also in the areas of: \textbf{spoofing}, \textbf{tampering}, and \textbf{repudiation}.  This is because if a user is able to elevate their rights, they can manipulate the system.
+
+\subsubsection{Generic CMS Operations}
+\label{sec:cms}
+This is a problem mainly for the file storage-based threats such as: \textbf{tampering}, and \textbf{information disclosure}.  By storing all the people's data on the same central system, there can potentially be shared data, either by malicious or unintentional means, which can be harmful to the system.  The specification states that there will be cookies stored, and kept for ease of login access for users.\cite{spec} This is another attack vector, which can be seen as a threat for \textbf{spoofing}, as an XSS\footnote{Cross site scripting -- https://www.owasp.org/index.php/Cross-site\_Scripting\_(XSS)} attack could be used to steal a user's cookie, and login as that user, and perform actions as them, which could also be an \textbf{elevation} attack.
+
+\subsection{Tourist Information Portal}
+The Tourist Information portal has some specific features that include : 
+\begin{itemize}
+	\item Friendly CMS features
+	\item Employees and Business
+	\item Editable profiles
+	\item Access Permissions
+\end{itemize}
+
+\subsubsection{Friendly CMS features}
+This is subject to the same CMS threats as in Section~\ref{sec:cms}, since it should be using the same backend CMS system.  The \textit{friendliness} of the system should be simply a UI change, and should not really affect the threats related to the CMS.  
+
+\subsubsection{Employees and Business}
+There are threats here for multiple reasons, one of which is that it is easy to train employees, but it is much harder to train users.  For this reason, \textbf{spoofing} threats are much more prominent, through attacks on cookies, phishing attacks, and more.\\
+
+The next reason is that with the business profiles, there is a business entity now setup on the site, so if there were \textbf{tampering}, that could reflect very negatively on the business.
+
+\subsubsection{Editable Profiles}
+The users, from the spec "have access to create and edit visible contact such as 
+address, phone number, menus, and pictures".\cite{spec}  The way this would work is through the central CMS, given in Section~\ref{sec:cms} and would suffer the same risks.  This method allows users to put up their (potentially sensitive) data on the site, and would suffer threats such as: \textbf{spoofing}, \textbf{tampering}, and \textbf{information disclosure}.  When a profile is edited, the content could contains malicious XSS scripts. In an extreme case, false information could be put up to impersonate another person or business, in order to defamate or slander that entity.
+
+\subsubsection{Access Permissions}
+From the specification, "Some administrative details are not to be shown publicly, but are accessible for editing by the business users. "\cite{spec}  This means that there must be an access model in place, which refers back to the system described in Section~\ref{sec:access}.  The access system could potentially have the \textbf{elevation}, or \textbf{information disclosure} threats associated with it.
+
+\section{Municipal Service Site}
+\label{sec:municipal}
+The municipal service site has the following features: 
+\begin{itemize}
+	\item Governmental Sections
+	\item Department Administrative Users
+	\item Citizen Service Access
+	\item Secure Services
+\end{itemize}
+
+\subsubsection{Governmental Sections}
+The municipal site will be sectioned off into the departments of government, with separate functionality, and separate data.  This can pose a threat of \textbf{tampering}, \textbf{information disclosure}, and \textbf{elevation}.  The data could potentially be accessed by other departments, and be read by unwanted parties, the separate functionality could potentially elevate the priveledges of users, based on their department.  The fact that the people who are not technical could potentially be managing access rights could result in unwanted access rights, or bad access practices. 
+
+\subsubsection{Department Administrative Users}
+Having a few users from each department be the \textit{managers} of the content for that department is actually a good security measure.  This takes away unneeded priveledges, and allows for most of the users to not worry about securing their logins and reduces the number of possible attack vectors. 
+
+\subsubsection{Citizen Service Access}
+\label{sec:services}
+This is a feature with a large amount of responsibility.  Once users are uploading very sensitive information such as tax forms, application permits, and other official documentation, the stress on data security increases dramatically.  The threats here include: \textbf{tampering}, and \textbf{information disclosure}.  The difference is, with this feature, the information being accessed is of much higher value than less sensitive personal information such as name, location, or email.  \\
+
+The service offered seems like it might be unnecessary and unless absolutely necessary and funded properly, I would recommend removing it from the system.  There are multiple examples of online systems that store this fundamentally sensitive information being compromised, such as \cite{stolentax}.
+
+\subsubsection{Secure Services}
+To secure the services discussed in Section~\ref{sec:services}, would require a large amount of good security practices and testing.  The users would need to be ensured that their sensitive tax and other data is safe.  The threats related to insecure data would be \textbf{tampering}, and \textbf{information disclosure}.
+
+\section{Mitigating Threats}
+In order to mitigate the threats outlined in this report, the tables in \cite{spec} should be followed.  They provide methods to dissolve the risk associated with these threats. For example, to mitigate \textbf{spoofing}, the system must provide \textit{authentication}, \textit{secret protection}, or \textit{not store secrets}.  The rest of the solutions may be found at \cite{spec}, P. 8.
+
+\section{D.R.E.A.D Assessment}
+D.R.E.A.D is a model to prioritize risks \cite{owaspdread}.  In this report we will be applying D.R.E.A.D to the proposed Biergarten web portal on the XSS attack risk. 
+
+\begin{description}
+	\item[Damage Potential]
+		The damage potential of an XSS is quite high, especially with a system such as the proposed one.  One of the most common XSS attacks to do is to use shared content (ex. uploaded forms or text) to store a hidden script and then once other, legitimate users visit that content, they could have their cookies stolen.  A stolen cookie can result in spoofing that victim's user account and performing any action they could, this is one of the downfalls of using session cookies.  This could be even more devastating if the victim was an administrator user.  The damage depends on the user attacked, but this attack can still be classified as a \textbf{high} level risk -- 3.
+	\item[Reproducibility]
+		XSS is a very common attack, and it is mitigated via two factors: good programming practices to stop attackers embedding script into sites.  As well XSS can be done by baiting users to click on a link which appears to be from a trusted source, but can contain a malicious script.  This can be mitigated by having users trained to be careful for such links, and to not trust anything, even if it appears to be from a trusted source.  Depending on these two factors, the reproducibility can be from low to high, but would probably stay around \textbf{medium}.
+	\item[Exploitability]
+		The exploitability of an XSS has esstentially two parts: writing the malicious code, and delivering that malicious code to an unsuspecting user.  The latter is by far more difficult, since the malicious code needed to do an XSS attack can be found by doing a quick google search.  From the OWASP top ten vulnerabilities in 2010, XSS was number 2\cite{owasptopten}, making it very exploitable.  This D.R.E.A.D evaluation will rate it at \textbf{High}.
+	\item[Affected Users]
+		The affected users of an XSS attack can range.  If the attack is done on a shared section of the website, for instance the front page of the website, then all users would be affected.  However a targeted email based XSS could be less extreme, and only affect the users that click on the malicious link.  Therefore the rating will be determined as \textbf{medium}.
+	\item[Discoverability]
+		As stated previously, XSS is among the top two most common vulnerabilities in web applications, this makes the risk very accessible even to attackers that might not be experienced.  The theory behind XSS is simple, and the code does not require much knowledge.  For example, \cite{xss} contains a large list of example XSS vulnerability testing scripts for checking if the server escapes HTML correctly.  There are published methods to perform these XSS attacks, and for this reason, discoverability is ranked as \textbf{high}.
+\end{description}
+
+Performing the final calculation for total normalized risk level based on the D.R.E.A.D framework described in \cite{spec}, we take the mean of the risk level after applying numerical values to it.
+
+\begin{equation}
+	\frac{Damage + Reproducibility + Exploitability + Affected + Discoverability}{Total}
+\end{equation}
+
+\begin{equation}
+	\frac{12 + 8 + 12 + 8 + 12}{5} = 10.4
+\end{equation}
+
+This result indicates that XSS is indeed a \textbf{medium-high} risk threat that needs to be addressed in the making of the Biergarten web application.   
+
+\bibliographystyle{IEEEtran} 
+\bibliography{a8}
+\end{document}
