@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class SVMkernelAdatron{
 	Double [][] data;
 	Double [][] x;
@@ -37,16 +39,16 @@ public class SVMkernelAdatron{
 	}
 
 	public Double Classify(Double[] xn) {
-		Double sum = 0.0;
+		Double sum = 0.0d;
 		for (int i = 0;i < N;i++) {
 			sum += y[i] * a[i] * K(x[i], xn);
 		}
-		if (sum >= 0) return 1.0;
-		else return -1.0;
+		if (sum >= 0) return 1.0d;
+		else return -1.0d;
 	}
 
 	Double K(Double[] x_i, Double[] x_j) {
-		Double sum = 0.0;
+		Double sum = 0.0d;
 		for (int i = 0;i < M;i++) {
 			sum += Math.pow(x_i[i] - x_j[i], 2);
 		}
@@ -54,16 +56,16 @@ public class SVMkernelAdatron{
 	}
 
 	Double Gradient_i(Double[] a, int i) {
-		Double sum = 0.0;
+		Double sum = 0.0d;
 		for (int j = 0;j < N;j++) {
-			sum += y[j] * a[j] * K(x[i], x[j]);
+			sum += (y[j] * a[j] * K(x[i], x[j]));
 		}
-		return (1 - y[i] * sum);
+		return (1 - (y[i] * sum));
 	}
 
 	Double Dual(Double[] a) {
-		Double sum_1 = 0.0;
-		Double sum_2 = 0.0;
+		Double sum_1 = 0.0d;
+		Double sum_2 = 0.0d;
 		
 		for (int i = 0;i < N;i++) {
 			sum_1 += a[i];
@@ -83,10 +85,10 @@ public class SVMkernelAdatron{
 		
 		for (int i = 0;i < N;i++) { a[i] = 0.0; }
 		
-		for (int i = 0;i < 30;i++) {
+		for (int i = 1;i <= 30;i++) {
 			for (int j = 0;j < N;j++) {
-				a[j] = a[j] + eta * Gradient_i(a, j);
-				if (a[j] < 0.0) a[i] = 0.0;
+				a[j] = a[j] + (eta * Gradient_i(a, j));
+				if (a[j] < 0.0) a[j] = 0.0;
 				if (a[j] > C) a[j] = C;
 			}
 		}
