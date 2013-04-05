@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\large{\textsc{University of Victoria Software Engineering}}\huge\\ [0pt] % Your university, school and/or department name(s)
+\horrule{0.5pt}\\[0.4cm]
+\textsc{Case Study : Privacy\\JBar Nightclub}\\
+\author{Braden Simpson\\braden@uvic.ca\\V00685500}
+\date{March 20, 2013}
+}
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	INTRO
+%----------------------------------------------------------------------------------------
+
+\section{Question One}
+\label{sec:one}
+
+\begin{description}
+	\item[Question] What aspects of these new security measures raise privacy concerns? Are there any specific to the security cameras or ID scanning systems?
+	\item[Answer] There are privacy concerns with every aspect of the new security system that Vivian plans to operate.  First, the cameras will be taking video of people that are in the nightclub, and outside.  The larger problem is when the people outside are being filmed without their consent.  As well, the people in the nightclub need to be aware that they could potentially be filmed, and what uses that video could have.  People should have reasonable ability to avoid being filmed outside in a public place.  As well, when giving access to the nightclub, people should be able to withhold giving out their personal information via scanning IDs.  There are concerns regarding what JBar would actually be doing with the people's information after scanning the ids.  The largest of the privacy concerns is the distribution of the scanned IDs information, in the specification, she intends to distribute it on social networking websites.  This is a great concern as it may have serious reprocussions for the customers.  In addition she wishes to sell the information, which may even be illegal if she doesn't properly notify all the parties.  
+\end{description}
+
+\section {Question Two}
+\begin{description}
+	\item[Question] Which Act applies to this scenario? Based on what you know, what requirements of that 
+Act will shape the way that Vivian can implement the new security system? 
+	\item [Answer] The act that best applies to this scenario is the Freedom of Information and Protection of Privacy Act (FOIPP).  This act directly relates to the privacy concerns voiced in Question~\ref{sec:one}.  The FOIPP act protects the public by providing rules for the companies including JBar to follow.  JBar would have to allow access for people to see their own information that JBar is holding, it gives a right to correction of false information if the person requests, and it prevents the unauthorized collection, use or disclosure of the information (i.e. 	the sale of information noted at the end of Question~\ref{sec:one}).  Vivian's plans to use an Atlanta based company to host the information would also be in violation, as the information would be collected by an outside source (also out of country).
+\end{description}
+
+\section {Question Three}
+\begin{description}
+	\item[Question] What actions should Vivian take to ensure that the new system is compliant with the 
+privacy legislation? 
+	\item [Answer] There are different aspects of implementation that Vivian needs to complete in order to comply.  She must provide training for her staff, to comply, and she must ensure that the technical collection and distribution of the information is compliant.  She must provide a system for the individuals from the public to access the records stored for them.  However, JBar is entitled to some information that might not have right of access to the individuals, if this is the case, then the people must be notified of what that information is prior to collection.  She must also provide a method for correcting information stored.  There are systems that exist which implement these features, that most nightclubs use.\footnote{Servall Data Systems.  http://www.servalldatasystems.com}
+\end{description}
+
+\section {Question Four}
+\begin{description}
+	\item[Question] Some of the information will be posted on a social networking site. How would this be 
+problematic from a privacy perspective? 
+	\item [Answer] This is a very large issue for the privacy of people in the modern age.  Almost everyone has social networking accounts, and they are used for many, many purposes, such as reference lookups, potential employee background checks, and more.  People at nightclubs are most likely doing things that they would not want their potential employers to see, so using this data to market JBar would potentially be very damaging to her customer's privacy.  If Vivian really wanted to do this, she would need to completely inform all of the people entering her nightclub that she was going to distribute the information, this would probably cause a backlash from her users as it is such a privacy breach.  If she did not do this, then it would be a direct violation of the FOIPP act.  She would have violated the privacy of all the people that she posts, and she would be potentially liable for all the damages caused by such violations.
+\end{description}
+
+\section {Question Five}
+\begin{description}
+	\item[Question] How do issues of security and privacy interact in Vivian’s case? In your opinion, what is the appropriate balance between security and privacy to be struck in circumstances like this?
+	\item [Answer] The balance is completely determined by the situation that the security and privacy is being applied.  In Vivian's case, she needs to have a secure establishment, a way of keeping track of people that enter the club (for identifiaction purposes), and she needs to have records of disputes for law enforcement.  In order to accomplish all of these, she must collect people's information, and the best way to do that is to scan IDs at the door, because this stores sensitive information, the process can get difficult.  She needs to be transparent with her intent, and reasons behind gathering the information, this will keep her from violating the FOIPP act and will give the customers a sense of why she needs to collect the information.  She must also put up signage that tells the customers when they are being videotaped, as well as offer to anonymize them if she is going to use that video for public purposes (such as adverts).  
+
+	The two privacy aspects that the system must boil down to is \textit{notice} and \textit{consent}.  She has to properly give \textit{notice} to the customers prior to doing anything with their private information, and she must also gather their \textit{consent} whenever she wishes to gather their information.
+
+	The balance must be kept so that the users' information is kept within the JBar system, and not sold to third parties.  As well the security and identification measures are a requirement, so collecting this information is a good thing, but it should only be used to assist with either helping law enforcement, or barring people who have problematic histories from entering JBar. 
+\end{description}
+
+\bibliographystyle{IEEEtran} 
+`'\end{document}

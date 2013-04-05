@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\large{\textsc{University of Victoria Software Engineering}}\huge\\ [0pt] % Your university, school and/or department name(s)
+\horrule{0.5pt}\\[0.4cm]
+\textsc{Case Study : Business Continuity\\Fast Grow Farms}\\
+\author{Braden Simpson\\braden@uvic.ca\\V00685500}
+\date{March 30, 2013}
+}
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	INTRO
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+Fast Grow Farms is a fisheries company based out of Port Alice, they operate fish farms in a remote, rural area.  The Farm recieves different supplies from Sayward, and the Fraser Valley.  These supplies include feed, and fish fry, which once used up, will result in a fish harvest. This harvest must be transported for sale by refridgerated trucks and a small coastal freighter. \\ 
+
+Fast Grow Farms is upgrading their systems to use automated controls, onshore tanks, and processing operations.  One aspect of implementing the new system is to create a business continuity plan for Fast Grow Farms.  This report will provide analysis, propose strategies, and detail the newly developed business continuity plan for Fast Grow Farms' new systems. \\
+
+In order to create a business continuity plan, there are many things to be considered.  First, the project initiation must be performed, which defines the problem, scope, and actors involved.  Then the functional requirement and business analysis will define what each aspect of the system should do, and what are the most important pieces to continue operating under stress.  The Impact analysis will find key players for each aspect of the sytem that is in need of evaluation, and then analyzie the impact, and recovery strategies.  Then the threat assessment will analyze three of the five functions selected in the functional analysis, and provide a threat assessment on those.  This is done by using a risk table and evaluating the threat of five possible events that could happen. 
+
+\section{Project Initiation}
+\label{sec:init}
+The project initiation is performed to answer questions about the scope, actors, assumptions, decisions, and problems.
+
+\begin{description}
+	\item[What is the continuity problem?] The continuity problem that needs to be addressed is that of the Fast Grow Farms new system.  They are going to be introducing more automated services, and sometimes these automated systems can crash.  When they do, a business continuity strategy must be in place to ensure recovery to an operational state in an allowable timeframe accordance to the \textit{Recovery Time Objective}.  The subjects of most value are the transportation systems, fish tanks, constant feed supply, and survival of the harvest. 
+	\item[What is the scope of the continuity plan?]  The scope of the continuity problem will cover all aspects that Fast Grow Farms can.  The factors that cannot be protected by the business continuity plan are: road maintenance (on the roads that the government is maintaining), weather conditions that may affect the refridgerated trucks or freighter, imported feed quality, and imported fish fry quality, as both of these come from external sources.
+	\item[Assumptions]  The assumptions made to narrow the scope are: refridgerated trucks will be driving on BC highways, Fast Grow doesn't have any influence over the Sayward or Fraser Valley suppliers of feed and fish fry, and that the weather is out of Fast Grow's control.
+	\item[Continuity Steering Committee]  To develop a business continuity plan, there needs to be corporate buyin with executive powers.  This is because the plan must have powers to recover before the RTO.  In order to make the decisions to create the plan, executives must be included in the committee.
+\end{description}
+
+\section{Functional Requirement and Business Analysis}
+\label{sec:func}
+This section will define what the most essential function of the Fast Grow Farms are, how they work, and what could possibly stop or impair their functions.  Finally, the recovery strategies from the threats mentioned will be discussed.  Above all else, the harvest is the most important asset to the company, and must be protected.
+
+\subsection{Business Impact Analysis}
+The following three critical functions for Fast Grow Farms are included in the business impact analysis:
+\begin{description}
+	\item[Operational Offshore Fish Tanks]  The new systems in Fast Grow Farms' include offshore fish tanks.  Keeping these fish tanks running with fresh new water and providing the fish a stable environment (temperature, water cleanliness, disease control, etc.) to grow before harvesting is paramount to the success of Fast Grow Farms.  An owner of this function could be the a high level maintenance manager, or operations executive for the fish tank physical location.\\
+	\textbf{Key Attributes: }
+	\begin{itemize}
+		\item If the fish tanks were to be compromised, the whole organization would be impacted.  The breakdown of fish tanks would cause the harvest to be potentially destroyed, which can affect all aspects of the organization.
+		\item People responsible for this breakdown would primarily be the fish tank maintenance crews and ultimately the maintenance manager, who is the owner of this function.
+		\item RTO of this function is approximately 48 hours.  After this point, serious damages to the harvest will be inflicted, and the more time spent, the more fish in the harvest will die.  If the RTO is not met, the entire harvest may be compromised.
+	\end{itemize}
+	\item[Fish Feed and Fry Supply]  Fish feed supply is imported from agricultural farms in the Fraser Valley.  The survival of  the harvest is the most important, and it relies heavily on the feed; if the feed is contaminated then that can put the whole harvest at risk.  As well, the fry supply is imported from Sayward, on Vancouver Island, and this is equally important as the feed supply, as a bad batch of fry could ruin the whole harvest.  An owner for the feed and fry supply should be the executive that owns the teams which handle importing and inspecting the feed and fry.  \\
+	\textbf{Key Attributes:} 
+	\begin{itemize}
+		\item If the fish fry or feed were to be contaminated or simply insufficient, then the harvest would likely die off, resulting in the delivery and transport teams not having a product for that cycle.
+		\item The people directly responsible for this problem would be the people in charge of inspecting the feed and fry, as well as the two companies that actually deliver the feed and fry.  
+		\item The RTO would be minimized by increasing the responsiveness of the companies responsible for the feed and fry, making the delivery method faster, and by keeping a larger stock in reserve, if possible.  The RTO would be under 72 hour, since that is the estimated survival time for fish without food.
+	\end{itemize}
+	\item[Harvest and Delivery] The primary asset of Fast Grow Farms is the harvest, and that is their end product.  The delivery of this product is essential to their success, and must be considered a top priority.  The owner should be the manager of all the people that deal with delivery and loading of the harvest.\\
+	\textbf{Key Attributes: }		
+	\begin{itemize}
+		\item A delivery can be compromised in multiple ways, but the most common would be for the harvest not to make it to the destination.  This could happen due to bad weather conditions on the boat, resulting in crash, malfunctioning refridgeration units in the trucks, among other factors.
+		\item People responsible for delivery include all of the delivery personnel and most of all the delivery and loading manager.  The responsibility falls upon him/her for the safe travel of harvest from source to destination.  
+		\item The RTO would be before the next harvest.  Which should achievable, as the method to fix the problems with the transportation would generally be a fix of the truck or boat engine or chassis.  
+	\end{itemize}
+\end{description}
+
+\subsection{Risk Assessment}
+For this risk assessment, the operational offshore tanks will be analyzed and five threats will be assessed.  The five risks are as follows: 
+\begin{description}
+	\item[The tank's pumps malfunction]  Likelihood: Low, Impact: Medium, Risk: \textit{Medium}.  This risk, calculated on the threat liklihood table, is a \textit{medium} risk event.  The threat could prevent the current fish cycle from surviving, at the worst case.  It could require a large amount of work from the maintenance team to fix the problem.  To best mitigate this risk, Fast Grow would have a large maintenance team and spare/replacement parts for the pumps.
+	\item[The tank is not large enough for the current harvest]  Likelihood: Low, Impact: Low, Risk: \textit{Low}.  The current fish cycle could have been a really large batch, or the fish themselves could grow to be very big.  This scores a \textit{low} risk, because at the worst, some of the fish may have to be discarded to mitigate the problem.  The consequences of this risk could be that the maintenance crew could need to install a larger addition to the tanks if the harvests are consistantly large, or the fish crews would have to load only so many into the tanks.
+	\item[The tank loses power]  Likelihood: Medium, Impact: High, Risk: \textit{High}.  The likliness of a power outage on North Vancouver Island is quite high in the winter months, and sometimes even spans multiple weeks. The impact of a power outage would be huge for Fast Grow Farms, it would potentially kill all the current harvest and shutdown the farm entirely.  To stop this from happening, Fast Grow needs to buy gas-powered generators, and construct a recovery plan to be put in motion for when the power from BC Hydro fails. 
+	\item[Tank water is contaminated]  Likelihood: Medium, Impact: Medium, Threat: \textit{High}.  The water in the tank is the most important part for the fish survival.  If the water is contaminated then it is very likely that most of the current fish cycle if not all will die.  When the water is contaminated, the best course of action would be to have an extra place to put the fish, in fresh, clean water, then drain and decontaminate the bad tank.  This would cost extra, but would eventually be a good solution if contaminations happen often.  
+	\item[Tank feed system breaks]  Likelihood: Low: Impact: Medium, Risk: \textit{Medium}.  If this happens, then the fish could potentially go without food until the system is back operational. Assuming that the feed system is completely broken, then the fish may die after a few days without food.  The consequences would be fish death and large amounts of extra work for the maintenance staff.  The best way to mitigate this risk would be to have spare parts, and well trained maintenance teams for the tanks. 
+\end{description}
+
+\section{Continuity Plan}
+The continuity plan will detail exactly what needs to happen after a failure, what the priorities are, and what the consequences could be. \\
+
+Following an event, the business functions that need to be recovered within 72 hours are (out of the ones I listed): offshore fish tank operations, and fish feed and fry supply.  The delivery doesn't have to be 100\% operational within the first 72 hours.   Loss of power would be critical for the offshore fish tank operations, because the tanks require power at all times.  The feed system breaking would potentially cause a backup of fish feed, interrupting the feed supply process.  \\
+
+The main decisions that need to be made are:  implementing a power backup system to keep power from failing, keep well trained maintenance personnel on at all times with spare and replacement parts for the pumps and feed systems, have an extra 'overflow' tank for fish that need to be transferred in the case of tank breakdown, and also use the 'overflow' tank for when the harvest is too large.
+\bibliographystyle{IEEEtran} 
+\end{document}
