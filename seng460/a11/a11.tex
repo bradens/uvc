@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\large{\textsc{University of Victoria Software Engineering}}\huge\\ [0pt] % Your university, school and/or department name(s)
+\horrule{0.5pt}\\[0.4cm]
+\textsc{Case Study : Physical and Environmental Security\\Upperton}\\
+\author{Braden Simpson\\braden@uvic.ca\\V00685500}
+\date{April 11, 2013}
+}	
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	INTRO
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+Upperton, the city of approximately one million people, have upgraded their IT systems and infrastructure to accomodate the higher technogoical needs of their people.  The new systems feature decentralized aspects, such as department specific structures, and other centralized services, such as email.\\
+
+A new Chief Secturity Officer (CSO) has been hired to create short, and long term plans for the security of the new systems in Upperton.  These plans will replace the simple, quick policies setup in the interim.  First, the CSO must complete an in-depth investigation on the laptop theft that had happened, and the whole security systems.  Then the plans must be put in place to prevent   
+
+\section{Initial Investigation}
+\label{sec:invest}
+The initial investigation should be conducted immediately, evaluating exactly what went wrong when the laptop had been stolen the night prior.  This will provide what the baseline is for the organization which can then be used in the Gap anaylsis\footnote{Gap analysis is a method used to compare actual performance with planned performance.  http://en.wikipedia.org/wiki/Gap\_analysis}.\\
+
+\newpage
+
+The investigation should go as follows: 
+\begin{description}
+	\item[Root Cause]  The first part of the investigation should find out exactly what happened, and determine all the contributing factors to the laptops theft.  (i.e. was the door left unlocked? did the employees at the building not have the proper security training?  did they not understand the value of the information on the laptops? etc.)
+	\item[Potential Mitigating Factors]  Next, the investigation needs to define possible methods for mitigating the problems outlined above.  These should include other potential ways to mitigate related incidents as well.  
+	\item[Recommendations]  Short, mid, and long term recommendations, based on the cost-gain ratio of the mitigating factors.   The quick, easy methods to prevent the problems should be done first, in addition to the critical problem fixes, such as ensuring the staff locks the doors every night.
+	\item[Present Recommendations]  In order for the situation to be taken as seriously as it is, the problem must be presented to the people with control of funds, and power to take action on the recommendations.  This means that the plans need executitve buy-in, which gives the CSO enough funding to implement the procedures needed.
+\end{description}
+
+\section{Short Term}
+\label{sec:short}
+There are many solutions which can be added in the short term, which I will address in this section.  The main solutions are as follows: 
+
+\begin{description}
+	\item[Stricter Access Rules]  This is a very important and good general practice for organizations to implement.  The general idea is to create a need-to-access rather than a want-to-access model for access to sections of the data centres.  Stripping access away from every person that isn't specifically required to be in the data centres, regardless of ranking in the comapny, etc. 
+	\item[Education on Current Infrastructure]  This is something that must be done immediately, as the entire policies that govern the security rely on everyone following them or the system crumbles.  This would require that people have education sessions if needed, there would be posters, and informative sessions, as well as security quizzes taken periodically.  
+	\item[Monitoring and Surveillance]  Another short-term solution would be to install a system to monitor the entry of certain areas, or improve the alarm systems that are in place, a simple CCTV system or motion alarm system would be an easy way to monitor entrance to certain areas.
+	\item[GAP Analysis (Baseline)]  Construct the baseline for the GAP analysis to be compared against in the long-term.  This is a common tool used to evaluate a plan's performance.  
+\end{description}
+
+\section{Long Term}
+\label{sec:long}
+In this section, the long-term solutions are discussed.  These would be harder to accomplish, long standing goals for the security plan.
+
+\begin{description}
+	\item[Complex Keycard Access System]  This is a method employed by many large companies with that have important access policies and restrictions (i.e. access to the data centres).  The system would have keycards for each employees with specific access rights defined in them, and there would be readers at each door.  The more important rooms could even have the \textit{Mantrap}\footnote{Mantrap system for access has 2 doors which open and close and keep the accessor in the area between the two, and requires the first to be closed for the second to open} 2 part access system.
+	\item[GAP Analysis (Evaluation)]  Evaluating against the baseline created in Section~\ref{sec:short} will provide a good means to show the company's acceptance of the new security plan and how well it is performing. 
+	\item[Better Physical Security]  This means rebuilding or reinforcing parts of the data centres that might be more prone to attack.  For example, the access to the most critical data storage areas might have thicker concrete around them, or securing the doors with anti-pry plates around the handles.  
+	\item[Hiring Security Personnel]  If the security measures requires 24/7 surveillance, another means of creating more security is to hire people to physically watch the centres, whether through CCTV or onsite surveillance. 
+\end{description}
+
+\section{Funding}
+One of the most important steps of the security plan is to obtain the funding required to imeplement the whole plan, including short and long term goals. The funding can be a very difficult aspect.  However, the recent laptop theft can be leveraged to show the importance of a good security plan for their data centres.\\
+
+The CSO should plan a meeting with the CFO, or other top level executives to present the investigation on the laptop theft, which will gather awareness and a sense of necessity for the new plan.\\
+
+Some of the solutions mentioned in this report have large monetary or time consuming costs, such as the keycards, hiring more personnel, etc.  If the CSO cannot get all the required funding then the most important solutions must be found.  This would be done by doing a gain-cost analysis on the solutions in place.
+
+\bibliographystyle{IEEEtran} 
+\end{document}
