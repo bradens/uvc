@@ -53,7 +53,6 @@ var double_r = function(user, item) {
 		// Predict
 		console.log("Braden Simpson, V00685500.\nRecommender system with Pearson Correlation and user-user similarities.");
 		console.log("--------------------------------------------------------------------\nPredicting...");
-		// console.log(sim(user, "Lisa Rose"));
 		var sum1 = 0, sum2 = 0;
 		usersRated = {};
 		_.each(critics, function(val, key) {
