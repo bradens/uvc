@@ -55,3 +55,30 @@ As well I looked up a graph clustering algorithm called Markov clustering which 
 Jordan talked about K-means and varoni graph models.
 
 The Groups decided on *markov chains*, *markov clustering*, *bayesian networks*, *procedural generation*.
+
+
+###June 25th
+I think with all the ideas around markov 
+
+###June 26th 
+Mathematical models vs Theoretical models
+
+**Infection**
+
+* Whats the difference?  Is there one?
+  * Theoretical models are potentially less formal?
+  * Mathematical modeling is always a trade off between
+    * Simple models: highlight qualitattive behaviour
+    * Detailed models; specific quantitative predictions
+* Use the graph that she has about flow for modelling
+* Sensitivity Analysis
+
+
+**Networks**
+
+* Are there any topologies that are more prevalent than others
+
+
+
+
+
