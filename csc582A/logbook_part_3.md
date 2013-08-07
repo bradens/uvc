@@ -66,6 +66,12 @@ Derek gave a talk about *Backtracking by Probabilistic Weighting* and he did so 
 Overall I think derek did his homework and presented a good project, and the models in this project can probably be applied to other types of matching problems.
 
  
+### Final entry
+This course has yielded some really good learning outcomes for me, such as markov chains, which now appear in anything i read!
+I recently discovered a type of machine learning which caught my eye, called Deep learning (another term for layers of neural networks).  The difference is there are layers, and some of the first layers are dont automatically, and then once they are at a high enough level, they are "supervised".
+
+
+
 
 
 
