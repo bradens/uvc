@@ -29,4 +29,22 @@ B.~fluri, M.~Wuersch, M.~PInzger, and H.~Gall, ``Change distilling: Tree
   Available: \url{http://dx.doi.org/10.1109/TSE.2007.70731}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Ester96adensity-based}
+M.~Ester, H.~peter Kriegel, J.~S, and X.~Xu, ``A density-based algorithm for
+  discovering clusters in large spatial databases with noise.''\hskip 1em plus
+  0.5em minus 0.4em\relax AAAI Press, 1996, pp. 226--231.
+
+\bibitem{Budanitsky01semanticdistance}
+A.~Budanitsky and G.~Hirst, ``Semantic distance in wordnet: An experimental,
+  application-oriented evaluation of five measures,'' in \emph{IN WORKSHOP ON
+  WORDNET AND OTHER LEXICAL RESOURCES, SECOND MEETING OF THE NORTH AMERICAN
+  CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS}, 2001.
+
+\bibitem{Abney:1996:PPV:974697.974705}
+\BIBentryALTinterwordspacing
+S.~Abney, ``Partial parsing via finite-state cascades,'' \emph{Nat. Lang.
+  Eng.}, vol.~2, no.~4, pp. 337--344, Dec. 1996. [Online]. Available:
+  \url{http://dx.doi.org/10.1017/S1351324997001599}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}
